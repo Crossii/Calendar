@@ -1,10 +1,7 @@
 package kalenderGui;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 
 import javax.swing.*;
 
@@ -12,9 +9,7 @@ import common.ListenerSetException;
 import register.RegisterFrame;
 import logIn.LogInFrame;
 import mainGui.MainFrame;
-import mainGui.MainPanel;
-import model.User;
-import model.Users;
+import model.User.User;
 
 /**
  * 
@@ -60,10 +55,11 @@ public class KalenderListener implements ActionListener {
 		if(source == kalFrame.getRegister()) {
 			kalFrame.dispose();
 			try {
-				MainFrame mf = new MainFrame(fileAndPath);
 				RegisterFrame rf = new RegisterFrame(fileAndPath);
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+				MainFrame mf = new MainFrame(fileAndPath);
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
 		}
@@ -72,11 +68,12 @@ public class KalenderListener implements ActionListener {
 			try {
 				MainFrame mf = new MainFrame(fileAndPath);
 				LogInFrame rf = new LogInFrame(fileAndPath, mf.getMain());
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
-			
+
 		}
 		if(source == kalFrame.getExitItem()) {
 			kalFrame.dispose();
@@ -86,8 +83,9 @@ public class KalenderListener implements ActionListener {
 			kalFrame.dispose();
 			try {
 				MainFrame mf = new MainFrame(fileAndPath);
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
 		}

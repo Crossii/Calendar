@@ -1,4 +1,6 @@
-package model;
+package model.User;
+
+import model.EncodingException;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -52,7 +54,7 @@ public class Encoding {
 
 	/**
 	 * 
-	 * @param stringToEncode
+	 * @param fileToEncode
 	 * @param encodingType
 	 * @throws NoSuchAlgorithmException
 	 * @throws EncodingException

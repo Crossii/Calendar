@@ -1,15 +1,12 @@
 package mainGui;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 
 import javax.swing.*;
 
 import common.ListenerSetException;
-import model.Users;
+import model.User.Users;
 import register.*;
 import logIn.*;
 
@@ -47,8 +44,9 @@ public class MainListener implements ActionListener {
 			System.out.println("Register wurde gedrückt");
 			try {
 				RegisterFrame register = new RegisterFrame(users.getFileAndPath());
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
 		}
@@ -56,8 +54,9 @@ public class MainListener implements ActionListener {
 			System.out.println("Login wurde gedrückt");
 			try {
 				LogInFrame login = new LogInFrame(users.getFileAndPath(), mainPanel);
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
 		}

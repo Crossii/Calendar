@@ -2,17 +2,15 @@ package common;
 
 //just for research
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import mainGui.*;
-import model.Users;
+import model.User.Users;
 import register.*;
 import logIn.*;
 
@@ -44,7 +42,6 @@ public class ApplicationActionListener implements ActionListener {
 		this.m = m;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
@@ -59,20 +56,22 @@ public class ApplicationActionListener implements ActionListener {
 		}		
 		if(source == parentFrame.getRegister()) {
 	        System.out.println("Register button wurde gedrückt!");
-	        try {
+			try {
 				RegisterFrame register = new RegisterFrame(users.getFileAndPath());
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
-	        
+
 		}
 		if(source == parentFrame.getLogIn()) {
 			System.out.println("LogIn button wurde gedrückt!");
 			try {
 				LogInFrame logIn = new LogInFrame(users.getFileAndPath(), m);
-			} catch (UnsupportedLookAndFeelException | ListenerSetException e1) {
-				// TODO Auto-generated catch block
+			} catch (UnsupportedLookAndFeelException e1) {
+				e1.printStackTrace();
+			} catch (ListenerSetException e1) {
 				e1.printStackTrace();
 			}
 		}

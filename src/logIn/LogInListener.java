@@ -3,15 +3,14 @@ package logIn;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 
-import model.*;
 import mainGui.*;
 
 import javax.swing.*;
 
 import kalenderGui.KalenderFrame;
+import model.User.User;
+import model.User.Users;
 
 /**
  * 

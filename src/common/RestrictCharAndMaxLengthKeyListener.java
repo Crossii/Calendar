@@ -33,19 +33,16 @@ public class RestrictCharAndMaxLengthKeyListener implements KeyListener {
 		setFieldToCheck_TF(fieldToCheck_TF);
 	}
 
-	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		if (fieldToCheck_TF.getText().length()>=maxLength) arg0.consume();

@@ -32,14 +32,14 @@ public class MainFrameTest {
 
     	SwingUtilities.invokeLater(new Runnable() {
     	    public void run() {
-    	    	 MainFrame frame;
+    	    	 MainFrame frame = null;
 				try {
-						frame = new MainFrame(fileAndPath);
-		    	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				} catch (UnsupportedLookAndFeelException | ListenerSetException e) {
-					// TODO Auto-generated catch block
+					frame = new MainFrame(fileAndPath);
+				} catch (UnsupportedLookAndFeelException e) {					e.printStackTrace();
+				} catch (ListenerSetException e) {
 					e.printStackTrace();
 				}
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				}
     	});
    }

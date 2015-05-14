@@ -1,12 +1,9 @@
 package kalenderGui;
 
 import javax.swing.*;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import model.User;
+
+import model.User.User;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Locale;
 
 import common.*;
 

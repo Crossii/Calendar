@@ -25,9 +25,8 @@ class LogInPanel extends JPanel {
 	private final JButton close_BTN;
 
 	// textfields
-	private final JEditorPane mail_TF; 
-	private final JComboBox von_CB;
-	private final JComboBox bis_CB;
+	private final RestrictedInsertTextField mail_TF;
+	private final JPasswordField password_JPF;
 
 	// reference to the listener
 	private final LogInListener simpleListener;
@@ -72,7 +71,6 @@ class LogInPanel extends JPanel {
 		textfieldPanel_PNL.setLayout(new GridLayout(2, 2));
 		// create textfields
 		mail_TF = new RestrictedInsertTextField(FieldType.EMAIL, 3, 25);
-		mail_TF.setColumns(2);
 		// name_TF.setPreferredSize((new Dimension(600,80)));
 		password_JPF = new JPasswordField();
 		// copy paste disable

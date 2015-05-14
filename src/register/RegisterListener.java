@@ -1,14 +1,13 @@
 package register;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 
 import javax.swing.*;
 
-import model.*;
- 
+import model.User.User;
+import model.User.Users;
+
 
 /**
  * 

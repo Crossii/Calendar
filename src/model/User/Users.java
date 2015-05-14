@@ -1,17 +1,18 @@
-package model;
+package model.User;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
-import model.Encoding.EncodingType;
+import model.User.Encoding.EncodingType;
+import model.EncodingException;
+import model.RegistrationException;
 
 /**
  * 

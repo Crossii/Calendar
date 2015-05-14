@@ -1,9 +1,11 @@
-package model;
+package model.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.GregorianCalendar;
 
-import model.Encoding.EncodingType;
+import model.User.Encoding.EncodingType;
+import model.EncodingException;
+import model.RegistrationException;
 
 /**
  * 
@@ -28,8 +30,8 @@ public class User implements Comparable<User>{
 	 * @param address
 	 * @param celNumber
 	 * @param yearOfBirth
-	 * @throws RegistrationException 
-	 * @throws EncodingException 
+	 * @throws RegistrationException
+	 * @throws EncodingException
 	 * @throws NoSuchAlgorithmException 
 	 */
 	public User(String email, String firstname, String lastname,
