@@ -1,11 +1,8 @@
 package kalenderGui;
 
-
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-
 import model.User;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +10,8 @@ import java.util.Locale;
 
 import common.*;
 
-/**
- * SimpleFrame
- * 
- *
- */
+//SimpleGui
+
 public class KalenderFrame extends JFrame {
 	
 	// reference to the frame itself
@@ -50,7 +44,7 @@ public class KalenderFrame extends JFrame {
 		
 		// Titelzeile
 		setTitle("Register - LogIn"); 
-		// Grösse des Frames
+		// GrÃ¶sse des Frames
 		setSize(800, 400); 
 		//setPreferredSize(new Dimension(800,200));
 		
