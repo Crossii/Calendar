@@ -49,6 +49,10 @@ public class LogInListener implements ActionListener {
 		Object source = e.getSource();
 
 		if (source == panel.getReset_BTN()) {
+			if(user.getUsers().contains(panel.getMail_CB().getText())) {
+				JOptionPane.showMessageDialog(null, "E-Mail does not exist");
+				return;
+			}
 			System.out.println("Log in button wurde gedrueckt!");
 			// set default values
 			User attempt = user.login(panel.getMail_CB().getText().toString(), panel.getPassword_JPF().getPassword());
@@ -66,9 +70,10 @@ public class LogInListener implements ActionListener {
 					e1.printStackTrace();
 				}
 			}
-			else
+			else {
+				panel.getPassword_JPF().setText("");
 				JOptionPane.showMessageDialog(null, "Wrong password.");
-			
+			}
 		}
 		if (source == panel.getClose_BTN()) {
 			System.out.println("Close button wurde gedrueckt!");

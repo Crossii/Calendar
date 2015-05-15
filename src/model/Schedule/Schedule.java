@@ -8,12 +8,19 @@ import java.util.Date;
  * Created by CrayZay on 14.05.2015.
  */
 public class Schedule {
-    private Date date;
+    private Date beginning;
+    private Date ending;
     private User user;
     private String information;
 
-    public Schedule(Date date, User user, String information) throws Exception {
-        setDate(date);
+    public Schedule(Date beginning, User user, String information) throws Exception {
+        setBeginning(beginning);
+        setUser(user);
+        setInformation(information);
+    }
+    public Schedule(Date beginning, Date ending, User user, String information) throws Exception {
+        setBeginning(beginning);
+        setEnding(ending);
         setUser(user);
         setInformation(information);
     }
@@ -25,12 +32,12 @@ public class Schedule {
         if(user == null) throw new Exception("User is not allowed to be null!");
         this.user = user;
     }
-    public Date getDate() {
-        return date;
+    public Date getBeginning() {
+        return beginning;
     }
-    public void setDate(Date date) throws Exception {
+    public void setBeginning(Date date) throws Exception {
         if(date == null) throw new Exception("Date is not allowed to be null!");
-        this.date = date;
+        this.beginning = date;
     }
     public String getInformation() {
         return information;
@@ -40,7 +47,20 @@ public class Schedule {
         this.information = information;
     }
 
+    public Date getEnding() {
+        return ending;
+    }
+    public void setEnding(Date ending) {
+        this.ending = ending;
+    }
+
+
     public static void main(String[] args){
+        if(args.length == 0) {
+            System.out.println("There is no file");
+            System.exit(1);
+        }
+
         Schedule sc = null;
         try {
             sc = new Schedule(new Date(), new User("sal15532@spengergasse.at"), "LEEEEEL");
@@ -49,6 +69,6 @@ public class Schedule {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(sc.getDate().toString());
+        System.out.println(sc.getBeginning().toString());
     }
 }

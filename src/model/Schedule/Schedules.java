@@ -1,6 +1,10 @@
 package model.Schedule;
 
+import model.User.User;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 /**
  * Created by CrayZay on 14.05.2015.
@@ -28,20 +32,48 @@ public class Schedules {
         this.schedules = schedules;
     }
 
+    public void showConfirm(Schedule schedule) {
+        System.out.println("#############################");
+        System.out.println("##  Termin: "+schedule.getBeginning().toString());
+        System.out.println("##  Has been added to user: "+schedule.getUser().getEmail());
+        System.out.println("##  Information: "+schedule.getInformation());
+        System.out.println("#############################");
+    }
+
     public Schedule addSchedule(Schedule schedule) throws Exception {
         if(schedules.contains(schedule)) {
             throw new Exception("Schedule already exists");
         }
 
         schedules.add(schedule);
+        showConfirm(schedule);
         return schedule;
     }
 
     public Schedule deleteSchedule(Schedule schedule) throws Exception {
-        if(schedules.contains(schedule)) {
+        if (schedules.contains(schedule)) {
             schedules.remove(schedule);
             return schedule;
+        } else throw new Exception("Schedule does not exist.");
+    }
+
+    public static void main(String[] args){
+        if(args.length == 0) {
+            System.out.println("There is no file");
+            System.exit(1);
         }
-        else throw new Exception("Schedule does not exist.");
+
+        Schedules termine = null;
+        try {
+            termine = new Schedules(args[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            termine.addSchedule(new Schedule(new Date(), new User("sal15532@spengergasse.at"), "cool"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
