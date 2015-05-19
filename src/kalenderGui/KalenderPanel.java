@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.JTableHeader;
 
 import model.User.User;
 

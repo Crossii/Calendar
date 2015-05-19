@@ -58,13 +58,13 @@ public class LogInListener implements ActionListener {
 			System.out.println("Log in button wurde gedrueckt!");
 			// set default values
 			User attempt = user.login(panel.getMail_CB().getText().toString(), panel.getPassword_JPF().getPassword());
-			
+
 			if(attempt != null) {
 				JOptionPane.showMessageDialog(null, "You have succesfully logged in.");
 				main.setBackground(Color.GREEN);
 				panel.close();
 				main.close();
-				
+
 				try {
 					kalenderGui.KalenderFrame mf = new KalenderFrame(user.getUsers().get(user.getUsers().indexOf(attempt)), user.getFileAndPath(), fileAndPathSchedules);
 				} catch (UnsupportedLookAndFeelException e1) {

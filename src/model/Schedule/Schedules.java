@@ -145,7 +145,7 @@ public class Schedules {
         int i = gc.getActualMaximum(gc.DAY_OF_MONTH);
         return i;
     }
-    public String[][] getTable() {
+    public String[][] getTable(){
         int dayLines = getDayPerMonth()/7;
         int day = 0;
         if(getDayPerMonth()%7 != 0)
@@ -202,8 +202,6 @@ public class Schedules {
         }
         System.out.println(termine.getMonth());
         System.out.println(termine.getDayPerMonth()); */
-
-        termine.getTable();
 
 
         /*GregorianCalendar gc = new GregorianCalendar();
