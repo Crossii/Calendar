@@ -136,10 +136,12 @@ public class Schedules {
         }
 
         try {
-            termine.addSchedule(new Schedule(new Date(115, 3, 6), "cool", new User("asdw@asd.as")));
+            termine.addSchedule(new Schedule(new Date(), "cool", new User("asdw@asd.as")));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println(new Date().getTime());
 
         termine.showSchedules();
     }
