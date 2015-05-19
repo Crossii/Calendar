@@ -26,7 +26,7 @@ public class KalenderFrame extends JFrame {
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public KalenderFrame(User user, String fileAndPath) throws UnsupportedLookAndFeelException { 
+	public KalenderFrame(User user, String fileAndPathUser, String fileAndPathSchedules) throws UnsupportedLookAndFeelException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -69,7 +69,7 @@ public class KalenderFrame extends JFrame {
 		// panel for gui components
 		KalenderPanel panel = null;
 		try {
-			panel = new KalenderPanel(this, user);
+			panel = new KalenderPanel(this, user, fileAndPathSchedules);
 		} catch (ListenerSetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +97,7 @@ public class KalenderFrame extends JFrame {
 		setVisible(true); 
 		
 		// add action listeners
-		addActionListeners(panel, user, fileAndPath);
+		addActionListeners(panel, user, fileAndPathUser);
 
 
 	}
@@ -159,19 +159,21 @@ public class KalenderFrame extends JFrame {
 					+ laf[i].getClassName());
 		}
 
-		if(args.length==0) {
-			JOptionPane.showMessageDialog(null, "There is no file");
+		if(args.length==1) {
+			JOptionPane.showMessageDialog(null, "One file is missing");
 			System.exit(1);
 		}
 
-		final String  fileAndPath = args[0];
-		System.out.println(fileAndPath);
+		final String  fileAndPathUser = args[0];
+		System.out.println(fileAndPathUser);
+		final String  fileAndPathSchedules = args[1];
+		System.out.println(fileAndPathSchedules);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				KalenderFrame frame = null;
 				try {
-					frame = new KalenderFrame(new User("coool@cool.at"), fileAndPath);
+					frame = new KalenderFrame(new User("coool@cool.at"), fileAndPathUser, fileAndPathSchedules);
 				} catch (UnsupportedLookAndFeelException e) {
 					e.printStackTrace();
 				} catch (RegistrationException e) {

@@ -29,7 +29,7 @@ public class LogInFrame extends JFrame {
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public LogInFrame(String fileAndPath, MainPanel m) throws UnsupportedLookAndFeelException, ListenerSetException { 
+	public LogInFrame(String fileAndPathUser, String fileAndPathSchedules, MainPanel m) throws UnsupportedLookAndFeelException, ListenerSetException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -54,7 +54,7 @@ public class LogInFrame extends JFrame {
 		//setPreferredSize(new Dimension(800,200));
 
 		// panel for gui components
-		LogInPanel panel = new LogInPanel(this, fileAndPath, m);
+		LogInPanel panel = new LogInPanel(this, fileAndPathUser, fileAndPathSchedules, m);
 		
 		// add SimplePanel to the frame
 		add(panel);

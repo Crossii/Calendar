@@ -40,13 +40,13 @@ class LogInPanel extends JPanel {
 	 * 
 	 * @throws ListenerSetException
 	 */
-	public LogInPanel(LogInFrame simpleFrame, String fileAndPath, MainPanel m) throws ListenerSetException {
+	public LogInPanel(LogInFrame simpleFrame, String fileAndPathUser, String fileAndPathSchedules, MainPanel m) throws ListenerSetException {
 
 		// reference to the frame
 		this.logInFrame = simpleFrame;
 
 		// create listener object + reference to the panel as parameter
-		simpleListener = new LogInListener(this, fileAndPath, m);
+		simpleListener = new LogInListener(this, fileAndPathUser, m, fileAndPathSchedules);
 		highlightMouseListener = new HighLightMouseListener(new Color(0,191,255), false);
 
 		// ****************************************************************

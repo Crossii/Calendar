@@ -43,14 +43,14 @@ public class KalenderPanel extends JPanel {
 	 *
 	 * @throws ListenerSetException
 	 */
-	public KalenderPanel(KalenderFrame simpleFrame,User user) throws ListenerSetException {
+	public KalenderPanel(KalenderFrame simpleFrame,User user, String fileAndPathSchedules) throws ListenerSetException {
 		raisedetched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 
 		// reference to the frame
 		this.simpleFrame = simpleFrame;
 
 		// create listener object + reference to the panel as parameter
-		simpleListener = new KalenderListener(this,user);
+		simpleListener = new KalenderListener(this,user, fileAndPathSchedules);
 		highlightMouseListener =
 				new HighLightMouseListener(Color.RED, false);
 
@@ -60,7 +60,7 @@ public class KalenderPanel extends JPanel {
 		//*******************************************************
 
 		JPanel button_PNL = new JPanel();
-		kalender_T = new JTable(6,7);
+		kalender_T = new JTable(simpleListener.getSchedules().getTable(), simpleListener.getSchedules().getTableHead());
 		kalender_T.setCellSelectionEnabled(true);
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);

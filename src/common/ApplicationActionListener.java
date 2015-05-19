@@ -21,25 +21,28 @@ public class ApplicationActionListener implements ActionListener {
 	// exit application with or without question
 	private boolean askFor;
 	private Users users;
+	private String fileAndPathSchedules;
 	
 	/**
 	 * 
 	 * @param askFor
 	 * @param mainFrame
 	 */
-	public ApplicationActionListener(boolean askFor, MainFrame mainFrame, String fileAndPath) {
+	public ApplicationActionListener(boolean askFor, MainFrame mainFrame, String fileAndPathUser, String fileAndPathSchedules) {
 		// TODO Auto-generated constructor stub
 		this.askFor=askFor;
 		this.parentFrame=mainFrame;
-		users = new Users(fileAndPath);
+		users = new Users(fileAndPathUser);
+		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 	
-	public ApplicationActionListener(boolean askFor, MainFrame parentFrame, String fileAndPath, MainPanel m) {
+	public ApplicationActionListener(boolean askFor, MainFrame parentFrame, String fileAndPathUser, String fileAndPathSchedules, MainPanel m) {
 		// TODO Auto-generated constructor stub
 		this.askFor=askFor;
 		this.parentFrame=parentFrame;
-		users = new Users(fileAndPath);
+		users = new Users(fileAndPathUser);
 		this.m = m;
+		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -68,7 +71,7 @@ public class ApplicationActionListener implements ActionListener {
 		if(source == parentFrame.getLogIn()) {
 			System.out.println("LogIn button wurde gedrückt!");
 			try {
-				LogInFrame logIn = new LogInFrame(users.getFileAndPath(), m);
+				LogInFrame logIn = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, m);
 			} catch (UnsupportedLookAndFeelException e1) {
 				e1.printStackTrace();
 			} catch (ListenerSetException e1) {

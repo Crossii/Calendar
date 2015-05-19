@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public MainFrame(String fileAndPath) throws UnsupportedLookAndFeelException, ListenerSetException { 
+	public MainFrame(String fileAndPathUser, String fileAndPathSchedules) throws UnsupportedLookAndFeelException, ListenerSetException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame {
 		//*****************************************************************************	
 
 		// panel for gui components
-		MainPanel panel = new MainPanel(this, fileAndPath);
+		MainPanel panel = new MainPanel(this, fileAndPathUser, fileAndPathSchedules);
 		main = panel;
 		
 		// add SimplePanel to the frame
@@ -99,7 +99,7 @@ public class MainFrame extends JFrame {
 		setVisible(true); 
 		
 		// add action listeners
-		addActionListeners(fileAndPath, panel);
+		addActionListeners(fileAndPathUser, fileAndPathSchedules, panel);
 
 
 	}
@@ -139,12 +139,12 @@ public class MainFrame extends JFrame {
 	/**
 	 * 
 	 */
-	private void addActionListeners(String fileAndPath, MainPanel m){
+	private void addActionListeners(String fileAndPath, String fileAndPathSchedules, MainPanel m){
 		// actionlistener exit application
-		exitItem.addActionListener(new ApplicationActionListener(false, this, fileAndPath, m));
-		logIn.addActionListener(new ApplicationActionListener(false, this, fileAndPath, m));
-		logOut.addActionListener(new ApplicationActionListener(false, this, fileAndPath, m));
-		register.addActionListener(new ApplicationActionListener(false, this, fileAndPath, m));
+		exitItem.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
+		logIn.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
+		logOut.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
+		register.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
 	}
 	
 	/**

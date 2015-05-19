@@ -22,20 +22,23 @@ public class MainFrameTest {
 					+ laf[i].getClassName());
 		}
 		
-		if(args.length==0) {
-			JOptionPane.showMessageDialog(null, "There is no file");
+		if(args.length==1) {
+			JOptionPane.showMessageDialog(null, "One file is missing");
 			System.exit(1);
 		}
 
-		final String  fileAndPath = args[0];
-        System.out.println(fileAndPath);
+		final String fileAndPathUser = args[0];
+		final String fileAndPathSchedule = args[1];
+		System.out.println(fileAndPathUser);
+		System.out.println(fileAndPathSchedule);
 
     	SwingUtilities.invokeLater(new Runnable() {
     	    public void run() {
     	    	 MainFrame frame = null;
 				try {
-					frame = new MainFrame(fileAndPath);
-				} catch (UnsupportedLookAndFeelException e) {					e.printStackTrace();
+					frame = new MainFrame(fileAndPathUser, fileAndPathSchedule);
+				} catch (UnsupportedLookAndFeelException e) {
+					e.printStackTrace();
 				} catch (ListenerSetException e) {
 					e.printStackTrace();
 				}

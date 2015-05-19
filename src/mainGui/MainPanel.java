@@ -41,7 +41,7 @@ public class MainPanel extends JPanel {
 	 * 
 	 * @throws ListenerSetException
 	 */
-	public MainPanel(MainFrame mainFrame, String fileAndPath) throws ListenerSetException {
+	public MainPanel(MainFrame mainFrame, String fileAndPathUser, String fileAndPathSchedules) throws ListenerSetException {
 		// reference to the frame
 		
 
@@ -49,7 +49,7 @@ public class MainPanel extends JPanel {
 		this.mainFrame = mainFrame;
 
 		// create listener object + reference to the panel as parameter
-		mainListener = new MainListener(this, fileAndPath);
+		mainListener = new MainListener(this, fileAndPathUser, fileAndPathSchedules);
 
 		// ****************************************************************
 		// create JButton + text

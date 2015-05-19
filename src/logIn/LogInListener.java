@@ -23,12 +23,13 @@ public class LogInListener implements ActionListener {
 	private LogInPanel panel;
 	private MainPanel main;
 	private Users user;
+	private String fileAndPathSchedules;
 
 	/**
 	 * 
 	 * @param p
 	 */
-	public LogInListener(LogInPanel p, String fileAndPath, MainPanel m) {
+	public LogInListener(LogInPanel p, String fileAndPath, MainPanel m, String fileAndPathSchedules) {
 		panel = p;
 		try {
 			user = new Users(fileAndPath);
@@ -37,6 +38,7 @@ public class LogInListener implements ActionListener {
 			e.printStackTrace();
 		}
 		main = m;
+		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 
 	/**
@@ -64,7 +66,7 @@ public class LogInListener implements ActionListener {
 				main.close();
 				
 				try {
-					kalenderGui.KalenderFrame mf = new KalenderFrame(user.getUsers().get(user.getUsers().indexOf(attempt)), user.getFileAndPath());
+					kalenderGui.KalenderFrame mf = new KalenderFrame(user.getUsers().get(user.getUsers().indexOf(attempt)), user.getFileAndPath(), fileAndPathSchedules);
 				} catch (UnsupportedLookAndFeelException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

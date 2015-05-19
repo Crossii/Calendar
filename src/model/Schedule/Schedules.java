@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by CrayZay on 14.05.2015.
@@ -13,12 +14,14 @@ import java.util.Date;
 public class Schedules {
     private ArrayList<Schedule> schedules;
     private String fileAndPath;
+    private GregorianCalendar gc;
 
 
     public Schedules(String fileAndPath) throws Exception {
         setFileAndPath(fileAndPath);
         schedules = new ArrayList<Schedule>();
         loadSchedules();
+        gc = new GregorianCalendar();
     }
 
     public String getFileAndPath() {
@@ -33,6 +36,21 @@ public class Schedules {
     }
     public void setSchedules(ArrayList<Schedule> schedules) {
         this.schedules = schedules;
+    }
+    public GregorianCalendar getGc() {
+        return gc;
+    }
+    public void setGregorianCalendar(int year, int month, int day) {
+        gc = new GregorianCalendar(year, month, day);
+    }
+    public int getYear() {
+        return gc.get(GregorianCalendar.YEAR);
+    }
+    public int getMonth() {
+        return gc.get(GregorianCalendar.MONTH);
+    }
+    public int getDay() {
+        return gc.get(GregorianCalendar.DATE);
     }
 
 
@@ -111,7 +129,48 @@ public class Schedules {
     public void showSchedules() {
         for(Schedule s : schedules) {
             s.showAppointments();
+            System.out.println("Month: "+getMonth());
         }
+    }
+
+    public void nextMonth() throws Exception {
+        if(getMonth() >= 11) throw new Exception("You are already in the last month");
+        setGregorianCalendar(getYear(), (getMonth()+1), getDay());
+    }
+    public void lastMonth() throws Exception {
+        if(getMonth() <= 0) throw new Exception("You are already in the first month");
+        setGregorianCalendar(getYear(), (getMonth()-1), getDay());
+    }
+    public int getDayPerMonth() {
+        int i = gc.getActualMaximum(gc.DAY_OF_MONTH);
+        return i;
+    }
+    public String[][] getTable() {
+        int dayLines = getDayPerMonth()/7;
+        int day = 0;
+        if(getDayPerMonth()%7 != 0)
+            dayLines++;
+        String[][] s = new String[dayLines][7];
+        for(int o = 0; dayLines > o; o++) {
+            for(int p = 0; 7 > p && day < getDayPerMonth(); p++) {
+                s[o][p] = ""+(day+1);
+                day++;
+                System.out.print(" "+s[o][p]);
+            }
+            System.out.println();
+        }
+        return s;
+    }
+    public String[] getTableHead() {
+        String[] s = new String[7];
+        s[0] = "Monday";
+        s[1] = "Tuesday";
+        s[2] = "Wednesday";
+        s[3] = "Thrusday";
+        s[4] = "Friday";
+        s[5] = "Saturday";
+        s[6] = "Sunday";
+        return s;
     }
 
     public static void main(String[] args){
@@ -127,18 +186,39 @@ public class Schedules {
             e.printStackTrace();
         }
 
+        /* System.out.println(termine.getMonth());
+        System.out.println(termine.getDayPerMonth());
         try {
-            termine.addSchedule(new Schedule(2015, 3, 8, "cool", new User("asdw@asd.as")));
+            termine.nextMonth();
         } catch (Exception e) {
-            System.out.println("Already exists");
+            e.printStackTrace();
         }
-
+        System.out.println(termine.getMonth());
+        System.out.println(termine.getDayPerMonth());
         try {
-            termine.addSchedule(new Schedule(2015, 3, 8, 2015, 3, 10, "cool", new User("asdw@asd.as")));
+            termine.lastMonth();
         } catch (Exception e) {
-            System.out.println("Already exists");
+            e.printStackTrace();
         }
+        System.out.println(termine.getMonth());
+        System.out.println(termine.getDayPerMonth()); */
 
-        System.out.println(new Date().getTime());
+        termine.getTable();
+
+
+        /*GregorianCalendar gc = new GregorianCalendar();
+        int i = gc.get(GregorianCalendar.MONTH);
+        int u = gc.get(GregorianCalendar.YEAR);
+        int o = gc.getWeeksInWeekYear();
+        System.out.println(i);
+        System.out.println(o);
+        System.out.println(u);
+        gc = new GregorianCalendar(2015, i+1, 8);
+        i = gc.get(GregorianCalendar.MONTH);
+        u = gc.get(GregorianCalendar.YEAR);
+        o = gc.getWeekYear();
+        System.out.println(i);
+        System.out.println(o);
+        System.out.println(u); */
     }
 }

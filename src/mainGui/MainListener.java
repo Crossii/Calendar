@@ -20,15 +20,16 @@ public class MainListener implements ActionListener {
 	// Reference to the graphical components
 	private MainPanel mainPanel;
 	private Users users;
+	private String fileAndPathSchedules;
 
 	/**
 	 * 
 	 * @param p
 	 */
-	public MainListener(MainPanel p, String fileAndPath) {
+	public MainListener(MainPanel p, String fileAndPathUser, String fileAndPathSchedules) {
 		mainPanel = p;
-		users = new Users(fileAndPath);
-		
+		users = new Users(fileAndPathUser);
+		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class MainListener implements ActionListener {
 		if(source == mainPanel.getLogIn_BTN()) {
 			System.out.println("Login wurde gedrückt");
 			try {
-				LogInFrame login = new LogInFrame(users.getFileAndPath(), mainPanel);
+				LogInFrame login = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, mainPanel);
 			} catch (UnsupportedLookAndFeelException e1) {
 				e1.printStackTrace();
 			} catch (ListenerSetException e1) {
