@@ -87,7 +87,7 @@ public class KalenderPanel extends JPanel {
 		// panel in the center
 		textfieldPanel_PNL = new JPanel();
 		textfieldPanel_PNL.setBorder(raisedetched);
-		textfieldPanel_PNL.setLayout(new GridLayout(3, 2));
+		textfieldPanel_PNL.setLayout(new GridLayout(6, 1));
 		textfieldPanel_PNL.setPreferredSize(new Dimension(300,1));
 
 		// create textfields

@@ -44,7 +44,10 @@ public class RegisterFrame extends JFrame {
 		// Titelzeile
 		setTitle("Register"); 
 		// Grösse des Frames
-		setSize(800, 400); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		setSize((int)(width*0.50), (int)(height*0.50));
 		//setPreferredSize(new Dimension(800,200));
 
 		// panel for gui components

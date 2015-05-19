@@ -2,6 +2,7 @@ package kalenderGui;
 
 import javax.swing.*;
 
+import model.RegistrationException;
 import model.User.User;
 import java.awt.*;
 
@@ -42,7 +43,10 @@ public class KalenderFrame extends JFrame {
 		// Titelzeile
 		setTitle("Register - LogIn"); 
 		// Grösse des Frames
-		setSize(800, 400); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+		setSize((int)(width*0.50), (int)(height*0.50));
 		//setPreferredSize(new Dimension(800,200));
 		
 		//*****************************************************************************
@@ -146,5 +150,35 @@ public class KalenderFrame extends JFrame {
 		setIconImage(img);
 	}
 
-	
+	public static void main(String[] args){
+		UIManager.LookAndFeelInfo laf[] = UIManager
+				.getInstalledLookAndFeels();
+		for (int i = 0, n = laf.length; i < n; i++) {
+			System.out.print("LAF Name: " + laf[i].getName() + "\t");
+			System.out.println("  LAF Class name: "
+					+ laf[i].getClassName());
+		}
+
+		if(args.length==0) {
+			JOptionPane.showMessageDialog(null, "There is no file");
+			System.exit(1);
+		}
+
+		final String  fileAndPath = args[0];
+		System.out.println(fileAndPath);
+
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				KalenderFrame frame = null;
+				try {
+					frame = new KalenderFrame(new User("coool@cool.at"), fileAndPath);
+				} catch (UnsupportedLookAndFeelException e) {
+					e.printStackTrace();
+				} catch (RegistrationException e) {
+					e.printStackTrace();
+				}
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+		});
+	}
 }
