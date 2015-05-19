@@ -12,7 +12,7 @@ import mainGui.MainFrame;
 import model.User.User;
 
 /**
- * 
+ *
  * VATListener
  *
  */
@@ -25,16 +25,16 @@ public class KalenderListener implements ActionListener {
 	private User user;
 
 	/**
-	 * 
+	 *
 	 * @param p
 	 */
 	public KalenderListener(KalenderPanel p, User user) {
 		kalPanel = p;
 		this.user = user;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param p
 	 */
 	public KalenderListener(KalenderFrame p, User user, String fileAndPath) {
@@ -51,7 +51,7 @@ public class KalenderListener implements ActionListener {
 
 		// gets the source of the component
 		Object source = e.getSource();
-		
+
 		if(source == kalFrame.getRegister()) {
 			kalFrame.dispose();
 			try {
@@ -90,7 +90,7 @@ public class KalenderListener implements ActionListener {
 			}
 		}
 	}
-	
+
 	public User getUser() {
 		return user;
 	}

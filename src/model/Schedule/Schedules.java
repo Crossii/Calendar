@@ -102,9 +102,7 @@ public class Schedules {
             beginningData = data[0].split(" ");
             endingData = data[1].split(" ");
 
-            boolean b = schedules.add(new Schedule(new Date(Integer.parseInt(beginningData[0]), Integer.parseInt(beginningData[1]), Integer.parseInt(beginningData[2])), new Date(Integer.parseInt(endingData[0]), Integer.parseInt(endingData[1]), Integer.parseInt(endingData[0])), data[2], new User(data[3])));
-            if(b)
-                System.out.println("Schedule has been added");
+            boolean b = schedules.add(new Schedule(new Date(Long.parseLong(data[0])), new Date(Long.parseLong(data[1])), data[2], new User(data[3])));
             line = bw.readLine();
         }
         bw.close();
@@ -112,7 +110,7 @@ public class Schedules {
 
     public void showSchedules() {
         for(Schedule s : schedules) {
-            System.out.println(s.toString());
+            s.showAppointments();
         }
     }
 
@@ -130,19 +128,17 @@ public class Schedules {
         }
 
         try {
-            termine.addSchedule(new Schedule(new Date(115, 10, 5), "cool", new User("asdw@asd.as")));
+            termine.addSchedule(new Schedule(2015, 3, 8, "cool", new User("asdw@asd.as")));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Already exists");
         }
 
         try {
-            termine.addSchedule(new Schedule(new Date(), "cool", new User("asdw@asd.as")));
+            termine.addSchedule(new Schedule(2015, 3, 8, 2015, 3, 10, "cool", new User("asdw@asd.as")));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Already exists");
         }
 
         System.out.println(new Date().getTime());
-
-        termine.showSchedules();
     }
 }

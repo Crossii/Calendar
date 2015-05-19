@@ -2,28 +2,96 @@ package model.Schedule;
 
 import model.RegistrationException;
 import model.User.User;
+
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by CrayZay on 14.05.2015.
  */
-public class Schedule {
+public class Schedule{
     private Date beginning;
     private Date ending;
     private String information;
     private User user;
 
-    public Schedule(Date beginning, String information, User user) throws Exception {
-        setBeginning(beginning);
-        setEnding(beginning);
+    /**
+     * Constructor with int values, if you don't have a long variable
+     * @param year
+     * @param month
+     * @param day
+     * @param information
+     * @param user
+     * @throws Exception
+     */
+    public Schedule(int year, int month, int day, String information, User user) throws Exception {
+        setBeginning(setToDate(year, month, day));
+        setEnding(setToDate(year, month, day));
         setInformation(information);
         setUser(user);
     }
+
+    /**
+     * Constructor with int values. It also has an ending parameter, which shows when the appointment
+     * ends.
+     * @param yearBeginning
+     * @param monthBeginning
+     * @param dayBeginning
+     * @param yearEnding
+     * @param monthEnding
+     * @param dayEnding
+     * @param information
+     * @param user
+     * @throws Exception
+     */
+    public Schedule(int yearBeginning, int monthBeginning, int dayBeginning, int yearEnding, int monthEnding,
+                    int dayEnding, String information, User user) throws Exception {
+        setBeginning(setToDate(yearBeginning, monthBeginning, dayBeginning));
+        setEnding(setToDate(yearEnding, monthEnding, dayEnding));
+        setInformation(information);
+        setUser(user);
+    }
+
+    /**
+     * Constructor with a Date as parameter when you already have a long value for your appointment
+     * @param date
+     * @param information
+     * @param user
+     * @throws Exception
+     */
+    public Schedule(Date date, String information, User user) throws Exception {
+        setBeginning(date);
+        setEnding(date);
+        setInformation(information);
+        setUser(user);
+    }
+
+    /**
+     * Constructor with a Date as parameter. It also has an ending Date for your appointment.
+     * @param beginning
+     * @param ending
+     * @param information
+     * @param user
+     * @throws Exception
+     */
     public Schedule(Date beginning, Date ending, String information, User user) throws Exception {
         setBeginning(beginning);
         setEnding(ending);
         setInformation(information);
         setUser(user);
+    }
+
+    /**
+     * sets the int value to a long value
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     * @throws Exception
+     */
+    public Date setToDate(int year, int month, int day) throws Exception {
+        GregorianCalendar gc = new GregorianCalendar(year, month, day);
+        return gc.getTime();
     }
 
     public User getUser() {
@@ -61,11 +129,19 @@ public class Schedule {
     }
 
     public String beginningToString() {
-        return getBeginning().getYear()+" "+getBeginning().getMonth()+" "+getBeginning().getDate();
+        return ""+beginning.getTime();
     }
 
     public String endingToString() {
-        return getEnding().getYear()+" "+getEnding().getMonth()+" "+getEnding().getDate();
+        return ""+ending.getTime();
+    }
+
+    public void showAppointments() {
+        System.out.println("################");
+        System.out.println("##  "+beginning.toString());
+        System.out.println("##  "+ending.toString());
+        System.out.println("##  "+information);
+        System.out.println("################");
     }
 
     @Override
@@ -94,6 +170,7 @@ public class Schedule {
         return result;
     }
 
+
     public static void main(String[] args){
         if(args.length == 0) {
             System.out.println("There is no file");
@@ -102,7 +179,7 @@ public class Schedule {
 
         Schedule sc = null;
         try {
-            sc = new Schedule(new Date(), "LEEEEEL", new User("asdl@asdlkj.asd"));
+            sc = new Schedule(115, 3, 8, "LEEEEEL", new User("asdl@asdlkj.asd"));
         } catch (RegistrationException e) {
             e.printStackTrace();
         } catch (Exception e) {

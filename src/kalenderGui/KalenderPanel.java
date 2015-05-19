@@ -13,21 +13,22 @@ import java.awt.*;
 import common.*;
 /**
  * SimplePanel
- * 
+ *
  *
  */
 public class KalenderPanel extends JPanel {
 
 	// buttons
-	private final JButton reset_BTN;
-	private final JButton close_BTN;
+	private final JButton create_BTN;
+	private final JButton update_BTN;
+	private final JButton delete_BTN;
 
 	// textfields
 	private final JTextField von_TF;
 	private final JTextField bis_TF;
-	private final JEditorPane beschreibung_TF; 
+	private final JEditorPane beschreibung_TF;
 	private final JTable kalender_T;
-	
+
 	private final Border raisedetched;
 
 	// reference to the listener
@@ -39,7 +40,7 @@ public class KalenderPanel extends JPanel {
 
 	/**
 	 * constructor
-	 * 
+	 *
 	 * @throws ListenerSetException
 	 */
 	public KalenderPanel(KalenderFrame simpleFrame,User user) throws ListenerSetException {
@@ -50,34 +51,38 @@ public class KalenderPanel extends JPanel {
 
 		// create listener object + reference to the panel as parameter
 		simpleListener = new KalenderListener(this,user);
-		highlightMouseListener = 
+		highlightMouseListener =
 				new HighLightMouseListener(Color.RED, false);
-		
+
 		//*******************************************************
-		
+
 
 		//*******************************************************
 
 		JPanel button_PNL = new JPanel();
-		kalender_T = new JTable(7,7);
+		kalender_T = new JTable(6,7);
 		kalender_T.setCellSelectionEnabled(true);
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);
 		kalender_T.setBorder(raisedetched);
 
 		kalender_T.setRowHeight(72);
-		
 
-		reset_BTN = new JButton("Reset");
+
+		create_BTN = new JButton("Create");
 		// set the font
-		reset_BTN.setFont(new Font("Arial", Font.BOLD, 30));
+		create_BTN.setFont(new Font("Arial", Font.BOLD, 30));
 		// close button
-		close_BTN = new JButton("Close");
+		update_BTN = new JButton("Update");
 		// set the font
-		close_BTN.setFont(new Font("Arial", Font.BOLD, 30));
+		update_BTN.setFont(new Font("Arial", Font.BOLD, 30));
+		delete_BTN = new JButton("Delete");
+		// set the font
+		delete_BTN.setFont(new Font("Arial", Font.BOLD, 30));
 		button_PNL.add(kalender_T);
 		button_PNL.setBorder(raisedetched);
-		
+
+
 		JPanel textfieldPanel_PNL;
 		// panel in the center
 		textfieldPanel_PNL = new JPanel();
@@ -95,16 +100,24 @@ public class KalenderPanel extends JPanel {
 		bis_TF.setHorizontalAlignment(JLabel.CENTER);
 		bis_TF.setEnabled(false);
 		beschreibung_TF = new JTextPane();
-		beschreibung_TF.setFont(new Font("Arial", Font.BOLD, 30));
+		beschreibung_TF.setFont(new Font("Arial", Font.BOLD, 11));
 		beschreibung_TF.setEnabled(false);
 
 		// add textfields to the panel
-		textfieldPanel_PNL.add(new JLabel("Name:"));
+		textfieldPanel_PNL.add(new JLabel("Beginning:"));
 		textfieldPanel_PNL.add(von_TF);
 
-		textfieldPanel_PNL.add(new JLabel("Year of birth:"));
+		textfieldPanel_PNL.add(new JLabel("Ending:"));
 		textfieldPanel_PNL.add(bis_TF);
+		textfieldPanel_PNL.add(new JLabel("Description:"));
 		textfieldPanel_PNL.add(beschreibung_TF);
+
+		JPanel crud_PNL = new JPanel();
+		crud_PNL.setBorder(raisedetched);
+		crud_PNL.setLayout(new GridLayout(1,3));
+		crud_PNL.add(create_BTN);
+		crud_PNL.add(update_BTN);
+		crud_PNL.add(delete_BTN);
 
 		//****************************************************************************************************************************
 		// add components
@@ -124,6 +137,7 @@ public class KalenderPanel extends JPanel {
 		this.add(textfieldPanel_PNL, BorderLayout.WEST);
 		// to the south
 		this.add(button_PNL, BorderLayout.CENTER);
+		this.add(crud_PNL, BorderLayout.SOUTH);
 
 		// add action listeners
 		addActionListeners();
@@ -134,15 +148,13 @@ public class KalenderPanel extends JPanel {
 	}
 
 	private void addActionListeners() throws ListenerSetException {
-		reset_BTN.addActionListener(simpleListener);
-		reset_BTN.addMouseListener(highlightMouseListener);
-		close_BTN.addActionListener(simpleListener);
-		close_BTN.addMouseListener(highlightMouseListener);
+		create_BTN.addActionListener(simpleListener);
+		update_BTN.addActionListener(simpleListener);
 		bis_TF.addMouseListener(new HighLightMouseListener(
 				Color.yellow, true));
 		bis_TF.addKeyListener(
 				new RestrictCharAndMaxLengthKeyListener(
-				4, "[0-9]", bis_TF));
+						4, "[0-9]", bis_TF));
 		von_TF.addMouseListener(new HighLightMouseListener(Color.yellow, true));
 		von_TF.addKeyListener(new RestrictCharAndMaxLengthKeyListener(5,
 				"[A-Z]", von_TF));
@@ -151,16 +163,16 @@ public class KalenderPanel extends JPanel {
 	/**
 	 * @return the reset_BTN
 	 */
-	public JButton getReset_BTN() {
-		return reset_BTN;
+	public JButton getCreate_BTN() {
+		return create_BTN;
 	}
 
 
 	/**
 	 * @return the close_BTN
 	 */
-	public JButton getClose_BTN() {
-		return close_BTN;
+	public JButton getUpdate_BTN() {
+		return update_BTN;
 	}
 
 

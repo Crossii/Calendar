@@ -52,15 +52,22 @@ public class RegisterListener implements ActionListener {
 				if(firstPw.equals(secPw)) {
 					try {
 						String typedPass = new String(registerPanel.getPassword_JPF().getPassword());
-						getInfo().registrateUser(user, new User(registerPanel.getEmail_TF().getText(),registerPanel.getLastname_TF().getText(),
+						User a = getInfo().registrateUser(user, new User(registerPanel.getEmail_TF().getText(),registerPanel.getLastname_TF().getText(),
 								registerPanel.getFirstname_TF().getText(), registerPanel.getAddress_TF().getText(), registerPanel.getTown_TF().getText(),
 								Integer.parseInt(registerPanel.getYear_CB().getSelectedItem().toString()),typedPass, true));
-					} catch (Exception e1) {
+						if(a == null){
+							JOptionPane.showMessageDialog(null, "Email already exists!");
+						}else{
+							JOptionPane.showMessageDialog(null, "Registration successful!");
+							registerPanel.close();
+						}
+					}
+					catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					JOptionPane.showConfirmDialog(null, "Registration successful!");
-					registerPanel.close();
+
+
 				} else
 					try {
 						throw new Exception("Passwörter sind nicht gleich");
