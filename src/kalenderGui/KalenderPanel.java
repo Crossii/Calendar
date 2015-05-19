@@ -65,7 +65,6 @@ public class KalenderPanel extends JPanel {
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);
 		kalender_T.setBorder(raisedetched);
-
 		kalender_T.setRowHeight(72);
 
 
