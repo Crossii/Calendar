@@ -1,8 +1,10 @@
 package model.User;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import model.Schedule.Schedules;
 import model.User.Encoding.EncodingType;
 import model.EncodingException;
 import model.RegistrationException;
@@ -35,7 +37,7 @@ public class User implements Comparable<User>{
 	 * @throws NoSuchAlgorithmException 
 	 */
 	public User(String email, String firstname, String lastname,
-			String address, String celNumber, int yearOfBirth, String password, boolean encrypt) throws RegistrationException, NoSuchAlgorithmException, EncodingException {
+			String address, String celNumber, int yearOfBirth, String password, boolean encrypt) throws RegistrationException, EncodingException, NoSuchAlgorithmException {
 		this.setEmail(email);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
@@ -45,10 +47,7 @@ public class User implements Comparable<User>{
 		if(encrypt)	this.encryptPassword(password);
 		else this.setPassword(password);
 	}
-	
-	
-	
-	
+
 	/**
 	 * @param email
 	 * @throws RegistrationException 
@@ -56,9 +55,6 @@ public class User implements Comparable<User>{
 	public User(String email) throws RegistrationException {
 		this.setEmail(email);
 	}
-
-
-
 
 	/**
 	 * @return the email
@@ -220,16 +216,11 @@ public class User implements Comparable<User>{
 		return email + ";" + firstname + ";" + lastname + ";" + address + ";" + celNumber + ";" + yearOfBirth + ";" + getPassword() +";";
 	}
 
-
-
-
 	@Override
 	public int compareTo(User arg0) {
 		// TODO Auto-generated method stub
 		return this.email.compareTo(arg0.getEmail());
 	}
-	
 
-	
 
 }

@@ -2,6 +2,7 @@ package model.Schedule;
 
 import model.User.User;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -13,9 +14,11 @@ public class Schedules {
     private ArrayList<Schedule> schedules;
     private String fileAndPath;
 
+
     public Schedules(String fileAndPath) throws Exception {
         setFileAndPath(fileAndPath);
         schedules = new ArrayList<Schedule>();
+        loadSchedules();
     }
 
     public String getFileAndPath() {
@@ -32,29 +35,85 @@ public class Schedules {
         this.schedules = schedules;
     }
 
+
+    /**
+     * Shows this method, if adding a schedule was successfull
+     * @param schedule
+     */
     public void showConfirm(Schedule schedule) {
         System.out.println("#############################");
-        System.out.println("##  Termin: "+schedule.getBeginning().toString());
-        System.out.println("##  Has been added to user: "+schedule.getUser().getEmail());
-        System.out.println("##  Information: "+schedule.getInformation());
+        System.out.println("##  Termin: " + schedule.getBeginning().toString());
+        System.out.println("##  Information: " + schedule.getInformation());
         System.out.println("#############################");
     }
 
+    /**
+     * adds a schedule to the arraylist
+     * @param schedule
+     * @return
+     * @throws Exception
+     */
     public Schedule addSchedule(Schedule schedule) throws Exception {
         if(schedules.contains(schedule)) {
-            throw new Exception("Schedule already exists");
+            throw new Exception("Schedule already exists: "+schedule.toString());
         }
-
         schedules.add(schedule);
         showConfirm(schedule);
+        saveSchedules();
         return schedule;
     }
 
+    /**
+     * Deletes a schedule from the arraylist
+     * @param schedule
+     * @return
+     * @throws Exception
+     */
     public Schedule deleteSchedule(Schedule schedule) throws Exception {
         if (schedules.contains(schedule)) {
             schedules.remove(schedule);
+            saveSchedules();
             return schedule;
         } else throw new Exception("Schedule does not exist.");
+
+    }
+
+    /**
+     * saves the information of the schedules in a file
+     * @throws IOException
+     */
+    public void saveSchedules() throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(fileAndPath));
+        for(Schedule s : schedules) {
+            bw.write(s.toString());
+            bw.newLine();
+        }
+        bw.close();
+    }
+
+    private void loadSchedules() throws Exception {
+        BufferedReader bw = new BufferedReader(new FileReader(fileAndPath));
+        String line = bw.readLine();
+        String[] data = null;
+        String[] beginningData = null;
+        String[] endingData = null;
+        while(line != null) {
+            data = line.split(";");
+            beginningData = data[0].split(" ");
+            endingData = data[1].split(" ");
+
+            boolean b = schedules.add(new Schedule(new Date(Integer.parseInt(beginningData[0]), Integer.parseInt(beginningData[1]), Integer.parseInt(beginningData[2])), new Date(Integer.parseInt(endingData[0]), Integer.parseInt(endingData[1]), Integer.parseInt(endingData[0])), data[2], new User(data[3])));
+            if(b)
+                System.out.println("Schedule has been added");
+            line = bw.readLine();
+        }
+        bw.close();
+    }
+
+    public void showSchedules() {
+        for(Schedule s : schedules) {
+            System.out.println(s.toString());
+        }
     }
 
     public static void main(String[] args){
@@ -71,9 +130,17 @@ public class Schedules {
         }
 
         try {
-            termine.addSchedule(new Schedule(new Date(), new User("sal15532@spengergasse.at"), "cool"));
+            termine.addSchedule(new Schedule(new Date(115, 10, 5), "cool", new User("asdw@asd.as")));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        try {
+            termine.addSchedule(new Schedule(new Date(115, 3, 6), "cool", new User("asdw@asd.as")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        termine.showSchedules();
     }
 }
