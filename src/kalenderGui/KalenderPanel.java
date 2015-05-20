@@ -77,8 +77,6 @@ public class KalenderPanel extends JPanel {
 		//focuses the current day
 		int column = simpleListener.getSchedules().getCurrentColumnDay();
 		int row = simpleListener.getSchedules().getCurrentRowDay();
-		System.out.println("Row: " + row);
-		System.out.println("Column: " + column);
 		kalender_T.setColumnSelectionInterval(column, column);
 		kalender_T.setRowSelectionInterval(row, row);
 
