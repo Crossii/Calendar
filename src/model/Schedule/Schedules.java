@@ -155,9 +155,7 @@ public class Schedules {
             for(int p = 0; 7 > p && day < getDayPerMonth(); p++) {
                 s[o][p] = ""+(day+1);
                 day++;
-                System.out.print(" "+s[o][p]);
             }
-            System.out.println();
         }
         return s;
     }
@@ -171,6 +169,23 @@ public class Schedules {
         s[5] = "Saturday";
         s[6] = "Sunday";
         return s;
+    }
+    public String getCurrentMonth() {
+        switch(this.getMonth()) {
+            case 0: return "Jaenner";
+            case 1: return "Februar";
+            case 2: return "Maerz";
+            case 3: return "April";
+            case 4: return "Mai";
+            case 5: return "Juni";
+            case 6: return "Juli";
+            case 7: return "August";
+            case 8: return "September";
+            case 9: return "Oktober";
+            case 10: return "November";
+            case 11: return "Dezember";
+        }
+        return null;
     }
 
     public static void main(String[] args){
@@ -206,6 +221,7 @@ public class Schedules {
         int i = termine.getGc().getFirstDayOfWeek();
         System.out.println(i);
         System.out.println(termine.getMonth());
+        System.out.println(termine.getCurrentMonth());
         try {
             termine.lastMonth();
         } catch (Exception e) {
@@ -214,6 +230,7 @@ public class Schedules {
         i = termine.getGc().getFirstDayOfWeek();
         System.out.println(i);
         System.out.println(termine.getMonth());
+        System.out.println(termine.getCurrentMonth());
         try {
             termine.lastMonth();
         } catch (Exception e) {
@@ -222,7 +239,7 @@ public class Schedules {
         i = termine.getGc().getFirstDayOfWeek();
         System.out.println(i);
         System.out.println(termine.getMonth());
-
+        System.out.println(termine.getCurrentMonth());
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

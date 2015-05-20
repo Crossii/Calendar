@@ -68,7 +68,7 @@ class LogInPanel extends JPanel {
 		// panel in the center
 		textfieldPanel_PNL = new JPanel();
 		// GridLayout 2 rows and 2 columns
-		textfieldPanel_PNL.setLayout(new GridLayout(2, 2));
+		textfieldPanel_PNL.setLayout(new GridLayout(5, 2));
 		// create textfields
 		mail_TF = new RestrictedInsertTextField(FieldType.EMAIL, 3, 25);
 		mail_TF.setColumns(2);
@@ -76,14 +76,24 @@ class LogInPanel extends JPanel {
 		password_JPF = new JPasswordField();
 		// copy paste disable
 		password_JPF.setTransferHandler(null);
-		
+
+
 
 		// add textfields to the panel
+		textfieldPanel_PNL.add(new JLabel());
+		textfieldPanel_PNL.add(new JLabel());
+
 		textfieldPanel_PNL.add(new JLabel("Email"));
 		textfieldPanel_PNL.add(mail_TF);
 
+		textfieldPanel_PNL.add(new JLabel());
+		textfieldPanel_PNL.add(new JLabel());
+
 		textfieldPanel_PNL.add(new JLabel("Passwort:"));
 		textfieldPanel_PNL.add(password_JPF);
+
+		textfieldPanel_PNL.add(new JLabel());
+		textfieldPanel_PNL.add(new JLabel());
 
 		//****************************************************************************************************************************
 		// add components

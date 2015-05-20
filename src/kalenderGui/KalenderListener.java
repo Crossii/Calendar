@@ -78,6 +78,7 @@ public class KalenderListener implements ActionListener {
 						kalPanel.getKalender_T().setValueAt("", i, o);
 				}
 			}
+			kalPanel.getMonth_LBL().setText("" + schedules.getCurrentMonth());
 		}
 		if(source == kalPanel.getLastMonth_BTN()) {
 			try {
@@ -97,6 +98,7 @@ public class KalenderListener implements ActionListener {
 						kalPanel.getKalender_T().setValueAt("", i, o);
 				}
 			}
+			kalPanel.getMonth_LBL().setText(""+schedules.getCurrentMonth());
 		}
 		}
 

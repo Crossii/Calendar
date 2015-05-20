@@ -36,6 +36,8 @@ public class KalenderPanel extends JPanel {
 
 	private final Border raisedetched;
 
+	private final JLabel month_LBL;
+
 	// reference to the listener
 	private final KalenderListener simpleListener;
 	private final HighLightMouseListener highlightMouseListener;
@@ -144,10 +146,17 @@ public class KalenderPanel extends JPanel {
 
 
 		// to the north
-		JLabel headline_LBL = new JLabel("Person detail information");
+		month_LBL = new JLabel(""+simpleListener.getSchedules().getCurrentMonth());
+		JPanel headline_PNL = new JPanel();
+		month_LBL.setFont(new Font("Arial", Font.BOLD, 30));
+		month_LBL.setHorizontalAlignment(JLabel.CENTER);
+		//headline_PNL.setLayout(new GridLayout(1, 2));
+		JLabel headline_LBL = new JLabel("Person detail information in ");
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		headline_LBL.setHorizontalAlignment(JLabel.CENTER);
-		this.add(headline_LBL, BorderLayout.NORTH);
+		headline_PNL.add(headline_LBL);
+		headline_PNL.add(month_LBL);
+		this.add(headline_PNL, BorderLayout.NORTH);
 		// to the center
 		this.add(textfieldPanel_PNL, BorderLayout.WEST);
 		// to the south
@@ -235,5 +244,9 @@ public class KalenderPanel extends JPanel {
 
 	public JEditorPane getBeschreibung_TF() {
 		return beschreibung_TF;
+	}
+
+	public JLabel getMonth_LBL() {
+		return month_LBL;
 	}
 }
