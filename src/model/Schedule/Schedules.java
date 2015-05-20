@@ -203,6 +203,26 @@ public class Schedules {
         System.out.println(termine.getMonth());
         System.out.println(termine.getDayPerMonth()); */
 
+        int i = termine.getGc().getFirstDayOfWeek();
+        System.out.println(i);
+        System.out.println(termine.getMonth());
+        try {
+            termine.lastMonth();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        i = termine.getGc().getFirstDayOfWeek();
+        System.out.println(i);
+        System.out.println(termine.getMonth());
+        try {
+            termine.lastMonth();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        i = termine.getGc().getFirstDayOfWeek();
+        System.out.println(i);
+        System.out.println(termine.getMonth());
+
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

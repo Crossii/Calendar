@@ -96,7 +96,26 @@ public class KalenderListener implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
-	}
+			if(source == kalPanel.getNextMonth_BTN()) {
+				try {
+					schedules.nextMonth();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "You are already in the last Month of the year");
+				}
+				int p = 0;
+				int u = schedules.getDayPerMonth()/7;
+				if(u%7 != 0) u++;
+				for(int i = 0; i < u; i++) {
+					for(int o = 0; o < 7; o++) {
+						p++;
+						if((schedules.getDayPerMonth() >= p))
+							kalPanel.getKalender_T().setValueAt(""+p, i, o);
+						else
+							kalPanel.getKalender_T().setValueAt("", i, o);
+					}
+				}
+			}
+		}
 
 	public User getUser() {
 		return user;

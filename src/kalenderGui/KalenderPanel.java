@@ -24,6 +24,10 @@ public class KalenderPanel extends JPanel {
 	private final JButton update_BTN;
 	private final JButton delete_BTN;
 
+	private final JButton nextMonth_BTN;
+	private final JButton currentMonth_BTN;
+	private final JButton lastMonth_BTN;
+
 	// textfields
 	private final JTextField von_TF;
 	private final JTextField bis_TF;
@@ -61,7 +65,7 @@ public class KalenderPanel extends JPanel {
 		//*******************************************************
 
 		JPanel button_PNL = new JPanel();
-		kalender_T = new JTable(simpleListener.getSchedules().getTable(), simpleListener.getSchedules().getTableHead());
+		kalender_T = new JTable(simpleListener.getSchedules().getTable(), simpleListener.getSchedules().getTableHead());  //header in die JScrollPane
 		kalender_T.setCellSelectionEnabled(true);
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);
@@ -87,7 +91,7 @@ public class KalenderPanel extends JPanel {
 		// panel in the center
 		textfieldPanel_PNL = new JPanel();
 		textfieldPanel_PNL.setBorder(raisedetched);
-		textfieldPanel_PNL.setLayout(new GridLayout(6, 1));
+		textfieldPanel_PNL.setLayout(new GridLayout(7, 1));
 		textfieldPanel_PNL.setPreferredSize(new Dimension(300,1));
 
 		// create textfields
@@ -103,6 +107,15 @@ public class KalenderPanel extends JPanel {
 		beschreibung_TF.setFont(new Font("Arial", Font.BOLD, 11));
 		beschreibung_TF.setEnabled(false);
 
+		lastMonth_BTN = new JButton("Last Month");
+		nextMonth_BTN = new JButton("Next Month");
+		currentMonth_BTN = new JButton("Current month");
+		JPanel buttonLine_PNL = new JPanel();
+		buttonLine_PNL.add(lastMonth_BTN);
+		buttonLine_PNL.add(currentMonth_BTN);
+		buttonLine_PNL.add(nextMonth_BTN);
+		
+		textfieldPanel_PNL.add(buttonLine_PNL);
 		// add textfields to the panel
 		textfieldPanel_PNL.add(new JLabel("Beginning:"));
 		textfieldPanel_PNL.add(von_TF);
@@ -128,6 +141,8 @@ public class KalenderPanel extends JPanel {
 		// textfieldPanel_PNL.setBackground(new Color(new Random().nextInt(256),
 		// new Random().nextInt(256), new Random().nextInt(256)));
 
+
+
 		// to the north
 		JLabel headline_LBL = new JLabel("Person detail information");
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
@@ -150,6 +165,9 @@ public class KalenderPanel extends JPanel {
 	private void addActionListeners() throws ListenerSetException {
 		create_BTN.addActionListener(simpleListener);
 		update_BTN.addActionListener(simpleListener);
+		lastMonth_BTN.addActionListener(simpleListener);
+		currentMonth_BTN.addActionListener(simpleListener);
+		nextMonth_BTN.addActionListener(simpleListener);
 		bis_TF.addMouseListener(new HighLightMouseListener(
 				Color.yellow, true));
 		bis_TF.addKeyListener(
@@ -199,4 +217,23 @@ public class KalenderPanel extends JPanel {
 		return simpleFrame;
 	}
 
+	public JButton getNextMonth_BTN() {
+		return nextMonth_BTN;
+	}
+
+	public JButton getDelete_BTN() {
+		return delete_BTN;
+	}
+
+	public JButton getCurrentMonth_BTN() {
+		return currentMonth_BTN;
+	}
+
+	public JButton getLastMonth_BTN() {
+		return lastMonth_BTN;
+	}
+
+	public JEditorPane getBeschreibung_TF() {
+		return beschreibung_TF;
+	}
 }
