@@ -119,7 +119,9 @@ class LogInPanel extends JPanel {
 		close_BTN.addActionListener(simpleListener);
 		close_BTN.addMouseListener(highlightMouseListener);
 		password_JPF.addActionListener(simpleListener);
+		password_JPF.addKeyListener(simpleListener);
 		mail_TF.addActionListener(simpleListener);
+
 	}
 
 	/**

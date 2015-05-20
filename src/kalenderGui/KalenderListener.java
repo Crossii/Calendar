@@ -59,62 +59,45 @@ public class KalenderListener implements ActionListener {
 		// gets the source of the component
 		Object source = e.getSource();
 
-		if(source == kalFrame.getRegister()) {
-			kalFrame.dispose();
-			try {
-				RegisterFrame rf = new RegisterFrame(fileAndPath);
-				MainFrame mf = new MainFrame(fileAndPath, schedules.getFileAndPath());
-			} catch (UnsupportedLookAndFeelException e1) {
-				e1.printStackTrace();
-			} catch (ListenerSetException e1) {
-				e1.printStackTrace();
-			}
-		}
-		if(source == kalFrame.getLogIn()) {
-			kalFrame.dispose();
-			try {
-				MainFrame mf = new MainFrame(fileAndPath, schedules.getFileAndPath());
-				LogInFrame rf = new LogInFrame(fileAndPath, schedules.getFileAndPath(), mf.getMain());
-			} catch (UnsupportedLookAndFeelException e1) {
-				e1.printStackTrace();
-			} catch (ListenerSetException e1) {
-				e1.printStackTrace();
-			}
 
-		}
-		if(source == kalFrame.getExitItem()) {
-			kalFrame.dispose();
-		}
-
-		if(source == kalFrame.getLogOut()) {
-			kalFrame.dispose();
+		if(source == kalPanel.getNextMonth_BTN()) {
 			try {
-				MainFrame mf = new MainFrame(fileAndPath, schedules.getFileAndPath());
-			} catch (UnsupportedLookAndFeelException e1) {
-				e1.printStackTrace();
-			} catch (ListenerSetException e1) {
-				e1.printStackTrace();
+				schedules.nextMonth();
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "You are already in the last Month of the year");
 			}
-		}
-			if(source == kalPanel.getNextMonth_BTN()) {
-				try {
-					schedules.nextMonth();
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "You are already in the last Month of the year");
-				}
-				int p = 0;
-				int u = schedules.getDayPerMonth()/7;
-				if(u%7 != 0) u++;
-				for(int i = 0; i < u; i++) {
-					for(int o = 0; o < 7; o++) {
-						p++;
-						if((schedules.getDayPerMonth() >= p))
-							kalPanel.getKalender_T().setValueAt(""+p, i, o);
-						else
-							kalPanel.getKalender_T().setValueAt("", i, o);
-					}
+			int p = 0;
+			int u = schedules.getDayPerMonth()/7;
+			if(u%7 != 0) u++;
+			for(int i = 0; i < u; i++) {
+				for(int o = 0; o < 7; o++) {
+					p++;
+					if((schedules.getDayPerMonth() >= p))
+						kalPanel.getKalender_T().setValueAt(""+p, i, o);
+					else
+						kalPanel.getKalender_T().setValueAt("", i, o);
 				}
 			}
+		}
+		if(source == kalPanel.getLastMonth_BTN()) {
+			try {
+				schedules.lastMonth();
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "You are already in the first Month of the year");
+			}
+			int p = 0;
+			int u = schedules.getDayPerMonth()/7;
+			if(u%7 != 0) u++;
+			for(int i = 0; i < u; i++) {
+				for(int o = 0; o < 7; o++) {
+					p++;
+					if((schedules.getDayPerMonth() >= p))
+						kalPanel.getKalender_T().setValueAt(""+p, i, o);
+					else
+						kalPanel.getKalender_T().setValueAt("", i, o);
+				}
+			}
+		}
 		}
 
 	public User getUser() {
