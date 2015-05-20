@@ -59,6 +59,8 @@ public class KalenderListener implements ActionListener {
 		// gets the source of the component
 		Object source = e.getSource();
 
+		int p = 0;
+		int u = schedules.getDayPerMonth()/7;
 
 		if(source == kalPanel.getNextMonth_BTN()) {
 			try {
@@ -66,8 +68,6 @@ public class KalenderListener implements ActionListener {
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, "You are already in the last Month of the year");
 			}
-			int p = 0;
-			int u = schedules.getDayPerMonth()/7;
 			if(u%7 != 0) u++;
 			for(int i = 0; i < u; i++) {
 				for(int o = 0; o < 7; o++) {
@@ -86,8 +86,6 @@ public class KalenderListener implements ActionListener {
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, "You are already in the first Month of the year");
 			}
-			int p = 0;
-			int u = schedules.getDayPerMonth()/7;
 			if(u%7 != 0) u++;
 			for(int i = 0; i < u; i++) {
 				for(int o = 0; o < 7; o++) {
@@ -100,7 +98,25 @@ public class KalenderListener implements ActionListener {
 			}
 			kalPanel.getMonth_LBL().setText(""+schedules.getCurrentMonth());
 		}
+		if(source == kalPanel.getCurrentMonth_BTN()) {
+			try {
+				schedules.setToCurrentMonth();
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "You are already in the current month");
+			}
+			if(u%7 != 0) u++;
+			for(int i = 0; i < u; i++) {
+				for(int o = 0; o < 7; o++) {
+					p++;
+					if((schedules.getDayPerMonth() >= p))
+						kalPanel.getKalender_T().setValueAt(""+p, i, o);
+					else
+						kalPanel.getKalender_T().setValueAt("", i, o);
+				}
+			}
+			kalPanel.getMonth_LBL().setText(""+schedules.getCurrentMonth());
 		}
+	}
 
 	public User getUser() {
 		return user;

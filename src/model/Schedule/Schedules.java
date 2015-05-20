@@ -141,6 +141,11 @@ public class Schedules {
         if(getMonth() <= 0) throw new Exception("You are already in the first month");
         setGregorianCalendar(getYear(), (getMonth()-1), getDay());
     }
+    public void setToCurrentMonth() throws Exception {
+        GregorianCalendar cal = new GregorianCalendar();
+        if(getMonth() == cal.get(GregorianCalendar.MONTH)) throw new Exception("You are already in the current month");
+        setGregorianCalendar(cal.get(GregorianCalendar.YEAR), cal.get(GregorianCalendar.MONTH), cal.get(GregorianCalendar.DATE));
+    }
     public int getDayPerMonth() {
         int i = gc.getActualMaximum(gc.DAY_OF_MONTH);
         return i;
@@ -187,6 +192,14 @@ public class Schedules {
         }
         return null;
     }
+    public int getCurrentColumnDay() {
+        int i = (getDay()-1)%7;
+        return i;
+    }
+    public int getCurrentRowDay() {
+        int i = (getDay()-1)/7;
+        return i;
+    }
 
     public static void main(String[] args){
         if(args.length == 0) {
@@ -218,28 +231,8 @@ public class Schedules {
         System.out.println(termine.getMonth());
         System.out.println(termine.getDayPerMonth()); */
 
-        int i = termine.getGc().getFirstDayOfWeek();
-        System.out.println(i);
-        System.out.println(termine.getMonth());
-        System.out.println(termine.getCurrentMonth());
-        try {
-            termine.lastMonth();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        i = termine.getGc().getFirstDayOfWeek();
-        System.out.println(i);
-        System.out.println(termine.getMonth());
-        System.out.println(termine.getCurrentMonth());
-        try {
-            termine.lastMonth();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        i = termine.getGc().getFirstDayOfWeek();
-        System.out.println(i);
-        System.out.println(termine.getMonth());
-        System.out.println(termine.getCurrentMonth());
+        System.out.println("Row: "+termine.getCurrentRowDay());
+        System.out.println("Column: " + termine.getCurrentColumnDay());
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

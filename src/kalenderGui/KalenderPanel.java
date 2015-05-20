@@ -74,6 +74,14 @@ public class KalenderPanel extends JPanel {
 		kalender_T.setBorder(raisedetched);
 		kalender_T.setRowHeight(72);
 
+		//focuses the current day
+		int column = simpleListener.getSchedules().getCurrentColumnDay();
+		int row = simpleListener.getSchedules().getCurrentRowDay();
+		System.out.println("Row: " + row);
+		System.out.println("Column: " + column);
+		kalender_T.setColumnSelectionInterval(column, column);
+		kalender_T.setRowSelectionInterval(row, row);
+
 
 		create_BTN = new JButton("Create");
 		// set the font
@@ -151,7 +159,7 @@ public class KalenderPanel extends JPanel {
 		month_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		month_LBL.setHorizontalAlignment(JLabel.CENTER);
 		//headline_PNL.setLayout(new GridLayout(1, 2));
-		JLabel headline_LBL = new JLabel("Person detail information in ");
+		JLabel headline_LBL = new JLabel("Person detail information in");
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		headline_LBL.setHorizontalAlignment(JLabel.CENTER);
 		headline_PNL.add(headline_LBL);
