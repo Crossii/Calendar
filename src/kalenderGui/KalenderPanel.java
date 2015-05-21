@@ -116,9 +116,13 @@ public class KalenderPanel extends JPanel {
 		beschreibung_TF.setEnabled(false);
 
 		lastMonth_BTN = new JButton("Last Month");
+		lastMonth_BTN.setMargin(new Insets(0, 0, 0, 0));
 		nextMonth_BTN = new JButton("Next Month");
+		nextMonth_BTN.setMargin(new Insets(0, 0, 0, 0));
 		currentMonth_BTN = new JButton("Current month");
+		currentMonth_BTN.setMargin(new Insets(0, 0, 0, 0));
 		JPanel buttonLine_PNL = new JPanel();
+		buttonLine_PNL.setLayout(new GridLayout(1, 3));
 		buttonLine_PNL.add(lastMonth_BTN);
 		buttonLine_PNL.add(currentMonth_BTN);
 		buttonLine_PNL.add(nextMonth_BTN);

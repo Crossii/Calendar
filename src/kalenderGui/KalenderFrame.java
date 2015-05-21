@@ -135,10 +135,10 @@ public class KalenderFrame extends JFrame {
 	 */
 	private void addActionListeners(KalenderPanel m, User user, String fileAndPath){
 		// actionlistener exit application
-		exitItem.addActionListener(new KalenderListener(this, user, fileAndPath));
-		changeUser.addActionListener(new KalenderListener(this, user, fileAndPath));
-		logOut.addActionListener(new KalenderListener(this, user, fileAndPath));
-		register.addActionListener(new KalenderListener(this, user, fileAndPath));
+		exitItem.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
+		changeUser.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
+		logOut.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
+		register.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
 	}
 	
 	/**
