@@ -135,11 +135,11 @@ public class Schedules {
 
     public void nextMonth() throws Exception {
         if(getMonth() >= 11) throw new Exception("You are already in the last month");
-        setGregorianCalendar(getYear(), (getMonth()+1), getDay());
+        setGregorianCalendar(getYear(), (getMonth()+1), 10);
     }
     public void lastMonth() throws Exception {
         if(getMonth() <= 0) throw new Exception("You are already in the first month");
-        setGregorianCalendar(getYear(), (getMonth()-1), getDay());
+        setGregorianCalendar(getYear(), (getMonth()-1), 10);
     }
     public void setToCurrentMonth() throws Exception {
         GregorianCalendar cal = new GregorianCalendar();
@@ -150,17 +150,24 @@ public class Schedules {
         int i = gc.getActualMaximum(gc.DAY_OF_MONTH);
         return i;
     }
+
+    /**
+     * returns the whole month in a 2 dimensional array so it fits in the calendar
+     * @return
+     */
     public String[][] getTable(){
         int dayLines = getDayPerMonth()/7;
         int day = 0;
+        int monthStart = 7-((getDay()-getActualDayOfWeek())%7);
         if(getDayPerMonth()%7 != 0)
-            dayLines++;
+            dayLines+=2;
         String[][] s = new String[dayLines][7];
         for(int o = 0; dayLines > o; o++) {
-            for(int p = 0; 7 > p && day < getDayPerMonth(); p++) {
-                s[o][p] = ""+(day+1);
+            for(; 7 > monthStart && day < getDayPerMonth(); monthStart++) {
+                s[o][monthStart] = ""+(day+1);
                 day++;
             }
+            monthStart = 0;
         }
         return s;
     }
@@ -177,18 +184,18 @@ public class Schedules {
     }
     public String getCurrentMonth() {
         switch(this.getMonth()) {
-            case 0: return "Jaenner";
-            case 1: return "Februar";
-            case 2: return "Maerz";
+            case 0: return "January";
+            case 1: return "February";
+            case 2: return "March";
             case 3: return "April";
-            case 4: return "Mai";
-            case 5: return "Juni";
-            case 6: return "Juli";
+            case 4: return "May";
+            case 5: return "June";
+            case 6: return "July";
             case 7: return "August";
             case 8: return "September";
-            case 9: return "Oktober";
+            case 9: return "October";
             case 10: return "November";
-            case 11: return "Dezember";
+            case 11: return "December";
         }
         return null;
     }
@@ -198,6 +205,14 @@ public class Schedules {
     }
     public int getCurrentRowDay() {
         int i = (getDay()-1)/7;
+        return i;
+    }
+    public int getActualDayOfWeek() {
+        int i = gc.get(GregorianCalendar.DAY_OF_WEEK)-1;
+
+        if(i == 0)
+            i=7;
+
         return i;
     }
 
@@ -233,6 +248,21 @@ public class Schedules {
 
         System.out.println("Row: "+termine.getCurrentRowDay());
         System.out.println("Column: " + termine.getCurrentColumnDay());
+        System.out.println("Actual day: "+termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 31);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 30);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 29);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 28);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 27);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 26);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        termine.setGregorianCalendar(2015, 4, 25);
+        System.out.println("Actual day: " + termine.getActualDayOfWeek());
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

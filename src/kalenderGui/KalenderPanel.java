@@ -10,6 +10,7 @@ import javax.swing.table.JTableHeader;
 import model.User.User;
 
 import java.awt.*;
+import java.util.GregorianCalendar;
 
 import common.*;
 /**
@@ -31,7 +32,7 @@ public class KalenderPanel extends JPanel {
 	// textfields
 	private final JTextField von_TF;
 	private final JTextField bis_TF;
-	private final JEditorPane beschreibung_TF;
+	private final JLabel beschreibung_TF;
 	private final JTable kalender_T;
 
 	private final Border raisedetched;
@@ -72,7 +73,10 @@ public class KalenderPanel extends JPanel {
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);
 		kalender_T.setBorder(raisedetched);
-		kalender_T.setRowHeight(72);
+		kalender_T.setRowHeight(60);
+
+
+		//kalender_T.getColumnModel().getColumn(columnIndex).setCellRenderer(
 
 		//focuses the current day
 		int column = simpleListener.getSchedules().getCurrentColumnDay();
@@ -111,7 +115,7 @@ public class KalenderPanel extends JPanel {
 		bis_TF.setFont(new Font("Arial", Font.BOLD, 30));
 		bis_TF.setHorizontalAlignment(JLabel.CENTER);
 		bis_TF.setEnabled(false);
-		beschreibung_TF = new JTextPane();
+		beschreibung_TF = new JLabel("Day of week: "+simpleListener.getSchedules().getActualDayOfWeek());
 		beschreibung_TF.setFont(new Font("Arial", Font.BOLD, 11));
 		beschreibung_TF.setEnabled(false);
 
@@ -252,7 +256,7 @@ public class KalenderPanel extends JPanel {
 		return lastMonth_BTN;
 	}
 
-	public JEditorPane getBeschreibung_TF() {
+	public JLabel getBeschreibung_TF() {
 		return beschreibung_TF;
 	}
 

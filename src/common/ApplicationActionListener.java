@@ -130,6 +130,7 @@ public class ApplicationActionListener implements ActionListener {
 			if (source == parentCalendarFrame.getRegister()) {
 				System.out.println("Register button wurde gedrückt!");
 				try {
+					MainFrame main = new MainFrame(users.getFileAndPath(), fileAndPathSchedules);
 					RegisterFrame register = new RegisterFrame(users.getFileAndPath());
 				} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
@@ -141,7 +142,8 @@ public class ApplicationActionListener implements ActionListener {
 			if (source == parentCalendarFrame.getLogIn()) {
 				System.out.println("LogIn button wurde gedrückt!");
 				try {
-					LogInFrame logIn = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, parentPanel);
+					MainFrame main = new MainFrame(users.getFileAndPath(), fileAndPathSchedules);
+					LogInFrame logIn = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, main.getMain());
 				} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
 				} catch (ListenerSetException e1) {
@@ -158,6 +160,13 @@ public class ApplicationActionListener implements ActionListener {
 				if (exit == JOptionPane.OK_OPTION) {
 					users.logOut();
 					parentCalendarFrame.dispose();
+				}
+				try {
+					MainFrame main = new MainFrame(users.getFileAndPath(), fileAndPathSchedules);
+				} catch (UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				} catch (ListenerSetException e1) {
+					e1.printStackTrace();
 				}
 			}
 		}

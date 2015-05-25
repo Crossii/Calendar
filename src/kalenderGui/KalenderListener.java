@@ -12,6 +12,7 @@ import register.RegisterFrame;
 import logIn.LogInFrame;
 import mainGui.MainFrame;
 import model.User.User;
+import model.Schedule.*;
 
 /**
  *
@@ -105,18 +106,17 @@ public class KalenderListener implements ActionListener {
 	}
 
 	public void refreshTable() {
-		int p = 0;
-		int u = schedules.getDayPerMonth()/7;
+		int rowInTable = 0;
+		int columnInTable = 0;
 
-		if(u%7 != 0) u++;
-		for(int i = 0; i < u; i++) {
-			for(int o = 0; o < 7; o++) {
-				p++;
-				if((schedules.getDayPerMonth() >= p))
-					kalPanel.getKalender_T().setValueAt(""+p, i, o);
-				else
-					kalPanel.getKalender_T().setValueAt("", i, o);
+		String[][] table = schedules.getTable();
+		for(String[] row:table){
+			for(String cell:row) {
+				kalPanel.getKalender_T().setValueAt(cell, rowInTable, columnInTable);
+				columnInTable++;
 			}
+			columnInTable = 0;
+			rowInTable++;
 		}
 	}
 
@@ -125,5 +125,7 @@ public class KalenderListener implements ActionListener {
 		int row = getSchedules().getCurrentRowDay();
 		kalPanel.getKalender_T().setColumnSelectionInterval(column, column);
 		kalPanel.getKalender_T().setRowSelectionInterval(row, row);
+		CostumRenderer cr = new CostumRenderer();
+		cr.getTableCellRendererComponent(kalPanel.getKalender_T(), "Hallo", false, false, row, column);
 	}
 }
