@@ -64,13 +64,13 @@ public class KalenderPanel extends JPanel {
 
 		JPanel button_PNL = new JPanel();
 		kalender_T = new JTable(simpleListener.getSchedules().getTable(), simpleListener.getSchedules().getTableHead());  //header in die JScrollPane
+//		kalender_T.setEnabled(false);
 		kalender_T.setCellSelectionEnabled(true);
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);
 		kalender_T.setBorder(raisedetched);
 		kalender_T.setRowHeight(60);
 		kalender_T.setDefaultRenderer(Object.class, new CostumRenderer(simpleListener.getSchedules().getCurrentRowDay(), simpleListener.getSchedules().getCurrentColumnDay(), true));
-		kalender_T.setEnabled(false);
 
 
 		//kalender_T.getColumnModel().getColumn(columnIndex).setCellRenderer(
@@ -158,7 +158,7 @@ public class KalenderPanel extends JPanel {
 
 
 		// to the north
-		month_LBL = new JLabel(""+simpleListener.getSchedules().getCurrentMonth());
+		month_LBL = new JLabel(simpleListener.getSchedules().getCurrentMonth()+", "+simpleListener.getSchedules().getYear());
 		JPanel headline_PNL = new JPanel();
 		month_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		month_LBL.setHorizontalAlignment(JLabel.CENTER);

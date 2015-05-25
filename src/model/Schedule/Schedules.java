@@ -134,11 +134,11 @@ public class Schedules {
     }
 
     public void nextMonth() throws Exception {
-        if(getMonth() >= 11) throw new Exception("You are already in the last month");
+        if(getMonth() >= 11) setGregorianCalendar(getYear()+1, -1, getDay());
         setGregorianCalendar(getYear(), (getMonth()+1), getDay());
     }
     public void lastMonth() throws Exception {
-        if(getMonth() <= 0) throw new Exception("You are already in the first month");
+        if(getMonth() <= 0) setGregorianCalendar(getYear()-1, 12, getDay());
         setGregorianCalendar(getYear(), (getMonth()-1), getDay());
     }
     public void setToCurrentMonth() throws Exception {

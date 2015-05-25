@@ -65,7 +65,7 @@ public class KalenderListener implements ActionListener {
 				JOptionPane.showMessageDialog(null, "You are already in the last Month of the year");
 			}
 			refreshTable();
-			kalPanel.getMonth_LBL().setText("" + schedules.getCurrentMonth());
+			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth() + ", " + schedules.getYear());
 			kalPanel.getKalender_T().clearSelection();
 		}
 		if(source == kalPanel.getLastMonth_BTN()) {
@@ -75,7 +75,7 @@ public class KalenderListener implements ActionListener {
 				JOptionPane.showMessageDialog(null, "You are already in the first Month of the year");
 			}
 			refreshTable();
-			kalPanel.getMonth_LBL().setText(""+schedules.getCurrentMonth());
+			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth() + ", " + schedules.getYear());
 			kalPanel.getKalender_T().clearSelection();
 		}
 		if(source == kalPanel.getCurrentMonth_BTN()) {
@@ -85,10 +85,10 @@ public class KalenderListener implements ActionListener {
 				JOptionPane.showMessageDialog(null, "You are already in the current month");
 			}
 			refreshTable();
-			kalPanel.getMonth_LBL().setText("" + schedules.getCurrentMonth());
+			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth() + ", " + schedules.getYear());
 		}
 		GregorianCalendar gc = new GregorianCalendar();
-		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH)) {
+		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH) && schedules.getYear() == gc.get(GregorianCalendar.YEAR)) {
 			selectCurrentDay();
 		} else {
 			deselectCurrentDay();

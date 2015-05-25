@@ -63,7 +63,7 @@ public class MainPanel extends JPanel {
 		textfieldPanel_PNL.setLayout(new GridLayout(2, 3));
 		// create 
 		
-		JLabel text = new JLabel("Bitte melden sie sich an oder registrieren sie sich.");
+		JLabel text = new JLabel("<html>Bitte melden sie sich an <br>oder registrieren sie sich.</html>");
 		text.setFont(new Font("Arial", Font.BOLD, 20));
 		// add textfields to the panel
 		textfieldPanel_PNL.add(new JLabel());

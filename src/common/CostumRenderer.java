@@ -26,7 +26,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         if((this.row == row && this.column == column) && color) {
-            c.setBackground(new Color(255, 139, 32));
+            c.setBackground(new Color(252, 131, 1));
             c.setForeground(new Color(47, 39, 255));
         }
         else

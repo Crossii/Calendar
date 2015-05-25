@@ -50,7 +50,7 @@ public class LogInFrame extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
-		setSize((int)(width*0.50), (int)(height*0.50)); 
+		setSize((int)(width*0.40), (int)(height*0.25));
 		//setPreferredSize(new Dimension(800,200));
 
 		// panel for gui components
