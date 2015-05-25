@@ -102,7 +102,7 @@ public class KalenderFrame extends JFrame {
 
 	}
 	
-	/**
+	/**+
 	 * @return the logOut
 	 */
 	public JMenuItem getLogOut() {

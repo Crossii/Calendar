@@ -135,11 +135,11 @@ public class Schedules {
 
     public void nextMonth() throws Exception {
         if(getMonth() >= 11) throw new Exception("You are already in the last month");
-        setGregorianCalendar(getYear(), (getMonth()+1), 10);
+        setGregorianCalendar(getYear(), (getMonth()+1), getDay());
     }
     public void lastMonth() throws Exception {
         if(getMonth() <= 0) throw new Exception("You are already in the first month");
-        setGregorianCalendar(getYear(), (getMonth()-1), 10);
+        setGregorianCalendar(getYear(), (getMonth()-1), getDay());
     }
     public void setToCurrentMonth() throws Exception {
         GregorianCalendar cal = new GregorianCalendar();
@@ -147,8 +147,7 @@ public class Schedules {
         setGregorianCalendar(cal.get(GregorianCalendar.YEAR), cal.get(GregorianCalendar.MONTH), cal.get(GregorianCalendar.DATE));
     }
     public int getDayPerMonth() {
-        int i = gc.getActualMaximum(gc.DAY_OF_MONTH);
-        return i;
+        return gc.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
     }
 
     /**
@@ -156,11 +155,9 @@ public class Schedules {
      * @return
      */
     public String[][] getTable(){
-        int dayLines = getDayPerMonth()/7;
+        int dayLines = 6;
         int day = 0;
         int monthStart = 7-((getDay()-getActualDayOfWeek())%7);
-        if(getDayPerMonth()%7 != 0)
-            dayLines+=2;
         String[][] s = new String[dayLines][7];
         for(int o = 0; dayLines > o; o++) {
             for(; 7 > monthStart && day < getDayPerMonth(); monthStart++) {
@@ -200,12 +197,11 @@ public class Schedules {
         return null;
     }
     public int getCurrentColumnDay() {
-        int i = (getDay()-1)%7;
-        return i;
+        return getActualDayOfWeek()-1;
     }
     public int getCurrentRowDay() {
-        int i = (getDay()-1)/7;
-        return i;
+        int i = (getDay())/7;
+        return i+1;
     }
     public int getActualDayOfWeek() {
         int i = gc.get(GregorianCalendar.DAY_OF_WEEK)-1;
@@ -247,7 +243,6 @@ public class Schedules {
         System.out.println(termine.getDayPerMonth()); */
 
         System.out.println("Row: "+termine.getCurrentRowDay());
-        System.out.println("Column: " + termine.getCurrentColumnDay());
         System.out.println("Actual day: "+termine.getActualDayOfWeek());
         termine.setGregorianCalendar(2015, 4, 31);
         System.out.println("Actual day: " + termine.getActualDayOfWeek());
@@ -263,6 +258,7 @@ public class Schedules {
         System.out.println("Actual day: " + termine.getActualDayOfWeek());
         termine.setGregorianCalendar(2015, 4, 25);
         System.out.println("Actual day: " + termine.getActualDayOfWeek());
+        System.out.println("Get current day: "+ termine.getDay());
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

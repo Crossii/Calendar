@@ -6,13 +6,9 @@ import java.util.GregorianCalendar;
 
 import javax.swing.*;
 
-import common.ListenerSetException;
+import common.CostumRenderer;
 import model.Schedule.Schedules;
-import register.RegisterFrame;
-import logIn.LogInFrame;
-import mainGui.MainFrame;
 import model.User.User;
-import model.Schedule.*;
 
 /**
  *
@@ -94,6 +90,8 @@ public class KalenderListener implements ActionListener {
 		GregorianCalendar gc = new GregorianCalendar();
 		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH)) {
 			selectCurrentDay();
+		} else {
+			deselectCurrentDay();
 		}
 	}
 
@@ -121,11 +119,11 @@ public class KalenderListener implements ActionListener {
 	}
 
 	public void selectCurrentDay() {
-		int column = getSchedules().getCurrentColumnDay();
-		int row = getSchedules().getCurrentRowDay();
-		kalPanel.getKalender_T().setColumnSelectionInterval(column, column);
-		kalPanel.getKalender_T().setRowSelectionInterval(row, row);
-		CostumRenderer cr = new CostumRenderer();
-		cr.getTableCellRendererComponent(kalPanel.getKalender_T(), "Hallo", false, false, row, column);
+		CostumRenderer cr = new CostumRenderer(schedules.getCurrentRowDay(), schedules.getCurrentColumnDay(), true);
+		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
+	}
+	public void deselectCurrentDay(){
+		CostumRenderer cr = new CostumRenderer(schedules.getCurrentRowDay(), schedules.getCurrentColumnDay(), false);
+		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
 	}
 }

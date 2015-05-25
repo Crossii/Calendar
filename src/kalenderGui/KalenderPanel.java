@@ -5,12 +5,10 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.JTableHeader;
 
 import model.User.User;
 
 import java.awt.*;
-import java.util.GregorianCalendar;
 
 import common.*;
 /**
@@ -32,7 +30,7 @@ public class KalenderPanel extends JPanel {
 	// textfields
 	private final JTextField von_TF;
 	private final JTextField bis_TF;
-	private final JLabel beschreibung_TF;
+	private final JTextField beschreibung_LBL;
 	private final JTable kalender_T;
 
 	private final Border raisedetched;
@@ -41,7 +39,6 @@ public class KalenderPanel extends JPanel {
 
 	// reference to the listener
 	private final KalenderListener simpleListener;
-	private final HighLightMouseListener highlightMouseListener;
 
 	// reference to the frame
 	private final KalenderFrame simpleFrame;
@@ -59,8 +56,6 @@ public class KalenderPanel extends JPanel {
 
 		// create listener object + reference to the panel as parameter
 		simpleListener = new KalenderListener(this,user, fileAndPathSchedules);
-		highlightMouseListener =
-				new HighLightMouseListener(Color.RED, false);
 
 		//*******************************************************
 
@@ -74,6 +69,8 @@ public class KalenderPanel extends JPanel {
 		kalender_T.setBackground(Color.WHITE);
 		kalender_T.setBorder(raisedetched);
 		kalender_T.setRowHeight(60);
+		kalender_T.setDefaultRenderer(Object.class, new CostumRenderer(simpleListener.getSchedules().getCurrentRowDay(), simpleListener.getSchedules().getCurrentColumnDay(), true));
+		kalender_T.setEnabled(false);
 
 
 		//kalender_T.getColumnModel().getColumn(columnIndex).setCellRenderer(
@@ -115,9 +112,10 @@ public class KalenderPanel extends JPanel {
 		bis_TF.setFont(new Font("Arial", Font.BOLD, 30));
 		bis_TF.setHorizontalAlignment(JLabel.CENTER);
 		bis_TF.setEnabled(false);
-		beschreibung_TF = new JLabel("Day of week: "+simpleListener.getSchedules().getActualDayOfWeek());
-		beschreibung_TF.setFont(new Font("Arial", Font.BOLD, 11));
-		beschreibung_TF.setEnabled(false);
+		beschreibung_LBL = new JTextField("Day of week: "+simpleListener.getSchedules().getActualDayOfWeek());
+		beschreibung_LBL.setFont(new Font("Arial", Font.BOLD, 12));
+		beschreibung_LBL.setHorizontalAlignment(JLabel.CENTER);
+		beschreibung_LBL.setEnabled(false);
 
 		lastMonth_BTN = new JButton("Last Month");
 		lastMonth_BTN.setMargin(new Insets(0, 0, 0, 0));
@@ -139,7 +137,7 @@ public class KalenderPanel extends JPanel {
 		textfieldPanel_PNL.add(new JLabel("Ending:"));
 		textfieldPanel_PNL.add(bis_TF);
 		textfieldPanel_PNL.add(new JLabel("Description:"));
-		textfieldPanel_PNL.add(beschreibung_TF);
+		textfieldPanel_PNL.add(beschreibung_LBL);
 
 		JPanel crud_PNL = new JPanel();
 		crud_PNL.setBorder(raisedetched);
@@ -256,8 +254,8 @@ public class KalenderPanel extends JPanel {
 		return lastMonth_BTN;
 	}
 
-	public JLabel getBeschreibung_TF() {
-		return beschreibung_TF;
+	public JTextField getBeschreibung_LBL() {
+		return beschreibung_LBL;
 	}
 
 	public JLabel getMonth_LBL() {
