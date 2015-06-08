@@ -21,20 +21,12 @@ public class CreateFrameTest {
 			System.out.println("  LAF Class name: "
 					+ laf[i].getClassName());
 		}
-		
-		if(args.length==0) {
-			JOptionPane.showMessageDialog(null, "There is no file");
-			System.exit(1);
-		}
-
-		final String  fileAndPath = args[0];
-        System.out.println(fileAndPath);
 
     	SwingUtilities.invokeLater(new Runnable() {
     	    public void run() {
     	    	 CreateFrame frame = null;
 				try {
-					frame = new CreateFrame(fileAndPath);
+					frame = new CreateFrame();
 				} catch (UnsupportedLookAndFeelException e) {					e.printStackTrace();
 				} catch (ListenerSetException e) {
 					e.printStackTrace();

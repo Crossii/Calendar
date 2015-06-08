@@ -5,7 +5,6 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.JTableHeader;
 
 import model.User.User;
 
@@ -41,6 +40,7 @@ public class KalenderPanel extends JPanel {
 	private final Border raisedetched;
 
 	private final JLabel month_LBL;
+	private final JLabel year_LBL;
 
 	// reference to the listener
 	private final KalenderListener simpleListener;
@@ -53,14 +53,14 @@ public class KalenderPanel extends JPanel {
 	 *
 	 * @throws ListenerSetException
 	 */
-	public KalenderPanel(KalenderFrame simpleFrame,User user, String fileAndPathSchedules) throws ListenerSetException {
+	public KalenderPanel(KalenderFrame simpleFrame,User user) throws ListenerSetException {
 		raisedetched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
 
 		// reference to the frame
 		this.simpleFrame = simpleFrame;
 
 		// create listener object + reference to the panel as parameter
-		simpleListener = new KalenderListener(this,user, fileAndPathSchedules);
+		simpleListener = new KalenderListener(this, user);
 
 		//*******************************************************
 
@@ -139,7 +139,7 @@ public class KalenderPanel extends JPanel {
 		ending_PNL.add(bis_TF);
 		ending_PNL.add(setEnding_BTN);
 
-		beschreibung_LBL = new JEditorPane("Nichts", "aspdkkasdpokasdpooaksdpoakwdpoaksd apsodkapsodkas dpoaksdpoaksd poaskd poaksd poaksd poaksdpoasd "); //"Day of week: "+simpleListener.getSchedules().getActualDayOfWeek()
+		beschreibung_LBL = new JEditorPane("Nichts", "Nothing"); //"Day of week: "+simpleListener.getSchedules().getActualDayOfWeek()
 		beschreibung_LBL.setFont(new Font("Arial", Font.BOLD, 12));
 		beschreibung_LBL.setEnabled(false);
 
@@ -184,16 +184,26 @@ public class KalenderPanel extends JPanel {
 
 
 		// to the north
-		month_LBL = new JLabel(simpleListener.getSchedules().getCurrentMonth()+", "+simpleListener.getSchedules().getYear());
-		JPanel headline_PNL = new JPanel();
+		month_LBL = new JLabel(simpleListener.getSchedules().getCurrentMonth());
 		month_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		month_LBL.setHorizontalAlignment(JLabel.CENTER);
-		//headline_PNL.setLayout(new GridLayout(1, 2));
+		year_LBL = new JLabel(""+simpleListener.getSchedules().getYear());
+		System.out.println(year_LBL.getText());
+		year_LBL.setFont(new Font("Arial", Font.BOLD, 30));
+		year_LBL.setHorizontalAlignment(JLabel.CENTER);
+		JPanel time_PNL = new JPanel();
+		time_PNL.setFont(new Font("Arial", Font.BOLD, 30));
+		time_PNL.add(month_LBL);
+		time_PNL.add(new JLabel(", "));
+		time_PNL.add(year_LBL);
 		JLabel headline_LBL = new JLabel("Person detail information in");
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		headline_LBL.setHorizontalAlignment(JLabel.CENTER);
+
+		JPanel headline_PNL = new JPanel();
+		headline_PNL.setLayout(new FlowLayout());
 		headline_PNL.add(headline_LBL);
-		headline_PNL.add(month_LBL);
+		headline_PNL.add(time_PNL);
 		this.add(headline_PNL, BorderLayout.NORTH);
 		// to the center
 		this.add(textfieldPanel_PNL, BorderLayout.WEST);
@@ -211,7 +221,7 @@ public class KalenderPanel extends JPanel {
 
 	private void addActionListeners() throws ListenerSetException {
 		//kalender_T.addMouseListener(new HighLightMouseListener(Color.RED, false));
-		kalender_T.addMouseListener(new TableMouseListener(kalender_T));
+		kalender_T.addMouseListener(new TableMouseListener(kalender_T, simpleListener));
 		create_BTN.addActionListener(simpleListener);
 		update_BTN.addActionListener(simpleListener);
 		delete_BTN.addActionListener(simpleListener);
@@ -293,5 +303,9 @@ public class KalenderPanel extends JPanel {
 
 	public JButton getSetEnding_BTN() {
 		return setEnding_BTN;
+	}
+
+	public JLabel getYear_LBL() {
+		return year_LBL;
 	}
 }

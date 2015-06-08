@@ -2,6 +2,7 @@ package model.Schedule;
 
 import model.RegistrationException;
 import model.User.User;
+import model.User.Users;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,12 +15,11 @@ import java.util.GregorianCalendar;
  */
 public class Schedules {
     private ArrayList<Schedule> schedules;
-    private String fileAndPath;
+    private String fileAndPath = "./src/model/scheduleData.csv";
     private GregorianCalendar gc;
 
 
-    public Schedules(String fileAndPath) throws Exception {
-        setFileAndPath(fileAndPath);
+    public Schedules() throws Exception {
         schedules = new ArrayList<Schedule>();
         loadSchedules();
         gc = new GregorianCalendar();
@@ -27,10 +27,6 @@ public class Schedules {
 
     public String getFileAndPath() {
         return fileAndPath;
-    }
-    public void setFileAndPath(String fileAndPath) throws Exception {
-        if(fileAndPath == null) throw new Exception("The File and Path is not allowed to be null!");
-        this.fileAndPath = fileAndPath;
     }
     public ArrayList<Schedule> getSchedules() {
         return schedules;
@@ -125,6 +121,12 @@ public class Schedules {
     private void sortMembers() {
         Collections.sort(schedules);
     }
+    public Schedule getScheduleAtDay(int year, int month, int day, User user) throws Exception {
+        if(!schedules.contains(new Schedule(year, month, day, "", user))) {
+            throw new Exception(year + ", " + month + ", " + day +", " + user.toString());
+        }
+        return schedules.get(schedules.indexOf(new Schedule(year, month, day, "", user)));
+    }
 
     public void showSchedules() {
         for(Schedule s : schedules) {
@@ -215,6 +217,23 @@ public class Schedules {
         }
         return null;
     }
+    public int getMonth(String month) {
+        switch(month) {
+            case "January": return 0;
+            case "February": return 1;
+            case "March": return 2;
+            case "April": return 3;
+            case "May": return 4;
+            case "June": return 5;
+            case "July": return 6;
+            case "August": return 7;
+            case "September": return 8;
+            case "October": return 9;
+            case "November": return 10;
+            case "December": return 11;
+        }
+        return -1;
+    }
     public int[] getCurrentDayPosition() {
         String[][] table = getTable();
         int column = 0;
@@ -243,6 +262,15 @@ public class Schedules {
 
         return i;
     }
+    public ArrayList<Schedule> getSchedulesForThisMonth() {
+        ArrayList<Schedule> list = new ArrayList<Schedule>();
+        for(Schedule s : schedules) {
+            if(s.getBeginning().getMonth() == this.getMonth()) {
+                list.add(s);
+            }
+        }
+        return list;
+    }
 
     /**
      * Should return the position of all events in this month so you can mark them in the calendar
@@ -259,7 +287,7 @@ public class Schedules {
 
         Schedules termine = null;
         try {
-            termine = new Schedules(args[0]);
+            termine = new Schedules();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -281,17 +309,26 @@ public class Schedules {
         System.out.println(termine.getMonth());
         System.out.println(termine.getDayPerMonth()); */
 
+
+
+
+
+        Users u = new Users();
+        User user = null;
+
+        for(User n : u.getUsers()) {
+            if(n.getEmail().equals("sal15532@spengergasse.at")) {
+                user = n;
+            }
+        }
+
+        Schedule s = null;
         try {
-            termine.addSchedule(new Schedule(2015, 5, 29, 2015, 6, 23, "Just for testing", new User("sal15532@spengergassse.at")));
+            s = termine.getScheduleAtDay(115, 5, 3, user);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        for (Schedule s : termine.getSchedules()) {
-            s.showAppointments();
-        }
-
+        System.out.println(s.toString());
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

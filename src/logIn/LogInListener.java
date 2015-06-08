@@ -11,6 +11,7 @@ import mainGui.*;
 import javax.swing.*;
 
 import kalenderGui.KalenderFrame;
+import model.Schedule.Schedules;
 import model.User.User;
 import model.User.Users;
 
@@ -25,22 +26,21 @@ public class LogInListener implements ActionListener, KeyListener {
 	private LogInPanel panel;
 	private MainPanel main;
 	private Users user;
-	private String fileAndPathSchedules;
+	private Schedules schedules;
 
 	/**
 	 * 
 	 * @param p
 	 */
-	public LogInListener(LogInPanel p, String fileAndPath, MainPanel m, String fileAndPathSchedules) {
+	public LogInListener(LogInPanel p, MainPanel m) {
 		panel = p;
+		user = new Users();
 		try {
-			user = new Users(fileAndPath);
+			schedules = new Schedules();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		main = m;
-		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class LogInListener implements ActionListener, KeyListener {
 			main.close();
 
 			try {
-				kalenderGui.KalenderFrame mf = new KalenderFrame(user.getUsers().get(user.getUsers().indexOf(attempt)), user.getFileAndPath(), fileAndPathSchedules);
+				kalenderGui.KalenderFrame mf = new KalenderFrame(user.getUsers().get(user.getUsers().indexOf(attempt)));
 			} catch (UnsupportedLookAndFeelException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

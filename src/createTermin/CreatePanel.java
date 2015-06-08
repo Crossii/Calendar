@@ -1,26 +1,12 @@
 package createTermin;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.*;
 
-import common.HighLightMouseListener;
 import common.ListenerSetException;
-import common.RestrictedInsertTextField;
-import common.RestrictedInsertTextField.FieldType;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.util.Random;
-import java.awt.event.MouseListener;
-
-import logIn.LogInListener;
 
 /**
  * VATPanel
@@ -45,7 +31,7 @@ public class CreatePanel extends JPanel {
 	 * 
 	 * @throws ListenerSetException
 	 */
-	public CreatePanel(CreateFrame mainFrame, String fileAndPath) throws ListenerSetException {
+	public CreatePanel(CreateFrame mainFrame) throws ListenerSetException {
 		// reference to the frame
 		
 
@@ -53,7 +39,7 @@ public class CreatePanel extends JPanel {
 		this.mainFrame = mainFrame;
 
 		// create listener object + reference to the panel as parameter
-		mainListener = new CreateListener(this, fileAndPath);
+		mainListener = new CreateListener(this);
 		JPanel button_PNL = new JPanel();
 		JPanel textfieldPanel_PNL;
 		textfieldPanel_PNL = new JPanel();

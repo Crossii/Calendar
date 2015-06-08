@@ -24,10 +24,10 @@ public class RegisterListener implements ActionListener {
 	 * 
 	 * @param p
 	 */
-	public RegisterListener(RegisterPanel p, String fileAndPath) {
+	public RegisterListener(RegisterPanel p) {
 		registerPanel = p;
 		try {
-			user = new Users(fileAndPath);
+			user = new Users();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

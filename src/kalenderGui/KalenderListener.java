@@ -21,19 +21,20 @@ public class KalenderListener implements ActionListener {
 	// Reference to the graphical components
 	private KalenderPanel kalPanel;
 	private KalenderFrame kalFrame;
-	private String fileAndPath;
 	private User user;
 	private Schedules schedules;
+	private int selectedRow;
+	private int selectedColumn;
 
 	/**
 	 *
 	 * @param p
 	 */
-	public KalenderListener(KalenderPanel p, User user, String fileAndPathSchedule) {
+	public KalenderListener(KalenderPanel p, User user) {
 		kalPanel = p;
 		this.user = user;
 		try {
-			schedules = new Schedules(fileAndPathSchedule);
+			schedules = new Schedules();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Could not find a file and path for the schedule");
 		}
@@ -43,10 +44,9 @@ public class KalenderListener implements ActionListener {
 	 *
 	 * @param p
 	 */
-	public KalenderListener(KalenderFrame p, User user, String fileAndPath) {
+	public KalenderListener(KalenderFrame p, User user) {
 		kalFrame = p;
 		this.user = user;
-		this.fileAndPath = fileAndPath;
 	}
 
 	/**
@@ -67,9 +67,10 @@ public class KalenderListener implements ActionListener {
 				JOptionPane.showMessageDialog(null, "You are already in the last Month of the year");
 			}
 			refreshTable();
-			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth() + ", " + schedules.getYear());
+			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth());
+			kalPanel.getYear_LBL().setText(""+schedules.getYear());
 			kalPanel.getKalender_T().clearSelection();
-			selectRow();
+			selectEvents();
 		}
 		if(source == kalPanel.getLastMonth_BTN()) {
 			try {
@@ -78,9 +79,10 @@ public class KalenderListener implements ActionListener {
 				JOptionPane.showMessageDialog(null, "You are already in the first Month of the year");
 			}
 			refreshTable();
-			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth() + ", " + schedules.getYear());
+			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth());
+			kalPanel.getYear_LBL().setText(""+schedules.getYear());
 			kalPanel.getKalender_T().clearSelection();
-			selectRow();
+			selectEvents();
 		}
 		if(source == kalPanel.getCurrentMonth_BTN()) {
 			try {
@@ -89,7 +91,8 @@ public class KalenderListener implements ActionListener {
 				JOptionPane.showMessageDialog(null, "You are already in the current month");
 			}
 			refreshTable();
-			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth() + ", " + schedules.getYear());
+			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth());
+			kalPanel.getYear_LBL().setText(""+schedules.getYear());
 		}
 		GregorianCalendar gc = new GregorianCalendar();
 		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH) && schedules.getYear() == gc.get(GregorianCalendar.YEAR)) {
@@ -98,9 +101,14 @@ public class KalenderListener implements ActionListener {
 
 		//*********************************************************************************** now doing the create, delete and update button
 
-		/*if(kalPanel.getCreate_BTN().getText() == "Save" && kalPanel.getSetBeginning_BTN().isEnabled()
-				&& source == kalPanel.getSetBeginning_BTN()) */
-
+		if(kalPanel.getCreate_BTN().getText() == "Save" && kalPanel.getSetBeginning_BTN().isEnabled()
+				&& source == kalPanel.getSetBeginning_BTN() && !kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString().isEmpty()) {
+			kalPanel.getVon_TF().setText(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString());
+		}
+		if(kalPanel.getCreate_BTN().getText() == "Save" && kalPanel.getSetEnding_BTN().isEnabled()
+				&& source == kalPanel.getSetEnding_BTN() && !kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString().isEmpty()) {
+			kalPanel.getBis_TF().setText(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString());
+		}
 
 		if(kalPanel.getCreate_BTN() == source) {
 			if(kalPanel.getCreate_BTN().getText() == "Save") {
@@ -110,7 +118,17 @@ public class KalenderListener implements ActionListener {
 				kalPanel.getBeschreibung_LBL().setEnabled(false);
 				kalPanel.getSetBeginning_BTN().setEnabled(false);
 				kalPanel.getSetEnding_BTN().setEnabled(false);
-				System.out.println(kalPanel.getKalender_T().getSelectedColumn() + "; " + kalPanel.getKalender_T().getSelectedRow() + "; ");
+				if(kalPanel.getVon_TF().getText().toString() != null && kalPanel.getBis_TF().getText().toString() != null) {
+					int year = Integer.parseInt(kalPanel.getYear_LBL().getText().toString());
+					int month = schedules.getMonth(kalPanel.getMonth_LBL().getText().toString());
+					int dayStart = Integer.parseInt(kalPanel.getVon_TF().getText().toString());
+					int dayEnd = Integer.parseInt(kalPanel.getBis_TF().getText().toString());
+					try {
+						schedules.addSchedule(new Schedule(year, month, dayStart, year, month, dayEnd, kalPanel.getBeschreibung_LBL().getText().toString(), user));
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Event already exists!");
+					}
+				}
 			} else {
 				kalPanel.getCreate_BTN().setText("Save");
 				kalPanel.getUpdate_BTN().setEnabled(false);
@@ -118,6 +136,7 @@ public class KalenderListener implements ActionListener {
 				kalPanel.getBeschreibung_LBL().setEnabled(true);
 				kalPanel.getSetBeginning_BTN().setEnabled(true);
 				kalPanel.getSetEnding_BTN().setEnabled(true);
+				JOptionPane.showMessageDialog(null, "Please select a day before you press the set button");
 			}
 		}
 		if(kalPanel.getUpdate_BTN() == source) {
@@ -161,13 +180,18 @@ public class KalenderListener implements ActionListener {
 			rowInTable++;
 		}
 	}
-	public void selectRow() {
-		CostumRenderer cr = new CostumRenderer(1, 1, 3, 3, true);
-		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
-	}
 	public void selectCurrentDay() {
 		int[] select = schedules.getCurrentDayPosition();
 		CostumRenderer cr = new CostumRenderer(select[1], select[0], true);
 		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
+	}
+	public void selectEvents() {
+		CostumRenderer cr = new CostumRenderer(schedules.getSchedulesForThisMonth());
+		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
+	}
+
+	public void setSelectedColumnAndRow(int row, int column) {
+		selectedRow = row;
+		selectedColumn = column;
 	}
 }

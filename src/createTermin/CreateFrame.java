@@ -33,7 +33,7 @@ public class CreateFrame extends JFrame {
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public CreateFrame(String fileAndPath) throws UnsupportedLookAndFeelException, ListenerSetException { 
+	public CreateFrame() throws UnsupportedLookAndFeelException, ListenerSetException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -74,7 +74,7 @@ public class CreateFrame extends JFrame {
 		//*****************************************************************************	
 
 		// panel for gui components
-		CreatePanel panel = new CreatePanel(this, fileAndPath);
+		CreatePanel panel = new CreatePanel(this);
 		main = panel;
 		
 		// add SimplePanel to the frame
@@ -99,7 +99,7 @@ public class CreateFrame extends JFrame {
 		setVisible(true); 
 		
 		// add action listeners
-		addActionListeners(fileAndPath, panel);
+		addActionListeners(panel);
 
 
 	}
@@ -139,7 +139,7 @@ public class CreateFrame extends JFrame {
 	/**
 	 * 
 	 */
-	private void addActionListeners(String fileAndPath, CreatePanel m){
+	private void addActionListeners(CreatePanel m){
 		// actionlistener exit application
 	}
 	

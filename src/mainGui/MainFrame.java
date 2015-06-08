@@ -26,14 +26,13 @@ public class MainFrame extends JFrame {
 	private final JMenuItem exitItem;
 	private final JMenuItem logIn;
 	private final JMenuItem register;
-	private final JMenuItem logOut;
 
 	/**
 	 * constructor
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public MainFrame(String fileAndPathUser, String fileAndPathSchedules) throws UnsupportedLookAndFeelException, ListenerSetException {
+	public MainFrame() throws UnsupportedLookAndFeelException, ListenerSetException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -63,18 +62,21 @@ public class MainFrame extends JFrame {
 		menuBar.add(fileMenu);
 		logIn = new JMenuItem("Log in");
 		register = new JMenuItem("Register");
-		logOut=new JMenuItem("Log out");
 		exitItem=new JMenuItem("Exit");
 		fileMenu.add(logIn);
 		fileMenu.add(register);
-		fileMenu.add(logOut);
 		fileMenu.add(exitItem);
 		// add menu to the frame
 		setJMenuBar(menuBar);
 		//*****************************************************************************	
 
 		// panel for gui components
-		MainPanel panel = new MainPanel(this, fileAndPathUser, fileAndPathSchedules);
+		MainPanel panel = null;
+		try {
+			panel = new MainPanel(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		main = panel;
 		
 		// add SimplePanel to the frame
@@ -99,16 +101,9 @@ public class MainFrame extends JFrame {
 		setVisible(true); 
 		
 		// add action listeners
-		addActionListeners(fileAndPathUser, fileAndPathSchedules, panel);
+		addActionListeners(panel);
 
 
-	}
-	
-	/**
-	 * @return the logOut
-	 */
-	public JMenuItem getLogOut() {
-		return logOut;
 	}
 	
 	/**
@@ -139,12 +134,11 @@ public class MainFrame extends JFrame {
 	/**
 	 * 
 	 */
-	private void addActionListeners(String fileAndPath, String fileAndPathSchedules, MainPanel m){
+	private void addActionListeners(MainPanel m){
 		// actionlistener exit application
-		exitItem.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
-		logIn.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
-		logOut.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
-		register.addActionListener(new ApplicationActionListener(false, this, fileAndPath, fileAndPathSchedules, m));
+		exitItem.addActionListener(new ApplicationActionListener(false, this, m));
+		logIn.addActionListener(new ApplicationActionListener(false, this, m));
+		register.addActionListener(new ApplicationActionListener(false, this, m));
 	}
 	
 	/**

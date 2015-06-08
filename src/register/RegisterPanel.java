@@ -5,19 +5,11 @@ import java.awt.Component;
 
 import javax.swing.*;
 
-import common.HighLightMouseListener;
 import common.ListenerSetException;
 import common.RestrictedInsertTextField;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Random;
-import java.util.SimpleTimeZone;
-import java.util.TimeZone;
 import java.awt.event.MouseListener;
 
 /**
@@ -42,7 +34,6 @@ class RegisterPanel extends JPanel {
 	private final JPasswordField repeat_JPF;
 	// reference to the listener
 	private final RegisterListener vatListener;
-	private final HighLightMouseListener highlightMouseListener;
 
 	// reference to the frame
 	private final RegisterFrame vatFrame;
@@ -53,14 +44,13 @@ class RegisterPanel extends JPanel {
 	 * @throws ListenerSetException
 	 */
 	@SuppressWarnings("unchecked")
-	public RegisterPanel(RegisterFrame vatFrame, String fileAndPath) throws ListenerSetException {
+	public RegisterPanel(RegisterFrame vatFrame) throws ListenerSetException {
 
 		// reference to the frame
 		this.vatFrame = vatFrame;
 
 		// create listener object + reference to the panel as parameter
-		vatListener = new RegisterListener(this, fileAndPath);
-		highlightMouseListener = new HighLightMouseListener(new Color(0,191,255), false);
+		vatListener = new RegisterListener(this);
 
 		// ****************************************************************
 		// create JButton + text
@@ -211,16 +201,6 @@ class RegisterPanel extends JPanel {
 	 */
 	private void addActionListeners() throws ListenerSetException {
 		register_BTN.addActionListener(vatListener);
-		register_BTN.addMouseListener(new HighLightMouseListener(
-				Color.GREEN, false));
-		email_TF.addMouseListener(highlightMouseListener);
-		lastname_TF.addMouseListener(highlightMouseListener);
-		firstname_TF.addMouseListener(highlightMouseListener);
-		year_CB.addMouseListener(highlightMouseListener);
-		town_TF.addMouseListener(highlightMouseListener);
-		address_TF.addMouseListener(highlightMouseListener);
-		password_JPF.addMouseListener(highlightMouseListener);
-		repeat_JPF.addMouseListener(highlightMouseListener);
 	}
 
 	/**

@@ -1,8 +1,12 @@
 package common;
 
+import model.Schedule.Schedule;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Made for changing the background color of a cell
@@ -19,7 +23,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
 
 
     //*********************************
-    private int[] events;                  //giving the events in an array
+    private ArrayList<Schedule> events;                  //giving the events in an array
     //*********************************
 
     public CostumRenderer(int row, int column, boolean color) {
@@ -39,7 +43,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     }
 
     //*********************************
-    public CostumRenderer(int[] events) {
+    public CostumRenderer(ArrayList<Schedule> events) {
         this.events = events;
         color = true;
     }
@@ -52,12 +56,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        if(endRow == -1 && endColumn == -1) {
-            if ((this.row == row && this.column == column) && color) {
-                c.setBackground(new Color(252, 131, 1));
-            } else
-                c.setBackground(table.getBackground());
-        }
+        //Marks 2 or more events
         /*if(endRow > -1 && endColumn > -1){
             //System.out.println("Row: " + row + " Column: " + column + " this.startRow: " + this.row + " this.startColumn: " + this.column + " this.endRow: " + this.endRow + " this.endColumn: " + this.endColumn);
             if (((this.endRow >= row && this.row <= row) && color) && ((this.endRow == row && this.endColumn > column) || this.endRow > row)
@@ -69,23 +68,39 @@ public class CostumRenderer extends DefaultTableCellRenderer {
             } else
                 c.setBackground(table.getBackground());
         }*/
-        if(events != null) {
-            for(int i = 0; i < events.length; i++) {
-
+        if(events!=null) {
+            for(Schedule s : events) {
+                if(inbetween(row, column, s.getBeginning().getTime(), s.getEnding().getTime(), table)) {
+                    c.setBackground(new Color(126, 252, 95));
+                }
             }
         }
-
         if(isSelected && hasFocus)
             c.setBackground(new Color(255, 241, 37));
+        else
+            c.setBackground(new Color(255, 255, 255));
+
+        if(endRow == -1 && endColumn == -1)
+            if ((this.row == row && this.column == column) && color)
+                c.setBackground(new Color(252, 131, 1));
 
         c.setForeground(new Color(45, 59, 255));
 
         return c;
     }
 
-    public boolean inbetween(int rowPosition1, int columnPosition1, int rowPosition2, int columnPosition2, int row, int column) {
-        if (((rowPosition2 >= row && rowPosition1 <= row) && color) && ((rowPosition2 == row && columnPosition2 > column) || rowPosition2 > row)
-                && ((rowPosition1 == row && columnPosition1 < column) || rowPosition1 < row)) {
+    public boolean inbetween(int row, int column, long beginning, long ending, JTable table) {
+        Date beg = new Date(beginning);
+        Date end = new Date(ending);
+
+        int dayStart= beg.getDay();
+        int dayEnding= end.getDay();
+
+        if(table.getValueAt(row, column) == null)
+            return false;
+
+        if(dayStart >= Integer.parseInt(table.getValueAt(row, column).toString()) && dayEnding <= Integer.parseInt(table.getValueAt(row, column).toString())) {
+            System.out.println(dayStart + " " + Integer.parseInt(table.getValueAt(row, column).toString()) + " " + dayEnding + " " + Integer.parseInt(table.getValueAt(row, column).toString()));
             return true;
         }
         return false;

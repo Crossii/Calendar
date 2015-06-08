@@ -156,18 +156,20 @@ public class Schedule implements Comparable{
 
         Schedule schedule = (Schedule) o;
 
-        if (beginning != null ? !beginning.equals(schedule.beginning) : schedule.beginning != null) return false;
-        if (ending != null ? !ending.equals(schedule.ending) : schedule.ending != null) return false;
-        return !(user != null ? !user.equals(schedule.user) : schedule.user != null);
+        if (!beginning.equals(schedule.beginning)) return false;
+        if (!ending.equals(schedule.ending)) return false;
+        return user.equals(schedule.user);
 
     }
+
     @Override
     public int hashCode() {
-        int result = beginning != null ? beginning.hashCode() : 0;
-        result = 31 * result + (ending != null ? ending.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
+        int result = beginning.hashCode();
+        result = 31 * result + ending.hashCode();
+        result = 31 * result + user.hashCode();
         return result;
     }
+
     @Override
     public int compareTo(Object o) {
         return 0;
@@ -189,5 +191,7 @@ public class Schedule implements Comparable{
             e.printStackTrace();
         }
         System.out.println(sc.getBeginning().toString());
+
+
     }
 }

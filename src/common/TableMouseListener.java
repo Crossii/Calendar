@@ -1,5 +1,7 @@
 package common;
 
+import kalenderGui.KalenderListener;
+
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,9 +11,11 @@ import java.awt.event.MouseListener;
  */
 public class TableMouseListener implements MouseListener {
     private JTable table;
+    private KalenderListener listener;
 
-    public TableMouseListener(JTable table) {
+    public TableMouseListener(JTable table, KalenderListener listener) {
         this.table = table;
+        this.listener = listener;
     }
 
     @Override
@@ -21,14 +25,11 @@ public class TableMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        listener.setSelectedColumnAndRow(table.getSelectedRow(), table.getSelectedColumn());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Well IDK");
-        System.out.println(""+table.getSelectedRow());
-        System.out.println(""+table.getSelectedColumn());
     }
 
     @Override

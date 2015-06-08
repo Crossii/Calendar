@@ -21,22 +21,12 @@ public class MainFrameTest {
 			System.out.println("  LAF Class name: "
 					+ laf[i].getClassName());
 		}
-		
-		if(args.length==1) {
-			JOptionPane.showMessageDialog(null, "One file is missing");
-			System.exit(1);
-		}
-
-		final String fileAndPathUser = args[0];
-		final String fileAndPathSchedule = args[1];
-		System.out.println(fileAndPathUser);
-		System.out.println(fileAndPathSchedule);
 
     	SwingUtilities.invokeLater(new Runnable() {
     	    public void run() {
     	    	 MainFrame frame = null;
 				try {
-					frame = new MainFrame(fileAndPathUser, fileAndPathSchedule);
+					frame = new MainFrame();
 				} catch (UnsupportedLookAndFeelException e) {
 					e.printStackTrace();
 				} catch (ListenerSetException e) {

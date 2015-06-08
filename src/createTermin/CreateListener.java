@@ -25,9 +25,9 @@ public class CreateListener implements ActionListener {
 	 * 
 	 * @param p
 	 */
-	public CreateListener(CreatePanel p, String fileAndPath) {
+	public CreateListener(CreatePanel p) {
 		mainPanel = p;
-		users = new Users(fileAndPath);
+		users = new Users();
 		
 	}
 

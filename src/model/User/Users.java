@@ -26,19 +26,18 @@ public class Users {
 	private ArrayList<User> users;
 	
 	// holds the name of the file
-	private String fileAndPath;
+	private String fileAndPath = "./src/model/userData.csv";
 	private boolean login;
 	
 	
 	/**
 	 * Create a model object
 	 */
-	public Users(String fileAndPath) {
+	public Users() {
 		super();
 		users=new ArrayList<User>();
 		// load currencies
 		loadUsers(fileAndPath);
-		this.fileAndPath=fileAndPath;
 	}
 	
 	/**

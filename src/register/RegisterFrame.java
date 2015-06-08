@@ -27,7 +27,7 @@ public class RegisterFrame extends JFrame {
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public RegisterFrame(String fileAndPath) throws UnsupportedLookAndFeelException, ListenerSetException { 
+	public RegisterFrame() throws UnsupportedLookAndFeelException, ListenerSetException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -51,7 +51,7 @@ public class RegisterFrame extends JFrame {
 		//setPreferredSize(new Dimension(800,200));
 
 		// panel for gui components
-		RegisterPanel panel = new RegisterPanel(this, fileAndPath);
+		RegisterPanel panel = new RegisterPanel(this);
 		
 		// add SimplePanel to the frame
 		add(panel);

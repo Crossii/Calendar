@@ -1,26 +1,12 @@
 package mainGui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.*;
 
-import common.HighLightMouseListener;
 import common.ListenerSetException;
-import common.RestrictedInsertTextField;
-import common.RestrictedInsertTextField.FieldType;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.util.Random;
-import java.awt.event.MouseListener;
-
-import logIn.LogInListener;
 
 /**
  * VATPanel
@@ -41,7 +27,7 @@ public class MainPanel extends JPanel {
 	 * 
 	 * @throws ListenerSetException
 	 */
-	public MainPanel(MainFrame mainFrame, String fileAndPathUser, String fileAndPathSchedules) throws ListenerSetException {
+	public MainPanel(MainFrame mainFrame) throws Exception {
 		// reference to the frame
 		
 
@@ -49,7 +35,7 @@ public class MainPanel extends JPanel {
 		this.mainFrame = mainFrame;
 
 		// create listener object + reference to the panel as parameter
-		mainListener = new MainListener(this, fileAndPathUser, fileAndPathSchedules);
+		mainListener = new MainListener(this);
 
 		// ****************************************************************
 		// create JButton + text

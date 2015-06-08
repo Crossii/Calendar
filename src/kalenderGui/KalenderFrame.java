@@ -26,7 +26,7 @@ public class KalenderFrame extends JFrame {
 	 * @throws UnsupportedLookAndFeelException 
 	 * @throws ListenerSetException 
 	 */
-	public KalenderFrame(User user, String fileAndPathUser, String fileAndPathSchedules) throws UnsupportedLookAndFeelException {
+	public KalenderFrame(User user) throws UnsupportedLookAndFeelException {
 		// reference to this
 		thisSimpleFrame=this;	
 		// this.setUndecorated(true); // window without border and title
@@ -69,7 +69,7 @@ public class KalenderFrame extends JFrame {
 		// panel for gui components
 		KalenderPanel panel = null;
 		try {
-			panel = new KalenderPanel(this, user, fileAndPathSchedules);
+			panel = new KalenderPanel(this, user);
 		} catch (ListenerSetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +97,7 @@ public class KalenderFrame extends JFrame {
 		setVisible(true); 
 		
 		// add action listeners
-		addActionListeners(panel, user, fileAndPathUser);
+		addActionListeners(panel, user);
 
 
 	}
@@ -133,12 +133,12 @@ public class KalenderFrame extends JFrame {
 	/**
 	 * 
 	 */
-	private void addActionListeners(KalenderPanel m, User user, String fileAndPath){
+	private void addActionListeners(KalenderPanel m, User user){
 		// actionlistener exit application
-		exitItem.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
-		changeUser.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
-		logOut.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
-		register.addActionListener(new ApplicationActionListener(true, this, fileAndPath, fileAndPath));
+		exitItem.addActionListener(new ApplicationActionListener(true, this));
+		changeUser.addActionListener(new ApplicationActionListener(true, this));
+		logOut.addActionListener(new ApplicationActionListener(true, this));
+		register.addActionListener(new ApplicationActionListener(true, this));
 	}
 	
 	/**
@@ -159,21 +159,11 @@ public class KalenderFrame extends JFrame {
 					+ laf[i].getClassName());
 		}
 
-		if(args.length==1) {
-			JOptionPane.showMessageDialog(null, "One file is missing");
-			System.exit(1);
-		}
-
-		final String  fileAndPathUser = args[0];
-		System.out.println(fileAndPathUser);
-		final String  fileAndPathSchedules = args[1];
-		System.out.println(fileAndPathSchedules);
-
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				KalenderFrame frame = null;
 				try {
-					frame = new KalenderFrame(new User("coool@cool.at"), fileAndPathUser, fileAndPathSchedules);
+					frame = new KalenderFrame(new User("coool@cool.at"));
 				} catch (UnsupportedLookAndFeelException e) {
 					e.printStackTrace();
 				} catch (RegistrationException e) {

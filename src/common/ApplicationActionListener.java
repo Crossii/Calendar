@@ -12,6 +12,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import kalenderGui.KalenderFrame;
 import kalenderGui.KalenderPanel;
 import mainGui.*;
+import model.Schedule.Schedules;
 import model.User.Users;
 import register.*;
 import logIn.*;
@@ -26,50 +27,54 @@ public class ApplicationActionListener implements ActionListener {
 	// exit application with or without question
 	private boolean askFor;
 	private Users users;
-	private String fileAndPathSchedules;
+	private Schedules schedules;
 	
 	/**
 	 * 
 	 * @param askFor
 	 * @param mainFrame
 	 */
-	public ApplicationActionListener(boolean askFor, MainFrame mainFrame, String fileAndPathUser, String fileAndPathSchedules) {
+	public ApplicationActionListener(boolean askFor, MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub
 		this.askFor=askFor;
 		this.parentFrame=mainFrame;
-		users = new Users(fileAndPathUser);
-		this.fileAndPathSchedules = fileAndPathSchedules;
+		users = new Users();
+		try {
+			schedules = new Schedules();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	public ApplicationActionListener(boolean askFor, MainFrame parentFrame, String fileAndPathUser, String fileAndPathSchedules, MainPanel m) {
+	public ApplicationActionListener(boolean askFor, MainFrame parentFrame, MainPanel m) {
 		// TODO Auto-generated constructor stub
 		this.askFor=askFor;
 		this.parentFrame=parentFrame;
-		users = new Users(fileAndPathUser);
+		users = new Users();
+		try {
+			schedules = new Schedules();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.parentPanel = m;
-		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 
 	/**
 	 * was made so you  can use the bar in the calendar frame
 	 * @param askFor
 	 * @param mainFrame
-	 * @param fileAndPathUser
-	 * @param fileAndPathSchedules
 	 */
-	public ApplicationActionListener(boolean askFor, KalenderFrame mainFrame, String fileAndPathUser, String fileAndPathSchedules) {
+	public ApplicationActionListener(boolean askFor, KalenderFrame mainFrame) {
 		// TODO Auto-generated constructor stub
 		this.askFor=askFor;
 		this.parentCalendarFrame=mainFrame;
-		users = new Users(fileAndPathUser);
-		this.fileAndPathSchedules = fileAndPathSchedules;
+		users = new Users();
 	}
-	public ApplicationActionListener(boolean askFor, KalenderFrame parentFrame, String fileAndPathUser, String fileAndPathSchedules, KalenderPanel m) {
+	public ApplicationActionListener(boolean askFor, KalenderFrame parentFrame, KalenderPanel m) {
 		// TODO Auto-generated constructor stub
 		this.askFor=askFor;
 		this.parentCalendarFrame=parentFrame;
-		users = new Users(fileAndPathUser);
+		users = new Users();
 		this.parentCalendarPanel = m;
-		this.fileAndPathSchedules = fileAndPathSchedules;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -89,7 +94,7 @@ public class ApplicationActionListener implements ActionListener {
 			if (source == parentFrame.getRegister()) {
 				System.out.println("Register button wurde gedrückt!");
 				try {
-					RegisterFrame register = new RegisterFrame(users.getFileAndPath());
+					RegisterFrame register = new RegisterFrame();
 				} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
 				} catch (ListenerSetException e1) {
@@ -100,21 +105,11 @@ public class ApplicationActionListener implements ActionListener {
 			if (source == parentFrame.getLogIn()) {
 				System.out.println("LogIn button wurde gedrückt!");
 				try {
-					LogInFrame logIn = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, parentPanel);
+					LogInFrame logIn = new LogInFrame(parentPanel);
 				} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
 				} catch (ListenerSetException e1) {
 					e1.printStackTrace();
-				}
-			}
-			if (source == parentFrame.getLogOut()) {
-				System.out.println("Log out button wurde gedrueckt");
-				int exit = JOptionPane.OK_OPTION;
-				JOptionPane.setDefaultLocale(Locale.ENGLISH);
-				if (askFor)
-					exit = JOptionPane.showConfirmDialog(parentFrame, "Do you really want to log out?", "Exit ...", JOptionPane.YES_NO_OPTION);
-				if (exit == JOptionPane.OK_OPTION) {
-					users.logOut();
 				}
 			}
 		}
@@ -130,8 +125,8 @@ public class ApplicationActionListener implements ActionListener {
 			if (source == parentCalendarFrame.getRegister()) {
 				System.out.println("Register button wurde gedrückt!");
 				try {
-					MainFrame main = new MainFrame(users.getFileAndPath(), fileAndPathSchedules);
-					RegisterFrame register = new RegisterFrame(users.getFileAndPath());
+					MainFrame main = new MainFrame();
+					RegisterFrame register = new RegisterFrame();
 				} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
 				} catch (ListenerSetException e1) {
@@ -142,8 +137,8 @@ public class ApplicationActionListener implements ActionListener {
 			if (source == parentCalendarFrame.getLogIn()) {
 				System.out.println("LogIn button wurde gedrückt!");
 				try {
-					MainFrame main = new MainFrame(users.getFileAndPath(), fileAndPathSchedules);
-					LogInFrame logIn = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, main.getMain());
+					MainFrame main = new MainFrame();
+					LogInFrame logIn = new LogInFrame(main.getMain());
 				} catch (UnsupportedLookAndFeelException e1) {
 					e1.printStackTrace();
 				} catch (ListenerSetException e1) {
@@ -155,18 +150,17 @@ public class ApplicationActionListener implements ActionListener {
 				System.out.println("Log out button wurde gedrueckt");
 				int exit = JOptionPane.OK_OPTION;
 				JOptionPane.setDefaultLocale(Locale.ENGLISH);
-				if (askFor)
-					exit = JOptionPane.showConfirmDialog(parentFrame, "Do you really want to log out?", "Exit ...", JOptionPane.YES_NO_OPTION);
+				exit = JOptionPane.showConfirmDialog(parentFrame, "Do you really want to log out?", "Exit ...", JOptionPane.YES_NO_OPTION);
 				if (exit == JOptionPane.OK_OPTION) {
 					users.logOut();
 					parentCalendarFrame.dispose();
-				}
-				try {
-					MainFrame main = new MainFrame(users.getFileAndPath(), fileAndPathSchedules);
-				} catch (UnsupportedLookAndFeelException e1) {
-					e1.printStackTrace();
-				} catch (ListenerSetException e1) {
-					e1.printStackTrace();
+					try {
+						MainFrame main = new MainFrame();
+					} catch (UnsupportedLookAndFeelException e1) {
+						e1.printStackTrace();
+					} catch (ListenerSetException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		}

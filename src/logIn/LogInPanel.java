@@ -30,7 +30,6 @@ class LogInPanel extends JPanel {
 
 	// reference to the listener
 	private final LogInListener simpleListener;
-	private final HighLightMouseListener highlightMouseListener;
 
 	// reference to the frame
 	private final LogInFrame logInFrame;
@@ -40,14 +39,13 @@ class LogInPanel extends JPanel {
 	 * 
 	 * @throws ListenerSetException
 	 */
-	public LogInPanel(LogInFrame simpleFrame, String fileAndPathUser, String fileAndPathSchedules, MainPanel m) throws ListenerSetException {
+	public LogInPanel(LogInFrame simpleFrame, MainPanel m) throws ListenerSetException {
 
 		// reference to the frame
 		this.logInFrame = simpleFrame;
 
 		// create listener object + reference to the panel as parameter
-		simpleListener = new LogInListener(this, fileAndPathUser, m, fileAndPathSchedules);
-		highlightMouseListener = new HighLightMouseListener(new Color(0,191,255), false);
+		simpleListener = new LogInListener(this, m);
 
 		// ****************************************************************
 		// create JButton + text
@@ -125,9 +123,7 @@ class LogInPanel extends JPanel {
 	 */
 	private void addActionListeners() throws ListenerSetException {
 		logIn_BTN.addActionListener(simpleListener);
-		logIn_BTN.addMouseListener(highlightMouseListener);
 		close_BTN.addActionListener(simpleListener);
-		close_BTN.addMouseListener(highlightMouseListener);
 		password_JPF.addActionListener(simpleListener);
 		password_JPF.addKeyListener(simpleListener);
 		mail_TF.addActionListener(simpleListener);

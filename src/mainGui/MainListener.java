@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import common.ListenerSetException;
+import model.Schedule.Schedules;
 import model.User.Users;
 import register.*;
 import logIn.*;
@@ -20,16 +21,16 @@ public class MainListener implements ActionListener {
 	// Reference to the graphical components
 	private MainPanel mainPanel;
 	private Users users;
-	private String fileAndPathSchedules;
+	private Schedules schedules;
 
 	/**
 	 * 
 	 * @param p
 	 */
-	public MainListener(MainPanel p, String fileAndPathUser, String fileAndPathSchedules) {
+	public MainListener(MainPanel p) throws Exception {
 		mainPanel = p;
-		users = new Users(fileAndPathUser);
-		this.fileAndPathSchedules = fileAndPathSchedules;
+		users = new Users();
+		schedules = new Schedules();
 	}
 
 	/**
@@ -44,7 +45,7 @@ public class MainListener implements ActionListener {
 		if(source == mainPanel.getRegister_BTN()) {
 			System.out.println("Register wurde gedrückt");
 			try {
-				RegisterFrame register = new RegisterFrame(users.getFileAndPath());
+				RegisterFrame register = new RegisterFrame();
 			} catch (UnsupportedLookAndFeelException e1) {
 				e1.printStackTrace();
 			} catch (ListenerSetException e1) {
@@ -54,7 +55,7 @@ public class MainListener implements ActionListener {
 		if(source == mainPanel.getLogIn_BTN()) {
 			System.out.println("Login wurde gedrückt");
 			try {
-				LogInFrame login = new LogInFrame(users.getFileAndPath(), fileAndPathSchedules, mainPanel);
+				LogInFrame login = new LogInFrame(mainPanel);
 			} catch (UnsupportedLookAndFeelException e1) {
 				e1.printStackTrace();
 			} catch (ListenerSetException e1) {
