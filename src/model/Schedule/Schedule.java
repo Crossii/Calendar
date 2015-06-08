@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by CrayZay on 14.05.2015.
  */
-public class Schedule{
+public class Schedule implements Comparable{
     private Date beginning;
     private Date ending;
     private String information;
@@ -161,13 +161,16 @@ public class Schedule{
         return !(user != null ? !user.equals(schedule.user) : schedule.user != null);
 
     }
-
     @Override
     public int hashCode() {
         int result = beginning != null ? beginning.hashCode() : 0;
         result = 31 * result + (ending != null ? ending.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
+    }
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 
 

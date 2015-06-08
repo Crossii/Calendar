@@ -1,5 +1,6 @@
 package model.Schedule;
 
+import model.RegistrationException;
 import model.User.User;
 
 import java.io.*;
@@ -64,7 +65,6 @@ public class Schedules {
         System.out.println("##  Information: " + schedule.getInformation());
         System.out.println("#############################");
     }
-
     /**
      * adds a schedule to the arraylist
      * @param schedule
@@ -80,7 +80,6 @@ public class Schedules {
         saveSchedules();
         return schedule;
     }
-
     /**
      * Deletes a schedule from the arraylist
      * @param schedule
@@ -95,7 +94,6 @@ public class Schedules {
         } else throw new Exception("Schedule does not exist.");
 
     }
-
     /**
      * saves the information of the schedules in a file
      * @throws IOException
@@ -108,7 +106,6 @@ public class Schedules {
         }
         bw.close();
     }
-
     private void loadSchedules() throws Exception {
         BufferedReader bw = new BufferedReader(new FileReader(fileAndPath));
         String line = bw.readLine();
@@ -125,17 +122,20 @@ public class Schedules {
         }
         bw.close();
     }
+    private void sortMembers() {
+        Collections.sort(schedules);
+    }
 
     public void showSchedules() {
         for(Schedule s : schedules) {
             s.showAppointments();
-            System.out.println("Month: "+getMonth());
+            System.out.println("Month: " + getMonth());
         }
     }
 
     public void nextMonth() throws Exception {
         if(getMonth() >= 11) setGregorianCalendar(getYear()+1, -1, getDay());
-        setGregorianCalendar(getYear(), (getMonth()+1), getDay());
+        setGregorianCalendar(getYear(), (getMonth() + 1), getDay());
     }
     public void lastMonth() throws Exception {
         if(getMonth() <= 0) setGregorianCalendar(getYear()-1, 12, getDay());
@@ -143,11 +143,25 @@ public class Schedules {
     }
     public void setToCurrentMonth() throws Exception {
         GregorianCalendar cal = new GregorianCalendar();
-        if(getMonth() == cal.get(GregorianCalendar.MONTH)) throw new Exception("You are already in the current month");
+        if(getMonth() == cal.get(GregorianCalendar.MONTH) && getYear() == cal.get(GregorianCalendar.YEAR)) throw new Exception("You are already in the current month of the year");
         setGregorianCalendar(cal.get(GregorianCalendar.YEAR), cal.get(GregorianCalendar.MONTH), cal.get(GregorianCalendar.DATE));
     }
     public int getDayPerMonth() {
         return gc.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+    }
+    public int[] eventDays() {
+        int[] array = new int[10];
+        int i = 0;
+        GregorianCalendar calendar = null;
+        for(Schedule s : schedules){
+            if(s.getBeginning().getMonth() == getMonth() && s.getBeginning().getYear() == getYear()) {
+                array[i] = s.getBeginning().getDay();
+                i++;
+                array[i] = s.getEnding().getDay();
+                i++;
+            }
+        }
+        return array;
     }
 
     /**
@@ -157,7 +171,12 @@ public class Schedules {
     public String[][] getTable(){
         int dayLines = 6;
         int day = 0;
-        int monthStart = 7-((getDay()-getActualDayOfWeek())%7);
+        int monthStart = 0;
+        if(getDay()>=7) {
+            monthStart = 7 - ((getDay() - getActualDayOfWeek()) % 7);
+        } else {
+            monthStart = 7 - (((getDay()+7) - getActualDayOfWeek()) % 7);
+        }
         String[][] s = new String[dayLines][7];
         for(int o = 0; dayLines > o; o++) {
             for(; 7 > monthStart && day < getDayPerMonth(); monthStart++) {
@@ -196,12 +215,25 @@ public class Schedules {
         }
         return null;
     }
-    public int getCurrentColumnDay() {
-        return getActualDayOfWeek()-1;
-    }
-    public int getCurrentRowDay() {
-        int i = (getDay())/7;
-        return i+1;
+    public int[] getCurrentDayPosition() {
+        String[][] table = getTable();
+        int column = 0;
+        int row = 0;
+        int[] select = new int[2];
+        for(String[] firstArr : table) {
+            for(String secArr : firstArr) {
+                if(secArr != null) {
+                    if (getDay() == Integer.parseInt(secArr)) {
+                        select[0] = column;
+                        select[1] = row;
+                    }
+                    column++;
+                }
+            }
+            row++;
+            column=0;
+        }
+        return select;
     }
     public int getActualDayOfWeek() {
         int i = gc.get(GregorianCalendar.DAY_OF_WEEK)-1;
@@ -210,6 +242,13 @@ public class Schedules {
             i=7;
 
         return i;
+    }
+
+    /**
+     * Should return the position of all events in this month so you can mark them in the calendar
+     */
+    public void eventsForThisMonth() {
+        //Mit pavle besprechen!
     }
 
     public static void main(String[] args){
@@ -242,23 +281,17 @@ public class Schedules {
         System.out.println(termine.getMonth());
         System.out.println(termine.getDayPerMonth()); */
 
-        System.out.println("Row: "+termine.getCurrentRowDay());
-        System.out.println("Actual day: "+termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 31);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 30);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 29);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 28);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 27);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 26);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        termine.setGregorianCalendar(2015, 4, 25);
-        System.out.println("Actual day: " + termine.getActualDayOfWeek());
-        System.out.println("Get current day: "+ termine.getDay());
+        try {
+            termine.addSchedule(new Schedule(2015, 5, 29, 2015, 6, 23, "Just for testing", new User("sal15532@spengergassse.at")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        for (Schedule s : termine.getSchedules()) {
+            s.showAppointments();
+        }
+
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

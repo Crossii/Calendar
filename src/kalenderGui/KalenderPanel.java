@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.JTableHeader;
 
 import model.User.User;
 
@@ -27,11 +28,15 @@ public class KalenderPanel extends JPanel {
 	private final JButton currentMonth_BTN;
 	private final JButton lastMonth_BTN;
 
+	private final JButton setBeginning_BTN;
+	private final JButton setEnding_BTN;
+
 	// textfields
 	private final JTextField von_TF;
 	private final JTextField bis_TF;
-	private final JTextField beschreibung_LBL;
+	private final JEditorPane beschreibung_LBL;
 	private final JTable kalender_T;
+	private final JScrollPane calendar_SP;
 
 	private final Border raisedetched;
 
@@ -64,22 +69,27 @@ public class KalenderPanel extends JPanel {
 
 		JPanel button_PNL = new JPanel();
 		kalender_T = new JTable(simpleListener.getSchedules().getTable(), simpleListener.getSchedules().getTableHead());  //header in die JScrollPane
-//		kalender_T.setEnabled(false);
 		kalender_T.setCellSelectionEnabled(true);
 		kalender_T.setFont(new Font("Arial", Font.BOLD, 20));
 		kalender_T.setBackground(Color.WHITE);
 		kalender_T.setBorder(raisedetched);
 		kalender_T.setRowHeight(60);
-		kalender_T.setDefaultRenderer(Object.class, new CostumRenderer(simpleListener.getSchedules().getCurrentRowDay(), simpleListener.getSchedules().getCurrentColumnDay(), true));
+
+		kalender_T.setDefaultRenderer(Object.class, new CostumRenderer(simpleListener.getSchedules().getCurrentDayPosition()[1], simpleListener.getSchedules().getCurrentDayPosition()[0], true));
+
 
 
 		//kalender_T.getColumnModel().getColumn(columnIndex).setCellRenderer(
 
 		//focuses the current day
-		int column = simpleListener.getSchedules().getCurrentColumnDay();
-		int row = simpleListener.getSchedules().getCurrentRowDay();
+		int column = simpleListener.getSchedules().getCurrentDayPosition()[0];
+		int row = simpleListener.getSchedules().getCurrentDayPosition()[1];
 		kalender_T.setColumnSelectionInterval(column, column);
 		kalender_T.setRowSelectionInterval(row, row);
+		kalender_T.getTableHeader().setReorderingAllowed(false);
+
+
+		calendar_SP = new JScrollPane(kalender_T);
 
 
 		create_BTN = new JButton("Create");
@@ -92,7 +102,7 @@ public class KalenderPanel extends JPanel {
 		delete_BTN = new JButton("Delete");
 		// set the font
 		delete_BTN.setFont(new Font("Arial", Font.BOLD, 30));
-		button_PNL.add(kalender_T);
+		button_PNL.add(calendar_SP);
 		button_PNL.setBorder(raisedetched);
 
 
@@ -101,20 +111,36 @@ public class KalenderPanel extends JPanel {
 		textfieldPanel_PNL = new JPanel();
 		textfieldPanel_PNL.setBorder(raisedetched);
 		textfieldPanel_PNL.setLayout(new GridLayout(7, 1));
-		textfieldPanel_PNL.setPreferredSize(new Dimension(300,1));
+		textfieldPanel_PNL.setPreferredSize(new Dimension(300, 1));
 
 		// create textfields
-		von_TF = new JTextField(user.getFirstname()+" "+user.getLastname());
-		von_TF.setFont(new Font("Arial", Font.BOLD, 30));
+		von_TF = new JTextField("None");
+		von_TF.setFont(new Font("Arial", Font.BOLD, 20));
 		von_TF.setHorizontalAlignment(JLabel.CENTER);
 		von_TF.setEnabled(false);
-		bis_TF = new JTextField(user.getYearOfBirth()+"");
-		bis_TF.setFont(new Font("Arial", Font.BOLD, 30));
+		von_TF.setPreferredSize(new Dimension(200, 50));
+
+		setBeginning_BTN = new JButton("Set");
+		setBeginning_BTN.setEnabled(false);
+
+		bis_TF = new JTextField("None");
+		bis_TF.setFont(new Font("Arial", Font.BOLD, 20));
 		bis_TF.setHorizontalAlignment(JLabel.CENTER);
 		bis_TF.setEnabled(false);
-		beschreibung_LBL = new JTextField("Day of week: "+simpleListener.getSchedules().getActualDayOfWeek());
+		bis_TF.setPreferredSize(new Dimension(200, 50));
+
+		setEnding_BTN = new JButton("Set");
+		setEnding_BTN.setEnabled(false);
+
+		JPanel beginning_PNL = new JPanel(new FlowLayout());
+		beginning_PNL.add(von_TF);
+		beginning_PNL.add(setBeginning_BTN);
+		JPanel ending_PNL = new JPanel(new FlowLayout());
+		ending_PNL.add(bis_TF);
+		ending_PNL.add(setEnding_BTN);
+
+		beschreibung_LBL = new JEditorPane("Nichts", "aspdkkasdpokasdpooaksdpoakwdpoaksd apsodkapsodkas dpoaksdpoaksd poaskd poaksd poaksd poaksdpoasd "); //"Day of week: "+simpleListener.getSchedules().getActualDayOfWeek()
 		beschreibung_LBL.setFont(new Font("Arial", Font.BOLD, 12));
-		beschreibung_LBL.setHorizontalAlignment(JLabel.CENTER);
 		beschreibung_LBL.setEnabled(false);
 
 		lastMonth_BTN = new JButton("Last Month");
@@ -124,7 +150,7 @@ public class KalenderPanel extends JPanel {
 		currentMonth_BTN = new JButton("Current month");
 		currentMonth_BTN.setMargin(new Insets(0, 0, 0, 0));
 		JPanel buttonLine_PNL = new JPanel();
-		buttonLine_PNL.setLayout(new GridLayout(1, 3));
+		buttonLine_PNL.setLayout(new FlowLayout());
 		buttonLine_PNL.add(lastMonth_BTN);
 		buttonLine_PNL.add(currentMonth_BTN);
 		buttonLine_PNL.add(nextMonth_BTN);
@@ -132,10 +158,10 @@ public class KalenderPanel extends JPanel {
 		textfieldPanel_PNL.add(buttonLine_PNL);
 		// add textfields to the panel
 		textfieldPanel_PNL.add(new JLabel("Beginning:"));
-		textfieldPanel_PNL.add(von_TF);
+		textfieldPanel_PNL.add(beginning_PNL);
 
 		textfieldPanel_PNL.add(new JLabel("Ending:"));
-		textfieldPanel_PNL.add(bis_TF);
+		textfieldPanel_PNL.add(ending_PNL);
 		textfieldPanel_PNL.add(new JLabel("Description:"));
 		textfieldPanel_PNL.add(beschreibung_LBL);
 
@@ -184,19 +210,18 @@ public class KalenderPanel extends JPanel {
 	}
 
 	private void addActionListeners() throws ListenerSetException {
+		//kalender_T.addMouseListener(new HighLightMouseListener(Color.RED, false));
+		kalender_T.addMouseListener(new TableMouseListener(kalender_T));
 		create_BTN.addActionListener(simpleListener);
 		update_BTN.addActionListener(simpleListener);
+		delete_BTN.addActionListener(simpleListener);
 		lastMonth_BTN.addActionListener(simpleListener);
 		currentMonth_BTN.addActionListener(simpleListener);
 		nextMonth_BTN.addActionListener(simpleListener);
-		bis_TF.addMouseListener(new HighLightMouseListener(
-				Color.yellow, true));
-		bis_TF.addKeyListener(
-				new RestrictCharAndMaxLengthKeyListener(
-						4, "[0-9]", bis_TF));
-		von_TF.addMouseListener(new HighLightMouseListener(Color.yellow, true));
-		von_TF.addKeyListener(new RestrictCharAndMaxLengthKeyListener(5,
-				"[A-Z]", von_TF));
+		setBeginning_BTN.addActionListener(simpleListener);
+		setEnding_BTN.addActionListener(simpleListener);
+		bis_TF.addKeyListener(new RestrictCharAndMaxLengthKeyListener(4, "[0-9]", bis_TF));
+		von_TF.addKeyListener(new RestrictCharAndMaxLengthKeyListener(5, "[A-Z]", von_TF));
 	}
 
 	/**
@@ -254,11 +279,19 @@ public class KalenderPanel extends JPanel {
 		return lastMonth_BTN;
 	}
 
-	public JTextField getBeschreibung_LBL() {
+	public JEditorPane getBeschreibung_LBL() {
 		return beschreibung_LBL;
 	}
 
 	public JLabel getMonth_LBL() {
 		return month_LBL;
+	}
+
+	public JButton getSetBeginning_BTN() {
+		return setBeginning_BTN;
+	}
+
+	public JButton getSetEnding_BTN() {
+		return setEnding_BTN;
 	}
 }
