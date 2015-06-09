@@ -19,7 +19,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     private boolean color;
 
     private int endRow;
-    private int endColumn;
+    private int endColumn ;
 
 
     //*********************************
@@ -43,9 +43,21 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     }
 
     //*********************************
+    public CostumRenderer(ArrayList<Schedule> events, int row, int column) {
+        this.events = events;
+        this.row = row;
+        this.column = column;
+        color = true;
+
+        this.endRow = -1;
+        this.endColumn = -1;
+    }
     public CostumRenderer(ArrayList<Schedule> events) {
         this.events = events;
         color = true;
+
+        this.endRow = -1;
+        this.endColumn = -1;
     }
     //*********************************
 
@@ -68,40 +80,40 @@ public class CostumRenderer extends DefaultTableCellRenderer {
             } else
                 c.setBackground(table.getBackground());
         }*/
-        if(events!=null) {
-            for(Schedule s : events) {
-                if(inbetween(row, column, s.getBeginning().getTime(), s.getEnding().getTime(), table)) {
-                    c.setBackground(new Color(126, 252, 95));
-                }
-            }
-        }
-        if(isSelected && hasFocus)
+        if(isSelected && hasFocus) {
             c.setBackground(new Color(255, 241, 37));
-        else
+        }
+        else {
             c.setBackground(new Color(255, 255, 255));
+            c.setForeground(new Color(0, 0, 0));
+        }
+
+        if(table.getValueAt(row, column) != null && events != null)
+            if(inbetween(row, column, table)) {
+                c.setBackground(new Color(126, 252, 95));
+            }
 
         if(endRow == -1 && endColumn == -1)
             if ((this.row == row && this.column == column) && color)
                 c.setBackground(new Color(252, 131, 1));
 
-        c.setForeground(new Color(45, 59, 255));
 
         return c;
     }
 
-    public boolean inbetween(int row, int column, long beginning, long ending, JTable table) {
-        Date beg = new Date(beginning);
-        Date end = new Date(ending);
-
-        int dayStart= beg.getDay();
-        int dayEnding= end.getDay();
-
+    public boolean inbetween(int row, int column, JTable table) {
         if(table.getValueAt(row, column) == null)
             return false;
 
-        if(dayStart >= Integer.parseInt(table.getValueAt(row, column).toString()) && dayEnding <= Integer.parseInt(table.getValueAt(row, column).toString())) {
-            System.out.println(dayStart + " " + Integer.parseInt(table.getValueAt(row, column).toString()) + " " + dayEnding + " " + Integer.parseInt(table.getValueAt(row, column).toString()));
-            return true;
+        int dayStart = 0;
+        int dayEnd = 0;
+        for(Schedule s : events) {
+            dayStart = s.getBeginning().getDate();
+            dayEnd = s.getEnding().getDate();
+            if(dayStart <= Integer.parseInt(table.getValueAt(row, column).toString()) && dayEnd >= Integer.parseInt(table.getValueAt(row, column).toString())) {
+                System.out.println(dayStart + " " + Integer.parseInt(table.getValueAt(row, column).toString()) + " " + dayEnd + " " + Integer.parseInt(table.getValueAt(row, column).toString()));
+                return true;
+            }
         }
         return false;
     }

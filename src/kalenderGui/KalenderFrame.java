@@ -33,9 +33,9 @@ public class KalenderFrame extends JFrame {
 	
 		
 		// set look and feels
-		UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
+//		UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
 //		UIManager.setLookAndFeel(new com.sun.java.swing.plaf.motif.MotifLookAndFeel());
-//		UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
+		UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
 //		UIManager.setLookAndFeel(new com.sun.java.swing.plaf.windows.WindowsLookAndFeel());
 //		UIManager.setLookAndFeel(new com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel());
 		
@@ -98,7 +98,6 @@ public class KalenderFrame extends JFrame {
 		
 		// add action listeners
 		addActionListeners(panel, user);
-
 
 	}
 	

@@ -197,6 +197,6 @@ public class Schedule implements Comparable{
         }
         System.out.println(sc.getBeginning().toString());
 
-
+        System.out.println(sc.getBeginning().getDate());
     }
 }

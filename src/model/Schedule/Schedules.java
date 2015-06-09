@@ -271,12 +271,17 @@ public class Schedules {
         }
         return list;
     }
-
-    /**
-     * Should return the position of all events in this month so you can mark them in the calendar
-     */
-    public void eventsForThisMonth() {
-        //Mit pavle besprechen!
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            int d = Integer.parseInt(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
     public static void main(String[] args){
@@ -313,7 +318,7 @@ public class Schedules {
 
 
 
-        Users u = new Users();
+        /*Users u = new Users();
         User user = null;
 
         for(User n : u.getUsers()) {
@@ -328,7 +333,11 @@ public class Schedules {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(s.toString());
+        System.out.println(s.toString());*/
+
+        for(Schedule p : termine.getSchedulesForThisMonth()) {
+            p.showAppointments();
+        }
 
         /*GregorianCalendar gc = new GregorianCalendar();
         int i = gc.get(GregorianCalendar.MONTH);

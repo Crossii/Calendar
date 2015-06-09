@@ -96,17 +96,17 @@ public class KalenderListener implements ActionListener {
 		}
 		GregorianCalendar gc = new GregorianCalendar();
 		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH) && schedules.getYear() == gc.get(GregorianCalendar.YEAR)) {
-			selectCurrentDay();
+			selectCurrentDayAndEvents();
 		}
 
 		//*********************************************************************************** now doing the create, delete and update button
 
 		if(kalPanel.getCreate_BTN().getText() == "Save" && kalPanel.getSetBeginning_BTN().isEnabled()
-				&& source == kalPanel.getSetBeginning_BTN() && !kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString().isEmpty()) {
+				&& source == kalPanel.getSetBeginning_BTN() && kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn) != null) {
 			kalPanel.getVon_TF().setText(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString());
 		}
 		if(kalPanel.getCreate_BTN().getText() == "Save" && kalPanel.getSetEnding_BTN().isEnabled()
-				&& source == kalPanel.getSetEnding_BTN() && !kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString().isEmpty()) {
+				&& source == kalPanel.getSetEnding_BTN() && kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn) != null) {
 			kalPanel.getBis_TF().setText(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString());
 		}
 
@@ -118,7 +118,7 @@ public class KalenderListener implements ActionListener {
 				kalPanel.getBeschreibung_LBL().setEnabled(false);
 				kalPanel.getSetBeginning_BTN().setEnabled(false);
 				kalPanel.getSetEnding_BTN().setEnabled(false);
-				if(kalPanel.getVon_TF().getText().toString() != null && kalPanel.getBis_TF().getText().toString() != null) {
+				if(schedules.isNumeric(kalPanel.getVon_TF().getText().toString()) && schedules.isNumeric(kalPanel.getBis_TF().getText().toString())) {
 					int year = Integer.parseInt(kalPanel.getYear_LBL().getText().toString());
 					int month = schedules.getMonth(kalPanel.getMonth_LBL().getText().toString());
 					int dayStart = Integer.parseInt(kalPanel.getVon_TF().getText().toString());
@@ -180,9 +180,9 @@ public class KalenderListener implements ActionListener {
 			rowInTable++;
 		}
 	}
-	public void selectCurrentDay() {
+	public void selectCurrentDayAndEvents() {
 		int[] select = schedules.getCurrentDayPosition();
-		CostumRenderer cr = new CostumRenderer(select[1], select[0], true);
+		CostumRenderer cr = new CostumRenderer(schedules.getSchedulesForThisMonth(), select[1], select[0]);
 		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
 	}
 	public void selectEvents() {
