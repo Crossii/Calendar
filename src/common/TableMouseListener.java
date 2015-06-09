@@ -3,6 +3,7 @@ package common;
 import kalenderGui.KalenderListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -25,6 +26,8 @@ public class TableMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        Color c = table.getSelectionBackground();
+        System.out.println(c.toString());
         listener.setSelectedColumnAndRow(table.getSelectedRow(), table.getSelectedColumn());
     }
 

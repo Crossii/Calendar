@@ -46,8 +46,13 @@ public class Schedule implements Comparable{
      */
     public Schedule(int yearBeginning, int monthBeginning, int dayBeginning, int yearEnding, int monthEnding,
                     int dayEnding, String information, User user) throws Exception {
-        setBeginning(setToDate(yearBeginning, monthBeginning, dayBeginning));
-        setEnding(setToDate(yearEnding, monthEnding, dayEnding));
+        if(yearBeginning > yearEnding || monthBeginning > monthEnding || dayBeginning > dayEnding) {
+            setBeginning(setToDate(yearEnding, monthEnding, dayEnding));
+            setEnding(setToDate(yearBeginning, monthBeginning, dayBeginning));
+        } else {
+            setBeginning(setToDate(yearBeginning, monthBeginning, dayBeginning));
+            setEnding(setToDate(yearEnding, monthEnding, dayEnding));
+        }
         setInformation(information);
         setUser(user);
     }
