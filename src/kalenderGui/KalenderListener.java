@@ -2,10 +2,13 @@ package kalenderGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.*;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import common.CostumRenderer;
 import model.Schedule.Schedule;
 import model.Schedule.Schedules;
@@ -20,7 +23,6 @@ public class KalenderListener implements ActionListener {
 
 	// Reference to the graphical components
 	private KalenderPanel kalPanel;
-	private KalenderFrame kalFrame;
 	private User user;
 	private Schedules schedules;
 	private int selectedRow;
@@ -38,15 +40,10 @@ public class KalenderListener implements ActionListener {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Could not find a file and path for the schedule");
 		}
-	}
-
-	/**
-	 *
-	 * @param p
-	 */
-	public KalenderListener(KalenderFrame p, User user) {
-		kalFrame = p;
-		this.user = user;
+		Schedule event = todayAnEvent();
+		if(event != null) {
+			JOptionPane.showMessageDialog(null, "You got an event for today: " + event.getInformation());
+		}
 	}
 
 	/**
@@ -58,6 +55,11 @@ public class KalenderListener implements ActionListener {
 		// gets the source of the component
 		Object source = e.getSource();
 
+		GregorianCalendar gc = new GregorianCalendar();
+		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH) && schedules.getYear() == gc.get(GregorianCalendar.YEAR))
+			selectCurrentDayAndEvents(true);
+		else
+			selectCurrentDayAndEvents(false);
 
 		if(source == kalPanel.getNextMonth_BTN()) {
 
@@ -80,7 +82,7 @@ public class KalenderListener implements ActionListener {
 			}
 			refreshTable();
 			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth());
-			kalPanel.getYear_LBL().setText(""+schedules.getYear());
+			kalPanel.getYear_LBL().setText("" + schedules.getYear());
 			kalPanel.getKalender_T().clearSelection();
 			selectEvents();
 		}
@@ -93,10 +95,6 @@ public class KalenderListener implements ActionListener {
 			refreshTable();
 			kalPanel.getMonth_LBL().setText(schedules.getCurrentMonth());
 			kalPanel.getYear_LBL().setText(""+schedules.getYear());
-		}
-		GregorianCalendar gc = new GregorianCalendar();
-		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH) && schedules.getYear() == gc.get(GregorianCalendar.YEAR)) {
-			selectCurrentDayAndEvents();
 		}
 
 		//*********************************************************************************** now doing the create, delete and update button
@@ -180,11 +178,12 @@ public class KalenderListener implements ActionListener {
 			rowInTable++;
 		}
 	}
-	public void selectCurrentDayAndEvents() {
+	public void selectCurrentDayAndEvents(boolean color) {
 		int[] select = schedules.getCurrentDayPosition();
-		CostumRenderer cr = new CostumRenderer(schedules.getSchedulesForThisMonth(), select[1], select[0]);
+		CostumRenderer cr = new CostumRenderer(Integer.parseInt(kalPanel.getYear_LBL().getText().toString()), schedules.getSchedulesForThisMonth(), select[1], select[0], color);
 		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
 	}
+
 	public void selectEvents() {
 		CostumRenderer cr = new CostumRenderer(schedules.getSchedulesForThisMonth());
 		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
@@ -193,5 +192,31 @@ public class KalenderListener implements ActionListener {
 	public void setSelectedColumnAndRow(int row, int column) {
 		selectedRow = row;
 		selectedColumn = column;
+	}
+
+	public Schedule todayAnEvent() {
+		ArrayList<Schedule> events = schedules.getSchedulesForThisMonth();
+		GregorianCalendar gc = new GregorianCalendar();
+		Schedule today = null;
+		try {
+			today = new Schedule(gc.get(GregorianCalendar.YEAR), gc.get(GregorianCalendar.MONTH), gc.get(GregorianCalendar.DATE), "", user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Date d = new Date(today.getBeginning().getTime());
+		Date f = new Date(today.getEnding().getTime());
+		if (today != null){
+			System.out.println(d.toString() + " " + f.toString());
+			for (Schedule s : events) {
+				System.out.println(s.getBeginning().toString() + "     " + s.getEnding().toString());
+				if (s.isInbetween(today)) {
+					System.out.println(s.toString());
+					return s;
+				}
+				System.out.println("Nice");
+			}
+		}
+		return null;
 	}
 }

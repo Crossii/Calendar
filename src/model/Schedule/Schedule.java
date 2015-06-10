@@ -58,20 +58,6 @@ public class Schedule implements Comparable{
     }
 
     /**
-     * Constructor with a Date as parameter when you already have a long value for your appointment
-     * @param date
-     * @param information
-     * @param user
-     * @throws Exception
-     */
-    public Schedule(Date date, String information, User user) throws Exception {
-        setBeginning(date);
-        setEnding(date);
-        setInformation(information);
-        setUser(user);
-    }
-
-    /**
      * Constructor with a Date as parameter. It also has an ending Date for your appointment.
      * @param beginning
      * @param ending
@@ -149,6 +135,17 @@ public class Schedule implements Comparable{
         System.out.println("################");
     }
 
+    public boolean isInbetween(Schedule s) {
+        if(s.getBeginning().getYear() >= beginning.getYear() && s.getEnding().getYear() <= ending.getYear()) {
+            if(s.getBeginning().getMonth() >= beginning.getMonth() && s.getEnding().getMonth() <= ending.getMonth()) {
+                if(s.getBeginning().getDate() >= beginning.getDay() && s.getEnding().getDate() <= ending.getDate()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return beginningToString()+";"+endingToString()+";"+getInformation()+";"+getEmailOfUser(user)+";";
@@ -177,6 +174,23 @@ public class Schedule implements Comparable{
 
     @Override
     public int compareTo(Object o) {
+
+        if(o instanceof Schedule) {
+            Schedule s = (Schedule)o;
+
+            if(beginning.getYear() > s.getBeginning().getYear()) {
+                if(beginning.getMonth() > s.getBeginning().getMonth()) {
+                    if(beginning.getDate() > s.getBeginning().getDate())
+                        return 1;
+                }
+            }
+            if(beginning.getYear() < s.getBeginning().getYear()) {
+                if(beginning.getMonth() < s.getBeginning().getMonth()) {
+                    if(beginning.getDate() < s.getBeginning().getDate())
+                        return -1;
+                }
+            }
+        }
         return 0;
     }
 

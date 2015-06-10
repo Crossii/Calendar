@@ -25,9 +25,6 @@ public class Schedules {
         gc = new GregorianCalendar();
     }
 
-    public String getFileAndPath() {
-        return fileAndPath;
-    }
     public ArrayList<Schedule> getSchedules() {
         return schedules;
     }
@@ -96,6 +93,7 @@ public class Schedules {
      */
     public void saveSchedules() throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileAndPath));
+        sortMembers();
         for(Schedule s : schedules) {
             bw.write(s.toString());
             bw.newLine();
@@ -117,6 +115,8 @@ public class Schedules {
             line = bw.readLine();
         }
         bw.close();
+        sortMembers();
+        saveSchedules();
     }
     private void sortMembers() {
         Collections.sort(schedules);

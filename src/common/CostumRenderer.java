@@ -19,8 +19,9 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     private boolean color;
 
     private int endRow;
-    private int endColumn ;
+    private int endColumn;
 
+    private int year;
 
     //*********************************
     private ArrayList<Schedule> events;                  //giving the events in an array
@@ -43,11 +44,12 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     }
 
     //*********************************
-    public CostumRenderer(ArrayList<Schedule> events, int row, int column) {
+    public CostumRenderer(int year, ArrayList<Schedule> events, int row, int column, boolean color) {
         this.events = events;
         this.row = row;
         this.column = column;
-        color = true;
+        this.color = color;
+        this.year = year;
 
         this.endRow = -1;
         this.endColumn = -1;
@@ -93,7 +95,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
                 c.setBackground(new Color(126, 252, 95));
             }
 
-        if(endRow == -1 && endColumn == -1)
+        if(endRow == -1 && endColumn == -1 && row != 0 && column != 0)
             if ((this.row == row && this.column == column) && color)
                 c.setBackground(new Color(252, 131, 1));
 
@@ -110,8 +112,7 @@ public class CostumRenderer extends DefaultTableCellRenderer {
         for(Schedule s : events) {
             dayStart = s.getBeginning().getDate();
             dayEnd = s.getEnding().getDate();
-            if(dayStart <= Integer.parseInt(table.getValueAt(row, column).toString()) && dayEnd >= Integer.parseInt(table.getValueAt(row, column).toString())) {
-                System.out.println(dayStart + " " + Integer.parseInt(table.getValueAt(row, column).toString()) + " " + dayEnd + " " + Integer.parseInt(table.getValueAt(row, column).toString()));
+            if(dayStart <= Integer.parseInt(table.getValueAt(row, column).toString()) && dayEnd >= Integer.parseInt(table.getValueAt(row, column).toString()) && (1900+s.getBeginning().getYear()) == year && (1900+s.getEnding().getYear()) == year) {
                 return true;
             }
         }

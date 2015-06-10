@@ -75,7 +75,7 @@ public class KalenderPanel extends JPanel {
 		kalender_T.setBorder(raisedetched);
 		kalender_T.setRowHeight(60);
 
-		kalender_T.setDefaultRenderer(Object.class, new CostumRenderer(simpleListener.getSchedules().getCurrentDayPosition()[1], simpleListener.getSchedules().getCurrentDayPosition()[0], true));
+		kalender_T.setDefaultRenderer(Object.class, new CostumRenderer(simpleListener.getSchedules().getSchedulesForThisMonth()));
 
 
 
