@@ -56,10 +56,6 @@ public class KalenderListener implements ActionListener {
 		Object source = e.getSource();
 
 		GregorianCalendar gc = new GregorianCalendar();
-		if(schedules.getMonth() == gc.get(GregorianCalendar.MONTH) && schedules.getYear() == gc.get(GregorianCalendar.YEAR))
-			selectCurrentDayAndEvents(true);
-		else
-			selectCurrentDayAndEvents(false);
 
 		if(source == kalPanel.getNextMonth_BTN()) {
 
@@ -113,6 +109,7 @@ public class KalenderListener implements ActionListener {
 				kalPanel.getCreate_BTN().setText("Create");
 				kalPanel.getUpdate_BTN().setEnabled(true);
 				kalPanel.getDelete_BTN().setEnabled(true);
+				kalPanel.getDelete_BTN().setText("Delete");
 				kalPanel.getBeschreibung_LBL().setEnabled(false);
 				kalPanel.getSetBeginning_BTN().setEnabled(false);
 				kalPanel.getSetEnding_BTN().setEnabled(false);
@@ -130,7 +127,7 @@ public class KalenderListener implements ActionListener {
 			} else {
 				kalPanel.getCreate_BTN().setText("Save");
 				kalPanel.getUpdate_BTN().setEnabled(false);
-				kalPanel.getDelete_BTN().setEnabled(false);
+				kalPanel.getDelete_BTN().setText("Cancel");
 				kalPanel.getBeschreibung_LBL().setEnabled(true);
 				kalPanel.getSetBeginning_BTN().setEnabled(true);
 				kalPanel.getSetEnding_BTN().setEnabled(true);
@@ -148,12 +145,20 @@ public class KalenderListener implements ActionListener {
 				kalPanel.getDelete_BTN().setEnabled(false);
 			}
 		}
+
+		//Hier weiter arbeiten !!!! delete und cancel button
 		if(kalPanel.getDelete_BTN() == source) {
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure, that you want to delete the event?");
-			if(confirm == 0){
-				System.out.println("Can't delete");
+			if(kalPanel.getDelete_BTN().getText() == "Delete") {
+				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure, that you want to delete the event?");
+				if (confirm == 0) {
+					System.out.println("Can't delete");
+				}
 			}
 		}
+		if((gc.get(GregorianCalendar.MONTH)) == schedules.getMonth())
+			selectCurrentDayAndEvents(true);
+		else
+			selectCurrentDayAndEvents(false);
 	}
 
 	public User getUser() {
@@ -180,7 +185,7 @@ public class KalenderListener implements ActionListener {
 	}
 	public void selectCurrentDayAndEvents(boolean color) {
 		int[] select = schedules.getCurrentDayPosition();
-		CostumRenderer cr = new CostumRenderer(Integer.parseInt(kalPanel.getYear_LBL().getText().toString()), schedules.getSchedulesForThisMonth(), select[1], select[0], color);
+		CostumRenderer cr = new CostumRenderer(schedules.getYear(), schedules.getSchedulesForThisMonth(), select[1], select[0], color);
 		kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
 	}
 
@@ -218,5 +223,15 @@ public class KalenderListener implements ActionListener {
 			}
 		}
 		return null;
+	}
+
+	public void changeDescription(int dayRow, int dayColumn) {
+		if(kalPanel.getCreate_BTN().getText() != "Save") {
+			if (kalPanel.getKalender_T().getValueAt(dayRow, dayColumn) != null) {
+				kalPanel.getVon_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));
+				kalPanel.getBis_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));
+				kalPanel.getBeschreibung_LBL().setText("Nothing");
+			}
+		}
 	}
 }

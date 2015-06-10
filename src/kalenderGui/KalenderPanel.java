@@ -150,7 +150,7 @@ public class KalenderPanel extends JPanel {
 		currentMonth_BTN = new JButton("Current month");
 		currentMonth_BTN.setMargin(new Insets(0, 0, 0, 0));
 		JPanel buttonLine_PNL = new JPanel();
-		buttonLine_PNL.setLayout(new FlowLayout());
+		buttonLine_PNL.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 1));
 		buttonLine_PNL.add(lastMonth_BTN);
 		buttonLine_PNL.add(currentMonth_BTN);
 		buttonLine_PNL.add(nextMonth_BTN);
@@ -204,6 +204,9 @@ public class KalenderPanel extends JPanel {
 		headline_PNL.setLayout(new FlowLayout());
 		headline_PNL.add(headline_LBL);
 		headline_PNL.add(time_PNL);
+
+		simpleListener.selectCurrentDayAndEvents(true);		//marks the events and the current day
+
 		this.add(headline_PNL, BorderLayout.NORTH);
 		// to the center
 		this.add(textfieldPanel_PNL, BorderLayout.WEST);

@@ -29,10 +29,13 @@ public class TableMouseListener implements MouseListener {
         //Color c = table.getSelectionBackground();
         //System.out.println(c.toString());
         listener.setSelectedColumnAndRow(table.getSelectedRow(), table.getSelectedColumn());
+        listener.changeDescription(table.getSelectedRow(), table.getSelectedColumn());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        listener.setSelectedColumnAndRow(table.getSelectedRow(), table.getSelectedColumn());
+        listener.changeDescription(table.getSelectedRow(), table.getSelectedColumn());
     }
 
     @Override

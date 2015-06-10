@@ -70,18 +70,6 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        //Marks 2 or more events
-        /*if(endRow > -1 && endColumn > -1){
-            //System.out.println("Row: " + row + " Column: " + column + " this.startRow: " + this.row + " this.startColumn: " + this.column + " this.endRow: " + this.endRow + " this.endColumn: " + this.endColumn);
-            if (((this.endRow >= row && this.row <= row) && color) && ((this.endRow == row && this.endColumn > column) || this.endRow > row)
-                            && ((this.row == row && this.column < column) || this.row < row)) {
-                c.setBackground(new Color(126, 252, 95));
-                //System.out.println("this.endRow <= row:"+(this.endRow <= row));
-                //System.out.println("Row: " + row + " Column: " + column + " this.startRow: " + this.row + " this.startColumn: " + this.column + " this.endRow: " + this.endRow + " this.endColumn: " + this.endColumn);
-
-            } else
-                c.setBackground(table.getBackground());
-        }*/
         if(isSelected && hasFocus) {
             c.setBackground(new Color(255, 241, 37));
         }
@@ -91,14 +79,12 @@ public class CostumRenderer extends DefaultTableCellRenderer {
         }
 
         if(table.getValueAt(row, column) != null && events != null)
-            if(inbetween(row, column, table)) {
+            if(inbetween(row, column, table))
                 c.setBackground(new Color(126, 252, 95));
-            }
 
         if(endRow == -1 && endColumn == -1 && row != 0 && column != 0)
             if ((this.row == row && this.column == column) && color)
                 c.setBackground(new Color(252, 131, 1));
-
 
         return c;
     }

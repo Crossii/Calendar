@@ -181,13 +181,13 @@ public class Schedule implements Comparable{
             if(beginning.getYear() > s.getBeginning().getYear()) {
                 if(beginning.getMonth() > s.getBeginning().getMonth()) {
                     if(beginning.getDate() > s.getBeginning().getDate())
-                        return 1;
+                        return -1;
                 }
             }
             if(beginning.getYear() < s.getBeginning().getYear()) {
                 if(beginning.getMonth() < s.getBeginning().getMonth()) {
                     if(beginning.getDate() < s.getBeginning().getDate())
-                        return -1;
+                        return 1;
                 }
             }
         }
