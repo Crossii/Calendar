@@ -136,14 +136,15 @@ public class Schedule implements Comparable{
     }
 
     public boolean isInbetween(Schedule s) {
+        boolean isTrue = false;
         if(s.getBeginning().getYear() >= beginning.getYear() && s.getEnding().getYear() <= ending.getYear()) {
             if(s.getBeginning().getMonth() >= beginning.getMonth() && s.getEnding().getMonth() <= ending.getMonth()) {
-                if(s.getBeginning().getDate() >= beginning.getDay() && s.getEnding().getDate() <= ending.getDate()) {
-                    return true;
+                if(s.getBeginning().getDate() >= beginning.getDate() && s.getEnding().getDate() <= ending.getDate()) {
+                    isTrue = true;
                 }
             }
         }
-        return false;
+        return isTrue;
     }
 
     @Override
@@ -203,14 +204,52 @@ public class Schedule implements Comparable{
 
         Schedule sc = null;
         try {
-            sc = new Schedule(115, 3, 8, "LEEEEEL", new User("asdl@asdlkj.asd"));
+            sc = new Schedule(115, 3, 8, 115, 3, 15, "LEEEEEL", new User("asdl@asdlkj.asd"));
         } catch (RegistrationException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(sc.getBeginning().toString());
 
-        System.out.println(sc.getBeginning().getDate());
+        Schedule hp = null;
+        try {
+            hp = new Schedule(115,3,10,"nothin", new User("email@email.email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Beginning: " + sc.getBeginning().toString() + ", Ending: " + sc.getEnding().toString());
+        System.out.println("Beginning: " + hp.getBeginning().toString() + ", Ending: " + hp.getEnding().toString());
+        System.out.println("Is hp in sc? " + sc.isInbetween(hp));
+
+        try {
+            hp = new Schedule(115,3,15,"nothin", new User("email@email.email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Beginning: " + sc.getBeginning().toString() + ", Ending: " + sc.getEnding().toString());
+        System.out.println("Beginning: " + hp.getBeginning().toString() + ", Ending: " + hp.getEnding().toString());
+        System.out.println("Is hp in sc? " + sc.isInbetween(hp));
+
+        try {
+            hp = new Schedule(115,3,9,"nothin", new User("email@email.email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Beginning: " + sc.getBeginning().toString() + ", Ending: " + sc.getEnding().toString());
+        System.out.println("Beginning: " + hp.getBeginning().toString() + ", Ending: " + hp.getEnding().toString());
+        System.out.println("Is hp in sc? " + sc.isInbetween(hp));
+
+        try {
+            hp = new Schedule(115,3,7,"nothin", new User("email@email.email"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Beginning: " + sc.getBeginning().getDate() + ", Ending: " + sc.getEnding().toString());
+        System.out.println("Beginning: " + hp.getBeginning().toString() + ", Ending: " + hp.getEnding().toString());
+        System.out.println("Is hp in sc? " + sc.isInbetween(hp));
     }
 }
