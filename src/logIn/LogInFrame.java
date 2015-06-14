@@ -60,9 +60,9 @@ public class LogInFrame extends JFrame {
 		setLocationRelativeTo(this);				
 
 		// sichtbar machen
-		setVisible(true); 
+		setVisible(true);
 
-
+		assignIcon("./projectImero.jpg");
 	}
 	
 	/**

@@ -43,7 +43,6 @@ public class MainListener implements ActionListener {
 		Object source = e.getSource();
 		
 		if(source == mainPanel.getRegister_BTN()) {
-			System.out.println("Register wurde gedrückt");
 			try {
 				RegisterFrame register = new RegisterFrame();
 			} catch (UnsupportedLookAndFeelException e1) {
@@ -53,7 +52,6 @@ public class MainListener implements ActionListener {
 			}
 		}
 		if(source == mainPanel.getLogIn_BTN()) {
-			System.out.println("Login wurde gedrückt");
 			try {
 				LogInFrame login = new LogInFrame(mainPanel);
 			} catch (UnsupportedLookAndFeelException e1) {

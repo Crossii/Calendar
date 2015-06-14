@@ -50,7 +50,6 @@ public class LogInListener implements ActionListener, KeyListener {
 		}
 
 		if (source == panel.getClose_BTN()) {
-			System.out.println("Close button wurde gedrueckt!");
 			panel.close();
 		}
 
@@ -78,7 +77,6 @@ public class LogInListener implements ActionListener, KeyListener {
 			JOptionPane.showMessageDialog(null, "E-Mail does not exist");
 			return;
 		}
-		System.out.println("Log in button wurde gedrueckt!");
 		// set default values
 		User attempt = user.login(panel.getMail_CB().getText().toString(), panel.getPassword_JPF().getPassword());
 

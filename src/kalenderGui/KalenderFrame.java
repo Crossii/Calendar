@@ -84,6 +84,7 @@ public class KalenderFrame extends JFrame {
 		// add action listeners
 		addActionListeners(panel, user);
 
+		assignIcon("./projectImero.jpg");
 	}
 	
 	/**+

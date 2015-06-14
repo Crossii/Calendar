@@ -57,7 +57,7 @@ public class KalenderListener implements ActionListener {
 
         if(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn) != null) {
             try {
-                s = new Schedule(gc.get(GregorianCalendar.YEAR), gc.get(GregorianCalendar.MONTH), Integer.parseInt(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString()), "", user);
+                s = new Schedule(Integer.parseInt(kalPanel.getYear_LBL().getText().toString()), Integer.parseInt(String.valueOf(schedules.getMonth(kalPanel.getMonth_LBL().getText().toString()))), Integer.parseInt(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString()), "", user);
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

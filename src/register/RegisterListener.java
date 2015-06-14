@@ -64,25 +64,23 @@ public class RegisterListener implements ActionListener {
 					}
 					catch (Exception e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "You could no registrate");
 					}
 
 
 				} else
 					try {
-						throw new Exception("Passwörter sind nicht gleich");
+						JOptionPane.showMessageDialog(null, "The passwords are not the same");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "The passwords are not the same");
 					}
 			}
 			
 		}
 		
 		if(source == registerPanel.getCancel_BTN()) {
-			System.out.println("Close button wurde gedrueckt!");
 			registerPanel.close();
-			
 		}
 	}
 	

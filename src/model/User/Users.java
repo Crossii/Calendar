@@ -152,14 +152,10 @@ public class Users {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(email);
 		passwordAsString = typedPass.getHashcodeAsString();
 		for(User u:users) {
 			if(u.getEmail().equalsIgnoreCase(email)) {
-				System.out.println("Users passwort: "+u.getPassword()+", E-Mail: "+u.getEmail());
-				System.out.println("Eingegeben: "+passwordAsString+", E-Mail: "+email);
-				if(u.getPassword().equals(passwordAsString)) { 
-					System.out.println("Richtig!");
+				if(u.getPassword().equals(passwordAsString)) {
 					try {
 						user = users.get(users.indexOf(new User(email)));
 						setLogin(true);

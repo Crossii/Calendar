@@ -183,7 +183,6 @@ public class KalenderPanel extends JPanel {
 		month_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		month_LBL.setHorizontalAlignment(JLabel.CENTER);
 		year_LBL = new JLabel(""+simpleListener.getSchedules().getYear());
-		System.out.println(year_LBL.getText());
 		year_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		year_LBL.setHorizontalAlignment(JLabel.CENTER);
 		JPanel time_PNL = new JPanel();
@@ -191,7 +190,7 @@ public class KalenderPanel extends JPanel {
 		time_PNL.add(month_LBL);
 		time_PNL.add(new JLabel(", "));
 		time_PNL.add(year_LBL);
-		JLabel headline_LBL = new JLabel("Person detail information in");
+		JLabel headline_LBL = new JLabel(user.getFirstname()+" information in");
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		headline_LBL.setHorizontalAlignment(JLabel.CENTER);
 

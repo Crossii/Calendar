@@ -103,7 +103,7 @@ public class MainFrame extends JFrame {
 		// add action listeners
 		addActionListeners(panel);
 
-
+		assignIcon("./projectImero.jpg");
 	}
 	
 	/**

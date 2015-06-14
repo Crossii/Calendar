@@ -57,6 +57,7 @@ public class RegisterFrame extends JFrame {
 		// add action listeners
 		addActionListeners();
 
+		assignIcon("./projectImero.jpg");
 	}
 	
 	/**

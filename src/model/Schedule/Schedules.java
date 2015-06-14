@@ -138,7 +138,6 @@ public class Schedules {
     public void showSchedules() {
         for(Schedule s : schedules) {
             s.showAppointments();
-            System.out.println("Month: " + getMonth());
         }
     }
 
