@@ -88,6 +88,19 @@ public class Schedules {
 
     }
     /**
+     * Deletes a schedule from the arraylist
+     * @return
+     * @throws Exception
+     */
+    public Schedule changeSchedule(Schedule oldSchedule, Schedule newSchedule) throws Exception {
+        if (schedules.contains(oldSchedule)) {
+            schedules.remove(oldSchedule);
+            schedules.add(newSchedule);
+            saveSchedules();
+            return newSchedule;
+        } else throw new Exception("Schedule does not exist.");
+    }
+    /**
      * saves the information of the schedules in a file
      * @throws IOException
      */

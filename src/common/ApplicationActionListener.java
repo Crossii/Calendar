@@ -82,6 +82,7 @@ public class ApplicationActionListener implements ActionListener {
 		// TODO Auto-generated method stub
 		Object source = e.getSource();
 
+
 		if(parentFrame != null) {
 			if (source == parentFrame.getExitItem()) {
 				System.out.println("Exit button wurde gedrueckt!");

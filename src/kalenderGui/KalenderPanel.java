@@ -27,6 +27,8 @@ public class KalenderPanel extends JPanel {
 	private final JButton currentMonth_BTN;
 	private final JButton lastMonth_BTN;
 
+	private final JButton refresh_BTN;
+
 	private final JButton setBeginning_BTN;
 	private final JButton setEnding_BTN;
 
@@ -200,10 +202,13 @@ public class KalenderPanel extends JPanel {
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		headline_LBL.setHorizontalAlignment(JLabel.CENTER);
 
+		refresh_BTN = new JButton("Refresh");
+
 		JPanel headline_PNL = new JPanel();
 		headline_PNL.setLayout(new FlowLayout());
 		headline_PNL.add(headline_LBL);
 		headline_PNL.add(time_PNL);
+		headline_PNL.add(refresh_BTN);
 
 		simpleListener.selectCurrentDayAndEvents(true);		//marks the events and the current day
 
@@ -231,6 +236,7 @@ public class KalenderPanel extends JPanel {
 		lastMonth_BTN.addActionListener(simpleListener);
 		currentMonth_BTN.addActionListener(simpleListener);
 		nextMonth_BTN.addActionListener(simpleListener);
+		refresh_BTN.addActionListener(simpleListener);
 		setBeginning_BTN.addActionListener(simpleListener);
 		setEnding_BTN.addActionListener(simpleListener);
 		bis_TF.addKeyListener(new RestrictCharAndMaxLengthKeyListener(4, "[0-9]", bis_TF));
@@ -290,6 +296,10 @@ public class KalenderPanel extends JPanel {
 
 	public JButton getLastMonth_BTN() {
 		return lastMonth_BTN;
+	}
+
+	public JButton getRefresh_BTN() {
+		return refresh_BTN;
 	}
 
 	public JEditorPane getBeschreibung_LBL() {

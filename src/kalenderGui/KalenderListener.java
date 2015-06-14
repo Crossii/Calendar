@@ -53,7 +53,24 @@ public class KalenderListener implements ActionListener {
         // gets the source of the component
         Object source = e.getSource();
 
+        Object refresh = null;
+
         GregorianCalendar gc = new GregorianCalendar();
+
+        Schedule s = null;
+
+        if(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn) != null) {
+            try {
+                s = new Schedule(gc.get(GregorianCalendar.YEAR), gc.get(GregorianCalendar.MONTH), Integer.parseInt(kalPanel.getKalender_T().getValueAt(selectedRow, selectedColumn).toString()), "", user);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        if(source == kalPanel.getRefresh_BTN()) {
+            refresh = source;
+            source = kalPanel.getNextMonth_BTN();
+        }
 
         if (source == kalPanel.getNextMonth_BTN()) {
 
@@ -68,6 +85,10 @@ public class KalenderListener implements ActionListener {
             kalPanel.getKalender_T().clearSelection();
             selectEvents();
         }
+
+        if(refresh != null)
+            source = kalPanel.getLastMonth_BTN();
+
         if (source == kalPanel.getLastMonth_BTN()) {
             try {
                 schedules.lastMonth();
@@ -138,21 +159,48 @@ public class KalenderListener implements ActionListener {
                 kalPanel.getDelete_BTN().setText("Delete");
                 kalPanel.getCreate_BTN().setEnabled(true);
                 kalPanel.getDelete_BTN().setEnabled(true);
+                kalPanel.getBeschreibung_LBL().setEnabled(false);
+
+
+                for (Schedule p : schedules.getSchedules()) {
+                    if (p.isInbetween(s)) {
+                        try {
+                            s.setBeginning(p.getBeginning());
+                            s.setEnding(p.getEnding());
+                            s.setInformation(kalPanel.getBeschreibung_LBL().getText());
+                            s.setUser(user);
+                            schedules.changeSchedule(p,s);
+                            return;
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
             } else {
                 kalPanel.getUpdate_BTN().setText("Save");
                 kalPanel.getDelete_BTN().setText("Cancel");
                 kalPanel.getCreate_BTN().setEnabled(false);
+                kalPanel.getBeschreibung_LBL().setEnabled(true);
             }
         }
         if (kalPanel.getDelete_BTN() == source) {
             if (kalPanel.getDelete_BTN().getText() == "Delete") {
-                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure, that you want to delete the event?");
-                if (confirm == 0) {
-                    System.out.println("Can't delete");
+                for(Schedule schedule: schedules.getSchedules()) {
+                    if(schedule.isInbetween(s)) {
+                        int confirm = JOptionPane.showConfirmDialog(null, "Are you sure, that you want to delete the event?");
+                        if (confirm == 0) {
+                            try {
+                                schedules.deleteSchedule(schedule);
+                                break;
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    }
                 }
             }
         }
-        if ((kalPanel.getDelete_BTN() == source || kalPanel.getUpdate_BTN() == source) && kalPanel.getDelete_BTN().getText() == "Cancel" &&
+        if (kalPanel.getDelete_BTN() == source && kalPanel.getDelete_BTN().getText() == "Cancel" &&
                     (kalPanel.getUpdate_BTN().getText() == "Save" || kalPanel.getCreate_BTN().getText() == "Save")) {
             kalPanel.getSetBeginning_BTN().setEnabled(false);
             kalPanel.getSetEnding_BTN().setEnabled(false);
@@ -219,17 +267,11 @@ public class KalenderListener implements ActionListener {
             e.printStackTrace();
         }
 
-        Date d = new Date(today.getBeginning().getTime());
-        Date f = new Date(today.getEnding().getTime());
         if (today != null) {
-            System.out.println(d.toString() + " " + f.toString());
             for (Schedule s : events) {
-                System.out.println(s.getBeginning().toString() + "     " + s.getEnding().toString());
                 if (s.isInbetween(today)) {
-                    System.out.println(s.toString());
                     return s;
                 }
-                System.out.println("Nice");
             }
         }
         return null;
@@ -249,7 +291,6 @@ public class KalenderListener implements ActionListener {
             kalPanel.getBis_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));
             kalPanel.getBeschreibung_LBL().setText("Nothing");
 
-            System.out.println(today.getBeginning().toString() + ", " + today.getEnding().toString());
             for (Schedule s : schedules.getSchedulesForThisMonth()) {
                 if (s.isInbetween(today)) {
                     kalPanel.getVon_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));
