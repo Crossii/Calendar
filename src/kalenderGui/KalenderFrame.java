@@ -134,28 +134,4 @@ public class KalenderFrame extends JFrame {
 		Image img = getToolkit().getImage(iconFile);
 		setIconImage(img);
 	}
-
-	public static void main(String[] args){
-		UIManager.LookAndFeelInfo laf[] = UIManager
-				.getInstalledLookAndFeels();
-		for (int i = 0, n = laf.length; i < n; i++) {
-			System.out.print("LAF Name: " + laf[i].getName() + "\t");
-			System.out.println("  LAF Class name: "
-					+ laf[i].getClassName());
-		}
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				KalenderFrame frame = null;
-				try {
-					frame = new KalenderFrame(new User("coool@cool.at"));
-				} catch (UnsupportedLookAndFeelException e) {
-					e.printStackTrace();
-				} catch (RegistrationException e) {
-					e.printStackTrace();
-				}
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			}
-		});
-	}
 }

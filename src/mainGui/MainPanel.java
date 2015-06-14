@@ -37,17 +37,13 @@ public class MainPanel extends JPanel {
 		// create listener object + reference to the panel as parameter
 		mainListener = new MainListener(this);
 
-		// ****************************************************************
-		// create JButton + text
+
 		JPanel button_PNL = new JPanel();
 
-		// anonymous textfield panel
 		JPanel textfieldPanel_PNL;
-		// panel in the center
 		textfieldPanel_PNL = new JPanel();
-		// GridLayout 2 rows and 2 columns
+		// GridLayout 2 rows and 1 columns
 		textfieldPanel_PNL.setLayout(new GridLayout(2, 1));
-		// create 
 		
 		JLabel text = new JLabel("<html><center>Please register or log in</center></html>");
 		text.setFont(new Font("Arial", Font.BOLD, 20));
@@ -113,13 +109,6 @@ public class MainPanel extends JPanel {
 	}
 
 
-	/**
-	 * @return the simpleFrame
-	 */
-	public MainFrame getMainFrame() {
-		return mainFrame;
-	}
-	
 	public void close() {
 		mainFrame.dispose();
 	}

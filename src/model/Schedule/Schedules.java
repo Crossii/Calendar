@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by CrayZay on 14.05.2015.
+ * Created by Pavle and Ray on 14.05.2015.
  */
 public class Schedules {
     private ArrayList<Schedule> schedules;
@@ -82,7 +82,7 @@ public class Schedules {
 
     }
     /**
-     * Deletes a schedule from the arraylist
+     * Changes the Schedule. At first it deletes and then it adds the schedule
      * @return
      * @throws Exception
      */
@@ -107,6 +107,11 @@ public class Schedules {
         }
         bw.close();
     }
+
+    /**
+     * loads the schedules from the schedules file
+     * @throws Exception
+     */
     private void loadSchedules() throws Exception {
         BufferedReader bw = new BufferedReader(new FileReader(fileAndPath));
         String line = bw.readLine();
@@ -128,48 +133,41 @@ public class Schedules {
     private void sortMembers() {
         Collections.sort(schedules);
     }
-    public Schedule getScheduleAtDay(int year, int month, int day, User user) throws Exception {
-        if(!schedules.contains(new Schedule(year, month, day, "", user))) {
-            throw new Exception(year + ", " + month + ", " + day +", " + user.toString());
-        }
-        return schedules.get(schedules.indexOf(new Schedule(year, month, day, "", user)));
-    }
 
-    public void showSchedules() {
-        for(Schedule s : schedules) {
-            s.showAppointments();
-        }
-    }
-
+    /**
+     * gets to the next month
+     * @throws Exception
+     */
     public void nextMonth() throws Exception {
         if(getMonth() >= 11) setGregorianCalendar(getYear()+1, -1, getDay());
         setGregorianCalendar(getYear(), (getMonth() + 1), getDay());
     }
+
+    /**
+     * gets to the last month
+     * @throws Exception
+     */
     public void lastMonth() throws Exception {
         if(getMonth() <= 0) setGregorianCalendar(getYear()-1, 12, getDay());
         setGregorianCalendar(getYear(), (getMonth()-1), getDay());
     }
+
+    /**
+     * gets back to the current month
+     * @throws Exception
+     */
     public void setToCurrentMonth() throws Exception {
         GregorianCalendar cal = new GregorianCalendar();
         if(getMonth() == cal.get(GregorianCalendar.MONTH) && getYear() == cal.get(GregorianCalendar.YEAR)) throw new Exception("You are already in the current month of the year");
         setGregorianCalendar(cal.get(GregorianCalendar.YEAR), cal.get(GregorianCalendar.MONTH), cal.get(GregorianCalendar.DATE));
     }
+
+    /**
+     * returns the maximum day of the month
+     * @return
+     */
     public int getDayPerMonth() {
         return gc.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-    }
-    public int[] eventDays() {
-        int[] array = new int[10];
-        int i = 0;
-        GregorianCalendar calendar = null;
-        for(Schedule s : schedules){
-            if(s.getBeginning().getMonth() == getMonth() && s.getBeginning().getYear() == getYear()) {
-                array[i] = s.getBeginning().getDay();
-                i++;
-                array[i] = s.getEnding().getDay();
-                i++;
-            }
-        }
-        return array;
     }
 
     /**
@@ -195,6 +193,11 @@ public class Schedules {
         }
         return s;
     }
+
+    /**
+     * returns the table head
+     * @return
+     */
     public String[] getTableHead() {
         String[] s = new String[7];
         s[0] = "Monday";
@@ -206,6 +209,11 @@ public class Schedules {
         s[6] = "Sunday";
         return s;
     }
+
+    /**
+     * returns the current month as a string
+     * @return
+     */
     public String getCurrentMonth() {
         switch(this.getMonth()) {
             case 0: return "January";
@@ -223,6 +231,12 @@ public class Schedules {
         }
         return null;
     }
+
+    /**
+     * returns a string month as a int variable
+     * @param month
+     * @return
+     */
     public int getMonth(String month) {
         switch(month) {
             case "January": return 0;
@@ -240,6 +254,12 @@ public class Schedules {
         }
         return -1;
     }
+
+    /**
+     * you get the position of the current day in the table as an array. The first index is the column the second
+     * is the row.
+     * @return
+     */
     public int[] getCurrentDayPosition() {
         String[][] table = getTable();
         int column = 0;
@@ -260,6 +280,11 @@ public class Schedules {
         }
         return select;
     }
+
+    /**
+     * returns the actual day in the week.
+     * @return
+     */
     public int getActualDayOfWeek() {
         int i = gc.get(GregorianCalendar.DAY_OF_WEEK)-1;
 
@@ -268,6 +293,12 @@ public class Schedules {
 
         return i;
     }
+
+    /**
+     * returns the schedules for this month in an arraylist.
+     * @param user
+     * @return
+     */
     public ArrayList<Schedule> getSchedulesForThisMonth(User user) {
         ArrayList<Schedule> list = new ArrayList<Schedule>();
         for(Schedule s : schedules) {
@@ -277,6 +308,12 @@ public class Schedules {
         }
         return list;
     }
+
+    /**
+     * it checks if the string is a number
+     * @param str
+     * @return
+     */
     public static boolean isNumeric(String str)
     {
         try
@@ -290,6 +327,9 @@ public class Schedules {
         return true;
     }
 
+    /**
+     * just used for testing
+     */
     public static void main(String[] args){
         if(args.length == 0) {
             System.out.println("There is no file");

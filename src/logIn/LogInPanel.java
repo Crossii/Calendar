@@ -89,16 +89,13 @@ class LogInPanel extends JPanel {
 		button_PNL.add(logIn_BTN);
 		button_PNL.add(close_BTN);
 
-		// anonymous textfield panel
 		JPanel textfieldPanel_PNL;
-		// panel in the center
 		textfieldPanel_PNL = new JPanel();
 		// GridLayout 2 rows and 2 columns
 		textfieldPanel_PNL.setLayout(new GridLayout(2, 2));
 		// create textfields
 		mail_TF = new RestrictedInsertTextField(FieldType.EMAIL, 3, 25);
 		mail_TF.setColumns(2);
-		// name_TF.setPreferredSize((new Dimension(600,80)));
 		password_JPF = new JPasswordField();
 		// copy paste disable
 		password_JPF.setTransferHandler(null);

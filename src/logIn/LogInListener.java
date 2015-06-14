@@ -11,6 +11,7 @@ import mainGui.*;
 import javax.swing.*;
 
 import kalenderGui.KalenderFrame;
+import model.RegistrationException;
 import model.User.User;
 import model.User.Users;
 
@@ -62,7 +63,7 @@ public class LogInListener implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){	//if enter was pressed, you log in
 			logIn();
 		}
 	}
@@ -73,7 +74,14 @@ public class LogInListener implements ActionListener, KeyListener {
 	}
 
 	public void logIn() {
-		if(user.getUsers().contains(panel.getMail_CB().getText())) {
+		User u = null;
+		try {
+			u = new User(panel.getMail_CB().getText());
+		} catch (RegistrationException e) {
+			JOptionPane.showMessageDialog(null, "Problem with E-Mail");
+			return;
+		}
+		if(!user.getUsers().contains(u)) {
 			JOptionPane.showMessageDialog(null, "E-Mail does not exist");
 			return;
 		}
@@ -90,7 +98,7 @@ public class LogInListener implements ActionListener, KeyListener {
 				kalenderGui.KalenderFrame mf = new KalenderFrame(user.getUsers().get(user.getUsers().indexOf(attempt)));
 			} catch (UnsupportedLookAndFeelException e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Problem with the user");
 			}
 		}
 		else {

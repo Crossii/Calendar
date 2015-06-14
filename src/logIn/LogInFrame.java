@@ -38,10 +38,10 @@ public class LogInFrame extends JFrame {
 		UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
 
 		
-		// Titelzeile
+		// Title
 		setTitle("Project Imero");
-		// Grösse des Frames
 
+		// Size of the frame
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
@@ -53,15 +53,16 @@ public class LogInFrame extends JFrame {
 		// add SimplePanel to the frame
 		add(panel);
 
-		// Groessenaenderung
-	    this.setResizable(false);
+		// The size is changeable
+	    this.setResizable(true);
 
 		// center the frame
 		setLocationRelativeTo(this);				
 
-		// sichtbar machen
+		// makes it visible
 		setVisible(true);
 
+		// changes the icon to the file below
 		assignIcon("./projectImero.jpg");
 	}
 	

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * Created by CrayZay on 14.05.2015.
+ * Created by Pavle and Ray on 14.05.2015.
  */
 public class Schedule implements Comparable{
     private Date beginning;
@@ -135,6 +135,11 @@ public class Schedule implements Comparable{
         System.out.println("################");
     }
 
+    /**
+     * checks if the schedule s is in this schedules
+     * @param s
+     * @return
+     */
     public boolean isInbetween(Schedule s) {
         boolean isTrue = false;
         if(s.getBeginning().getYear() >= beginning.getYear() && s.getEnding().getYear() <= ending.getYear()) {

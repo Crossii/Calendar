@@ -21,7 +21,6 @@ public class MainListener implements ActionListener {
 	// Reference to the graphical components
 	private MainPanel mainPanel;
 	private Users users;
-	private Schedules schedules;
 
 	/**
 	 * 
@@ -30,7 +29,6 @@ public class MainListener implements ActionListener {
 	public MainListener(MainPanel p) throws Exception {
 		mainPanel = p;
 		users = new Users();
-		schedules = new Schedules();
 	}
 
 	/**

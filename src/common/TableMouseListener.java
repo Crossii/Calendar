@@ -3,12 +3,11 @@ package common;
 import kalenderGui.KalenderListener;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * Created by CrayZay on 02.06.2015.
+ * Created by Pavle and Ray on 02.06.2015.
  */
 public class TableMouseListener implements MouseListener {
     private JTable table;
