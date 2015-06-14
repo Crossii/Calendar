@@ -11,7 +11,6 @@ import mainGui.*;
 import javax.swing.*;
 
 import kalenderGui.KalenderFrame;
-import model.Schedule.Schedules;
 import model.User.User;
 import model.User.Users;
 
@@ -26,7 +25,6 @@ public class LogInListener implements ActionListener, KeyListener {
 	private LogInPanel panel;
 	private MainPanel main;
 	private Users user;
-	private Schedules schedules;
 
 	/**
 	 * 
@@ -35,11 +33,6 @@ public class LogInListener implements ActionListener, KeyListener {
 	public LogInListener(LogInPanel p, MainPanel m) {
 		panel = p;
 		user = new Users();
-		try {
-			schedules = new Schedules();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		main = m;
 	}
 
@@ -61,10 +54,6 @@ public class LogInListener implements ActionListener, KeyListener {
 			panel.close();
 		}
 
-	}
-	
-	public Users getInfo() {
-		return user;
 	}
 
 	@Override

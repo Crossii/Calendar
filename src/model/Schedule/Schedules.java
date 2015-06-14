@@ -28,12 +28,6 @@ public class Schedules {
     public ArrayList<Schedule> getSchedules() {
         return schedules;
     }
-    public void setSchedules(ArrayList<Schedule> schedules) {
-        this.schedules = schedules;
-    }
-    public GregorianCalendar getGc() {
-        return gc;
-    }
     public void setGregorianCalendar(int year, int month, int day) {
         gc = new GregorianCalendar(year, month, day);
     }

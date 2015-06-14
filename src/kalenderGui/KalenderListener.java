@@ -4,12 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
-
 import javax.swing.*;
-
-import com.sun.org.apache.xpath.internal.SourceTree;
 import common.CostumRenderer;
 import model.Schedule.Schedule;
 import model.Schedule.Schedules;

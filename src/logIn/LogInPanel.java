@@ -1,17 +1,10 @@
 package logIn;
 
-import java.awt.Color;
-
 import javax.swing.*;
-
 import mainGui.MainPanel;
 import common.*;
 import common.RestrictedInsertTextField.FieldType;
-
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Random;
 
 /**
  * SimplePanel
@@ -78,29 +71,14 @@ class LogInPanel extends JPanel {
 
 
 		// add textfields to the panel
-		//textfieldPanel_PNL.add(new JLabel());
-		//textfieldPanel_PNL.add(new JLabel());
 
 		textfieldPanel_PNL.add(new JLabel("Email"));
 		textfieldPanel_PNL.add(mail_TF);
 
-		//textfieldPanel_PNL.add(new JLabel());
-		//textfieldPanel_PNL.add(new JLabel());
-
 		textfieldPanel_PNL.add(new JLabel("Passwort:"));
 		textfieldPanel_PNL.add(password_JPF);
 
-		//textfieldPanel_PNL.add(new JLabel());
-		//textfieldPanel_PNL.add(new JLabel());
-
-		//****************************************************************************************************************************
-		// add components
-		// set background color
-		// set layout manager of the panel
 		this.setLayout(new BorderLayout());
-		// set a random color for the background
-		// textfieldPanel_PNL.setBackground(new Color(new Random().nextInt(256),
-		// new Random().nextInt(256), new Random().nextInt(256)));
 
 		// to the north
 		JLabel headline_LBL = new JLabel("Person detail information");
@@ -160,21 +138,7 @@ class LogInPanel extends JPanel {
 		return password_JPF;
 	}
 
-	/**
-	 * @return the town_TF
-	 */
-	public JTextField getYearOfBirth_TF() {
-		return password_JPF;
-	}
 
-
-	/**
-	 * @return the simpleFrame
-	 */
-	public LogInFrame getSimpleFrame() {
-		return logInFrame;
-	}
-	
 	public void close() {
 		logInFrame.dispose();
 	}

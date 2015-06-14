@@ -174,14 +174,7 @@ public class KalenderPanel extends JPanel {
 		crud_PNL.add(update_BTN);
 		crud_PNL.add(delete_BTN);
 
-		//****************************************************************************************************************************
-		// add components
-		// set background color
-		// set layout manager of the panel
 		this.setLayout(new BorderLayout());
-		// set a random color for the background
-		// textfieldPanel_PNL.setBackground(new Color(new Random().nextInt(256),
-		// new Random().nextInt(256), new Random().nextInt(256)));
 
 
 
@@ -274,13 +267,6 @@ public class KalenderPanel extends JPanel {
 		return bis_TF;
 	}
 
-
-	/**
-	 * @return the simpleFrame
-	 */
-	public KalenderFrame getSimpleFrame() {
-		return simpleFrame;
-	}
 
 	public JButton getNextMonth_BTN() {
 		return nextMonth_BTN;

@@ -1,13 +1,9 @@
 package register;
 
-import java.awt.Color;
 import java.awt.Component;
-
 import javax.swing.*;
-
 import common.ListenerSetException;
 import common.RestrictedInsertTextField;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -59,8 +55,6 @@ class RegisterPanel extends JPanel {
 		register_BTN = new JButton("Register");
 		// set the font
 		register_BTN.setFont(new Font("Arial", Font.BOLD, 30));
-		//calculate_BTN.setEnabled(false);
-		// activate button if euro and vat set
 		register_BTN.addActionListener(vatListener);
 		register_BTN.addMouseListener(new MouseListener(){
 			@Override
@@ -107,13 +101,11 @@ class RegisterPanel extends JPanel {
 		textfieldPanel_PNL.setLayout(new GridLayout(8, 2));
 
 		// create textfields
-		//name_TF = new JTextField();
 		email_TF=new RestrictedInsertTextField
 				(RestrictedInsertTextField.FieldType.EMAIL, 3, 25);
 		email_TF.setFont(new Font("Arial", Font.BOLD, 30));
 		// copy paste disable
 		email_TF.setTransferHandler(null);
-		// name_TF.setPreferredSize((new Dimension(600,80)));
 		email_TF.setHorizontalAlignment(JLabel.CENTER);
 		lastname_TF = new RestrictedInsertTextField(RestrictedInsertTextField.FieldType.LETTERS, 3, 25);
 		// copy paste disable
@@ -174,10 +166,6 @@ class RegisterPanel extends JPanel {
 		textfieldPanel_PNL.add(new JLabel("Password:"));
 		textfieldPanel_PNL.add(repeat_JPF);
 
-		//****************************************************************************************************************************
-		// add components
-		// set background color
-		// set layout manager of the panel
 		this.setLayout(new BorderLayout());
 
 		// to the north
@@ -210,36 +198,6 @@ class RegisterPanel extends JPanel {
 		return register_BTN;
 	}
 
-
-	/**
-	 * @return the name_TF
-	 */
-	public JTextField getEuro_TF() {
-		return email_TF;
-	}
-
-
-	/**
-	 * @return the town_TF
-	 */
-	public JTextField getVat_TF() {
-		return lastname_TF;
-	}
-
-
-	/**
-	 * @return the simpleFrame
-	 */
-	public RegisterFrame getVatFrame() {
-		return vatFrame;
-	}
-
-	/**
-	 * @return the register_BTN
-	 */
-	public JButton getRegister_BTN() {
-		return register_BTN;
-	}
 
 	/**
 	 * @return the cancel_BTN

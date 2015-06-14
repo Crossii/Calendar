@@ -6,7 +6,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Made for changing the background color of a cell
@@ -27,23 +26,6 @@ public class CostumRenderer extends DefaultTableCellRenderer {
     private ArrayList<Schedule> events;                  //giving the events in an array
     //*********************************
 
-    public CostumRenderer(int row, int column, boolean color) {
-        this.row = row;
-        this.column = column;
-        this.color = color;
-
-        this.endRow = -1;
-        this.endColumn = -1;
-    }
-    public CostumRenderer(int startRow, int startColumn, int endRow, int endColumn, boolean color) {
-        this.row = startRow;
-        this.column = startColumn;
-        this.endRow = endRow;
-        this.endColumn = endColumn;
-        this.color = color;
-    }
-
-    //*********************************
     public CostumRenderer(int year, ArrayList<Schedule> events, int row, int column, boolean color) {
         this.events = events;
         this.row = row;
@@ -62,10 +44,6 @@ public class CostumRenderer extends DefaultTableCellRenderer {
         this.endColumn = -1;
     }
     //*********************************
-
-    public void setColor(boolean color) {
-        this.color = color;
-    }
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
