@@ -36,7 +36,7 @@ public class KalenderFrame extends JFrame {
 		
 		
 		// Titelzeile
-		setTitle("Register - LogIn"); 
+		setTitle("Project Imero");
 		// Grösse des Frames
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();

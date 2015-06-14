@@ -39,7 +39,7 @@ public class LogInFrame extends JFrame {
 
 		
 		// Titelzeile
-		setTitle("Log in"); 
+		setTitle("Project Imero");
 		// Grösse des Frames
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

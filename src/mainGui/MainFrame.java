@@ -47,12 +47,12 @@ public class MainFrame extends JFrame {
 		
 		
 		// Titelzeile
-		setTitle("Register - LogIn"); 
+		setTitle("Project Imero");
 		// Grösse des Frames
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
-		setSize((int)(width*0.50), (int)(height*0.50));
+		setSize((int)(width*0.30), (int)(height*0.50));
 		//setPreferredSize(new Dimension(800,200));
 		
 		//*****************************************************************************

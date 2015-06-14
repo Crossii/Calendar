@@ -46,10 +46,10 @@ public class MainPanel extends JPanel {
 		// panel in the center
 		textfieldPanel_PNL = new JPanel();
 		// GridLayout 2 rows and 2 columns
-		textfieldPanel_PNL.setLayout(new GridLayout(2, 3));
+		textfieldPanel_PNL.setLayout(new GridLayout(2, 1));
 		// create 
 		
-		JLabel text = new JLabel("<html>Bitte melden sie sich an <br>oder registrieren sie sich.</html>");
+		JLabel text = new JLabel("<html><center>Please register or log in</center></html>");
 		text.setFont(new Font("Arial", Font.BOLD, 20));
 		// add textfields to the panel
 		textfieldPanel_PNL.add(new JLabel());
@@ -71,17 +71,11 @@ public class MainPanel extends JPanel {
 		textfieldPanel_PNL.add(button_PNL);
 
 
-		//****************************************************************************************************************************
-		// add components
-		// set background color
-		// set layout manager of the panel
+
 		this.setLayout(new BorderLayout());
-		// set a random color for the background
-		// textfieldPanel_PNL.setBackground(new Color(new Random().nextInt(256),
-		// new Random().nextInt(256), new Random().nextInt(256)));
 
 		// to the north
-		JLabel headline_LBL = new JLabel("Dein eigener Kalender");
+		JLabel headline_LBL = new JLabel("Your personal Calendar");
 		headline_LBL.setFont(new Font("Arial", Font.BOLD, 30));
 		headline_LBL.setHorizontalAlignment(JLabel.CENTER);
 		headline_LBL.add(textfieldPanel_PNL);
