@@ -239,12 +239,12 @@ public class KalenderListener implements ActionListener {
 
     public void selectCurrentDayAndEvents(boolean color) {
         int[] select = schedules.getCurrentDayPosition();
-        CostumRenderer cr = new CostumRenderer(schedules.getYear(), schedules.getSchedulesForThisMonth(), select[1], select[0], color);
+        CostumRenderer cr = new CostumRenderer(schedules.getYear(), schedules.getSchedulesForThisMonth(user), select[1], select[0], color);
         kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
     }
 
     public void selectEvents() {
-        CostumRenderer cr = new CostumRenderer(schedules.getSchedulesForThisMonth());
+        CostumRenderer cr = new CostumRenderer(schedules.getSchedulesForThisMonth(user));
         kalPanel.getKalender_T().setDefaultRenderer(Object.class, cr);
     }
 
@@ -254,7 +254,7 @@ public class KalenderListener implements ActionListener {
     }
 
     public Schedule todayAnEvent() {
-        ArrayList<Schedule> events = schedules.getSchedulesForThisMonth();
+        ArrayList<Schedule> events = schedules.getSchedulesForThisMonth(user);
         GregorianCalendar gc = new GregorianCalendar();
         Schedule today = null;
         try {
@@ -287,7 +287,7 @@ public class KalenderListener implements ActionListener {
             kalPanel.getBis_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));
             kalPanel.getBeschreibung_LBL().setText("Nothing");
 
-            for (Schedule s : schedules.getSchedulesForThisMonth()) {
+            for (Schedule s : schedules.getSchedulesForThisMonth(user)) {
                 if (s.isInbetween(today)) {
                     kalPanel.getVon_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));
                     kalPanel.getBis_TF().setText("" + kalPanel.getKalender_T().getValueAt(dayRow, dayColumn));

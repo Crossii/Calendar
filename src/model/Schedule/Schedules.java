@@ -269,10 +269,10 @@ public class Schedules {
 
         return i;
     }
-    public ArrayList<Schedule> getSchedulesForThisMonth() {
+    public ArrayList<Schedule> getSchedulesForThisMonth(User user) {
         ArrayList<Schedule> list = new ArrayList<Schedule>();
         for(Schedule s : schedules) {
-            if(s.getBeginning().getMonth() == this.getMonth()) {
+            if(s.getBeginning().getMonth() == this.getMonth() && s.getUser().equals(user)) {
                 list.add(s);
             }
         }
@@ -342,8 +342,12 @@ public class Schedules {
         }
         System.out.println(s.toString());*/
 
-        for(Schedule p : termine.getSchedulesForThisMonth()) {
-            p.showAppointments();
+        try {
+            for(Schedule p : termine.getSchedulesForThisMonth(new User("sal15532@spengergasse.at"))) {
+                p.showAppointments();
+            }
+        } catch (RegistrationException e) {
+            e.printStackTrace();
         }
 
         /*GregorianCalendar gc = new GregorianCalendar();

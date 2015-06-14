@@ -5,6 +5,8 @@ import mainGui.MainPanel;
 import common.*;
 import common.RestrictedInsertTextField.FieldType;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * SimplePanel
@@ -45,6 +47,39 @@ class LogInPanel extends JPanel {
 		JPanel button_PNL = new JPanel();
 		// reset button
 		logIn_BTN = new JButton("Login");
+		logIn_BTN.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				Object source = arg0.getSource();
+				// get the source component
+				Component comp = (Component) source;
+				if (mail_TF.getText().length() == 0 || password_JPF.getText().length() == 0) {
+					comp.setEnabled(false);
+				}
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				Object source = arg0.getSource();
+				Component comp = (Component) source;
+				comp.setEnabled(true);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+
+		});
 		// set the font
 		logIn_BTN.setFont(new Font("Arial", Font.BOLD, 30));
 		// close button

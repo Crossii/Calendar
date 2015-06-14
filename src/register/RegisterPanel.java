@@ -56,17 +56,18 @@ class RegisterPanel extends JPanel {
 		// set the font
 		register_BTN.setFont(new Font("Arial", Font.BOLD, 30));
 		register_BTN.addActionListener(vatListener);
-		register_BTN.addMouseListener(new MouseListener(){
+		register_BTN.addMouseListener(new MouseListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseClicked(MouseEvent arg0) {
+			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				Object source=arg0.getSource();
+				Object source = arg0.getSource();
 				// get the source component
-				Component comp=(Component)source;				
-				if (email_TF.getText().length()==0 || lastname_TF.getText().length()==0){
+				Component comp = (Component) source;
+				if (email_TF.getText().length() == 0 || lastname_TF.getText().length() == 0) {
 					comp.setEnabled(false);
 				}
 			}
@@ -74,23 +75,24 @@ class RegisterPanel extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				Object source=arg0.getSource();
-				Component comp=(Component)source;				
-				comp.setEnabled(true);				
+				Object source = arg0.getSource();
+				Component comp = (Component) source;
+				comp.setEnabled(true);
 			}
 
 			@Override
-			public void mousePressed(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {
+			}
 
 			@Override
-			public void mouseReleased(MouseEvent arg0) {}
-			
+			public void mouseReleased(MouseEvent arg0) {
+			}
+
 		});
 		button_PNL.add(register_BTN);
 		
 		cancel_BTN = new JButton("Cancel");
 		cancel_BTN.setFont(new Font("Arial", Font.BOLD, 30));
-		cancel_BTN.addActionListener(vatListener);
 		button_PNL.add(cancel_BTN);
 
 		// anonymous textfield panel
@@ -189,6 +191,7 @@ class RegisterPanel extends JPanel {
 	 */
 	private void addActionListeners() throws ListenerSetException {
 		register_BTN.addActionListener(vatListener);
+		cancel_BTN.addActionListener(vatListener);
 	}
 
 	/**
