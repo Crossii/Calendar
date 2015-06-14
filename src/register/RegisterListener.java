@@ -63,8 +63,12 @@ public class RegisterListener implements ActionListener {
 						}
 					}
 					catch (Exception e1) {
-						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "You could no registrate");
+						if(registerPanel.getPassword_JPF().getPassword().length < 8) {
+							JOptionPane.showMessageDialog(null, "Password is too short");
+						} else {
+							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(null, "You could no registrate");
+						}
 					}
 
 
